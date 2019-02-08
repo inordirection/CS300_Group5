@@ -4,27 +4,27 @@
  *    world (CPArray): 2d array of locations in the game space */
 class Game {
 	constructor() {
-		this.ship = new Ship();
-		this.cp = new CPArray();
+		var ship = new Ship(); // using var in constructor makes field private
+		var cp = new CPArray();
 
-		this.playing = true;
-		this.over = false;
+		var playing = true;
+		var over = false;
 	}
 
 	/* Methods: */
 	/* play: master function to run the game */
 	play() {
-		while (game.stillPlaying() && !game.isOver()) {
+		while (stillPlaying() && !isOver()) {
 			/* get user input from forms: read into angle, dist, beacon */
 			angle = 0; // should read from angle form
 			dist = 0; // should read from dist form
 			beacon = false; // read from beacon form
 
-			game.turn(angle, dist, beacon); // update data
-			game.update(); // update display
+			turn(angle, dist, beacon); // update data
+			update(); // update display
 		}
-		if (!game.playing) // if user quit, rather than game over
-			game.write_state(); // write for persistent storage (US-8)
+		if (!playing) // if user quit, rather than game over
+			write_state(); // write for persistent storage (US-8)
 	}
 
 	/* turn: function is responsible for updating game state/ship state after each turn */
@@ -92,9 +92,9 @@ class Ship {
 	/* note: I'm not yet sure if beacon really belongs in the ship class or elsewhere.
 	 * it needs to update the ship's supplies, but also to reveal parts of the CPArray */
 
-	// getters/setters
-	getX() {} // US-1
-	getY() {} // US-1
+	// getters
+	getX() { return this.x } // US-1
+	getY() { return this.y } // US-1
 }
 
 class CPArray {
