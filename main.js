@@ -3,12 +3,6 @@
  *    ship: which tracks player location, status
  *    world (CPArray): 2d array of locations in the game space */
 class Game {
-	Ship ship; 
-	CPArray cp;
-
-	var playing; // tracks whether the user wants to keep playing
-	var over; // tracks whether game is over
-
 	constructor() {
 		this.ship = new Ship();
 		this.cp = new CPArray();
@@ -20,7 +14,7 @@ class Game {
 	/* Methods: */
 	/* play: master function to run the game */
 	play() {
-		while (game.stilPlaying() && !game.isOver()) {
+		while (game.stillPlaying() && !game.isOver()) {
 			/* get user input from forms: read into angle, dist, beacon */
 			angle = 0; // should read from angle form
 			dist = 0; // should read from dist form
@@ -83,11 +77,7 @@ class Game {
 /* class: ship
  * 	has counters for energy and supplies
  * 	has an x,y position */
-class ship {
-	var energy;
-	var supplies;
-	var x, y;
-
+class Ship {
 	constructor() {
 		this.energy = 1000;
 		this.supplies = 100;
@@ -113,9 +103,9 @@ class CPArray {
 	 * 	game state saved from previous session to localStorage
 	
 	/* 2d array of tiles: (don't know syntax for this yet) */
-	var arr;
-
-	constructor() { }
+	constructor() {
+		this.arr = []
+	}
 	
 	// visit an x,y coordinate of the CPArray
 	visit(x, y) {
@@ -130,12 +120,9 @@ class CPArray {
  * 	it should also have a field to record whether it has been mapped
  * 	different celestial artifacts will be subclasses of tile */
 class Tile {
-	var id; // space for empty, other chars to represent various artifacts
-	var mapped; // boolean value indicating whether we have visited or sensor-exlored
-
 	constructor(id = ' ') {
-		this.id = id;
-		this.mapped = false;
+		this.id = id; // id determines type of tile (ex: ' ' for space, 'A' for asteroid)
+		this.mapped = false; // bool: has tile been visited or sensed by beacon?
 	}
 
 	run() { } // run events for tile
