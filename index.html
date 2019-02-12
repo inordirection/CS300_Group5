@@ -6,7 +6,6 @@
 	<body>
 		<script>
 			var game = new Game();
-			game.play();
 		</script>
 		<h1>OldSpice Bridge Display</h1>
 		<!-- add forms to get user input here: (see page 4 of sprint packet)
@@ -15,6 +14,15 @@
 		beacon: could be a checkbox, indicating user wants to use beacon
 		save/quit: indicate that user would like to save to persistent storage and exit
 		-->
+		<form name="movement" onSubmit="game.play()">
+			Distance:<input type="text" name="distance"><br>
+			<select name="angle">
+				<option> 0
+				<option> 90
+				<option> 180
+				<option> 270
+			</select>
+			<input type="submit">
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here: (see page 4 of sprint packet)
 		location
