@@ -9,47 +9,49 @@ function Game() {
 
 	var playing = true;
 	var over = false;
+	var message = ""; // message to be displayed at end of turn
 
-	/* Public methods: */
-	/* play: master function to run the game */
-	this.play = function () {
-		if (stillPlaying() && !isOver()) {
-			/* get user input from forms: read into angle, dist, beacon */
-			angle = document.forms['movement']['angle'];
-			dist = document.forms['movement']['dist'];
-			beacon = false; // read from beacon form
+	/* Public (priviliged) methods: */
+	/* move: used to move the ship
+	 * 	method moves ships, uses supplies, and visits whichever cp ship lands on */
+	this.move = function() {
+		/* get user input from forms: read into angle, dist */
+		angle = document.forms['movement']['angle'].value;
+		dist = document.forms['movement']['distance'].value;
+		ship.move(angle, dist);
+		ship.useSupplies();
+		cp.visit(ship.x, ship.y);
+		update();
+	}
 
-			turn(angle, dist, beacon); // update data
-			update(); // update display
-		}
-		if (!playing) // if user quit, rather than game over
-			save_state(); // write for persistent storage (US-8)
+	/* call the beacon to reveal a portion of the map */
+	this.beacon = function() {
+		cp.useBeacon(ship.x, ship.y, ship.beacon);
+		ship.useSupplies();
+		update();
 	}
 
 	/* Private methods */
-	/* turn: function is responsible for updating game state/ship state after each turn */
-	function turn(angle, dist) {
-		if (beacon) {
-			this.ship.beacon();
-		}
-		else {
-			this.ship.move(angle, distance);
-			this.cp.visit(this.ship.x, this.ship.y);
-		}
-	}
-		
-	/* update: update the user display after each turn is taken */
+	/* update: update the user display after each turn is taken
+	 * 	call at the end of any action that constitutes a 'turn' */
 	function update() {
+		write_location();
 		write_supplies();
 		write_energy();
 		write_map();
 		write_collisions();
+		save_state();
 	}
 
 	/* write methods: 
-	 * 	write to forms of index.html to reflect changes after calling turn() 
+	 * 	write to forms of index.html to reflect changes at end of turn
+	 * 	write to all forms with update() function
 	 * 	display message if appropriate
 	 * 	call over() if game should end */
+	function write_location() {
+		coords = "(" + ship.x + ", " + ship.y + ")";
+		document.getElementById('location').value = coords;
+	} 
 	function write_energy() {} // TODO: US-3
 	function write_supplies() {} // TODO: US-4
 	function write_collisions() {} // TODO: US-5
@@ -57,15 +59,8 @@ function Game() {
 
 	// TODO: US-8
 	/* save_state: write the game state to localStorage
-	 *   called when user chooses to save/quit */
+	 *   called at end of any turn */
 	function save_state() {} 
-
-
-	/* state functions: */
-	/* stillPlaying(): see if user still wants to play 
-	 * 	updates playing value based on save/quit form
-	 * 	returns updated value (boolean) */
-	function stillPlaying() { } // TODO: US-8
 
 	/* isOver(): returns whether the game is over */
 	function isOver() { return this.over; }
@@ -76,23 +71,31 @@ function Game() {
 
 /* class: ship
  * 	has counters for energy and supplies
- * 	has an x,y position */
+ * 	has an x,y position 
+ * 	has a upgradable engine and beacon */
 function Ship() {
+	// initial state of ship:
 	this.energy = 1000;
 	this.supplies = 100;
-	this.x = 0;
+	this.x = 0; 
 	this.y = 0;
+	this.engine = 10; // basic engine consumes 10 energy per unit traveled
+	this.beacon = 2; // basic beacon sees 2 units
 	
-	// update ship position
-	this.move = function(angle, distance) {} // TODO: US-1
+	/* public methods */
+	/* move: update ship position, energy */
+	this.move = function(angle, distance) {
+		// update to final position
+		this.x = Math.round(this.x + distance*Math.cos(angle * Math.PI/180));
+		this.y = Math.round(this.y + distance*Math.sin(angle * Math.PI/180));
+		
+		// update energy
+		this.energy -= this.engine * distance;
+	} 
 
-	this.beacon = function() {} // TODO: US-6
-	/* note: I'm not yet sure if beacon really belongs in the ship class or elsewhere.
-	 * it needs to update the ship's supplies, but also to reveal parts of the CPArray */
-
-	// getters
-	this.getX = function() { return this.x } // US-1
-	this.getY = function() { return this.y } // US-1
+	this.useSupplies = function() {
+		this.supplies -= 2;
+	}
 }
 
 function CPArray () {
@@ -105,9 +108,16 @@ function CPArray () {
 	
 	// visit an x,y coordinate of the CPArray
 	this.visit = function(x, y) {
-		// update mapped value for the tile
+		// if x or y out of bounds, visit random tile in valid range
+		
+		// otherwise update mapped value for the tile
 
 		// run the tile at cp[x][y]
+	}
+
+	/* reveal all Tiles within dist of (x, y) */
+	this.useBeacon = function(x, y, dist) { // TODO: US-6
+
 	}
 }
 

@@ -1,7 +1,6 @@
-<script src="main.js"></script>
-
 <html>
 	<head>
+		<script src="main.js"></script>
 	</head>
 	<body>
 		<script>
@@ -14,15 +13,23 @@
 		beacon: could be a checkbox, indicating user wants to use beacon
 		save/quit: indicate that user would like to save to persistent storage and exit
 		-->
-		<form name="movement" onSubmit="game.play()">
+		<form name="movement" onSubmit="game.move(); return false;">
 			Distance:<input type="text" name="distance"><br>
-			<select name="angle">
+			Angle:<select name="angle">
 				<option> 0
+				<option> 30
+				<option> 60
 				<option> 90
+				<option> 120
+				<option> 150
 				<option> 180
+				<option> 210
+				<option> 240
 				<option> 270
+				<option> 300
+				<option> 330
 			</select>
-			<input type="submit">
+			<input type="submit" value="Move">
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here: (see page 4 of sprint packet)
 		location
@@ -32,5 +39,8 @@
 		explored map (128x128 textfield)
 		message
 		-->
+		<form name="display">
+			Location:<input type="text" name="location" id="location"><br>
+		</form>
 	</body>
 <html>
