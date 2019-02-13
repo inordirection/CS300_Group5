@@ -3,9 +3,7 @@
 		<script src="main.js"></script>
 	</head>
 	<body>
-		<script>
-			var game = new Game();
-		</script>
+		<script> var game = new Game(); </script>
 		<h1>OldSpice Bridge Display</h1>
 		<!-- add forms to get user input here: (see page 4 of sprint packet)
 	  	angle: pulldown
@@ -40,7 +38,10 @@
 		message
 		-->
 		<form name="display">
-			Location:<input type="text" name="location" id="location"><br>
+			Location:<input type="text" id="location"><br>
+			Supplies:<input type="text" id="supplies"></br>
+			Energy:<input type="text" id="energy"></br>
 		</form>
+		<script> game.initDisplay(); </script>
 	</body>
 <html>

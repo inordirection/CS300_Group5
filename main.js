@@ -31,6 +31,9 @@ function Game() {
 		update();
 	}
 
+	/* build the initial display */
+	this.initDisplay = function () { update(); }
+
 	/* Private methods */
 	/* update: update the user display after each turn is taken
 	 * 	call at the end of any action that constitutes a 'turn' */
@@ -49,13 +52,23 @@ function Game() {
 	 * 	display message if appropriate
 	 * 	call over() if game should end */
 	function write_location() {
+		console.log("x0= " + ship.x);
 		coords = "(" + ship.x + ", " + ship.y + ")";
+		console.log("coords: " + coords);
 		document.getElementById('location').value = coords;
 	} 
-	function write_energy() {} // TODO: US-3
-	function write_supplies() {} // TODO: US-4
-	function write_collisions() {} // TODO: US-5
-	function write_map() {} // TODO: US-7
+	function write_energy() { // TODO: US-3
+		document.getElementById('energy').value = ship.energy;
+	}
+	function write_supplies() { // TODO: US-4
+		document.getElementById('supplies').value = ship.supplies;
+	}
+	function write_collisions() { // TODO: US-5
+
+	}
+	function write_map() { // TODO: US-7
+
+	}
 
 	// TODO: US-8
 	/* save_state: write the game state to localStorage
