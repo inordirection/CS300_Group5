@@ -3,7 +3,7 @@
  *    ship: which tracks player location, status
  *    world (CPArray): 2d array of locations in the game space */
 function Game() {
-	// private variables
+	/* private variables (var makes value private) */
 	var ship = new Ship();
 	var cp = new CPArray();
 
@@ -11,17 +11,26 @@ function Game() {
 	var over = false;
 	var message = ""; // message to be displayed at end of turn
 
-	/* Public (priviliged) methods: */
-	/* move: used to move the ship
-	 * 	method moves ships, uses supplies, and visits whichever cp ship lands on */
+	/* Public (priviliged) methods:
+     *   methods declared with this.methodname = function(params...) {}
+     *   are publically accessible but may access private variables
+     *   their internals are also private */
+
+	/* moves ship, use supplies, visits whichever cp it lands on */
 	this.move = function() {
-		/* get user input from forms: read into angle, dist */
+		/* get user input from forms */
 		angle = document.forms['movement']['angle'].value;
 		dist = document.forms['movement']['distance'].value;
-		ship.move(angle, dist);
-		ship.useSupplies();
-		cp.visit(ship.x, ship.y);
-		update();
+
+		if (isNaN(dist)) {
+			alert("You must enter a numerical distance.");
+		}
+		else {
+			ship.move(angle, dist);
+			ship.useSupplies();
+			cp.visit(ship.x, ship.y);
+			update();
+		}
 	}
 
 	/* call the beacon to reveal a portion of the map */
@@ -34,7 +43,10 @@ function Game() {
 	/* build the initial display */
 	this.initDisplay = function () { update(); }
 
-	/* Private methods */
+	/* Private methods 
+	 *   declaring method with 'function name(params) {}' makes that method private 
+	 *   (it is equivalent to var name = function(params) {}) */
+
 	/* update: update the user display after each turn is taken
 	 * 	call at the end of any action that constitutes a 'turn' */
 	function update() {
@@ -52,9 +64,7 @@ function Game() {
 	 * 	display message if appropriate
 	 * 	call over() if game should end */
 	function write_location() {
-		console.log("x0= " + ship.x);
 		coords = "(" + ship.x + ", " + ship.y + ")";
-		console.log("coords: " + coords);
 		document.getElementById('location').value = coords;
 	} 
 
