@@ -57,23 +57,28 @@ function Game() {
 		console.log("coords: " + coords);
 		document.getElementById('location').value = coords;
 	} 
+
 	function write_energy() { // TODO: US-3
 		document.getElementById('energy').value = ship.energy;
 	}
+
 	function write_supplies() { // TODO: US-4
 		document.getElementById('supplies').value = ship.supplies;
 	}
+
 	function write_collisions() { // TODO: US-5
 
 	}
+
 	function write_map() { // TODO: US-7
 
 	}
 
-	// TODO: US-8
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
-	function save_state() {} 
+	function save_state() { // TODO: US-8
+
+	} 
 
 	/* isOver(): returns whether the game is over */
 	function isOver() { return this.over; }
@@ -94,6 +99,9 @@ function Ship() {
 	this.y = 0;
 	this.engine = 10; // basic engine consumes 10 energy per unit traveled
 	this.beacon = 2; // basic beacon sees 2 units
+
+	var maxX = 127;
+	var maxY = 127;
 	
 	/* public methods */
 	/* move: update ship position, energy */
@@ -102,12 +110,23 @@ function Ship() {
 		this.x = Math.round(this.x + distance*Math.cos(angle * Math.PI/180));
 		this.y = Math.round(this.y + distance*Math.sin(angle * Math.PI/180));
 		
+		// if going out of bounds, pass through wormhole
+		if (this.x < 0 || this.x > maxX || this.y < 0 || this.y > maxY)
+			this.wormhole();
+
 		// update energy
-		this.energy -= this.engine * distance;
+		this.energy -= this.engine * Math.abs(distance);
 	} 
 
+	// use the standard 2% of supplies
 	this.useSupplies = function() {
 		this.supplies -= 2;
+	}
+
+	/* warp to a random location */
+	this.wormhole = function() {
+		this.x = Math.round(Math.random() * maxX);
+		this.y = Math.round(Math.random() * maxY);
 	}
 }
 
