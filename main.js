@@ -9,6 +9,7 @@ function Game() {
 	var playing; // track whether use wants to continue
 	var over; // track whether game over has occurred
 	var message; // message to be displayed at end of turn
+	var sensor;
 
 	/* Public (priviliged) methods:
      *   methods declared with this.methodname = function(params...) {}
@@ -20,6 +21,7 @@ function Game() {
 		// initialize variables
 		ship = new Ship();
 		cp = new CPArray();
+		sensor = new Sensor();
 		playing = true;
 		over = false;
 		message = "Welcome to SpaceHunt!"
@@ -51,6 +53,15 @@ function Game() {
 		update();
 	}
 
+	/**
+	 * US-6: Sensors
+	 * deploy sensor one time. It cost one turn.
+	 */
+	this.deploy_sensor = function() {
+		ship.useSupplies();
+		sensor.deploy_sensor(cp);
+		update();
+	}
 
 	/* Private methods 
 	 *   declaring method with 'function name(params) {}' makes that method private 
@@ -229,3 +240,45 @@ function Tile(id = ' ') {
 
 	this.run = function() { } // run events for tile
 }
+
+/**
+ * Class Sensor:
+ * As a player, I want to see what is located at nearby Celestial Points, so I know where things are.
+ */
+function Sensor() {
+	// Store the visible range of the sensor.
+	var visible = 2;
+	// Store the points that should be showed in this deployment.
+	var sur = [];
+	// Store nine angles
+	var angle;
+
+	/**
+	 * Just wrapper function, call `deploy` to deploy the sensor.
+	 * @param object get which thing it contains in point (x, y)
+	 */
+	this.deploy_sensor = function(cp) {
+		deploy(cp);
+	}
+
+	/**
+	 * @param object cparray
+	 */
+	function deploy(cp) {
+		sur = new Array(visible**2 -1);
+		// NOT COMPLETE
+	}
+
+	function compute_range(x, y, angle, visible) {
+		var x = Math.round(x + visible*Math.cos(angle * Math.PI/180));
+		var y = Math.round(y + visible*Math.sin(angle * Math.PI/180));
+		return (x, y);
+	}
+}
+
+Object.defineProperties(Sensor, {
+	angle: {
+		value: [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330],
+		writable: false
+	}
+})
