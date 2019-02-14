@@ -6,8 +6,7 @@ function Game() {
 	/* private variables (var makes value private) */
 	var ship; // Ship object
 	var cp; // CPArray
-	var playing; // track whether use wants to continue
-	var over; // track whether game over has occurred
+	var over; // track whether the game has ended
 	var message; // message to be displayed at end of turn
 
 	/* Public (priviliged) methods:
@@ -17,10 +16,11 @@ function Game() {
 
 	/* build the initial display */
 	this.initDisplay = function () { 
-		// initialize variables
+	  	// if user has localStorage, load persistent state:
+
+		// otherwise, initialize variables:
 		ship = new Ship();
 		cp = new CPArray();
-		playing = true;
 		over = false;
 		message = "Welcome to SpaceHunt!"
 
@@ -33,8 +33,8 @@ function Game() {
 		angle = document.forms['movement']['angle'].value;
 		dist = document.forms['movement']['distance'].value;
 
-		if (isNaN(dist)) {
-			alert("You must enter a numerical distance.");
+		if (isNaN(dist) || dist < 1) {
+			alert("You must enter a distance of at least 1.");
 		}
 		else {
 			ship.move(angle, dist);
@@ -60,26 +60,19 @@ function Game() {
 	 * 	call at the end of any action that constitutes a 'turn',
 	 * 	after all internal data changes related to turn have been made */
 	function update() {
-		// If game over, see if user wants to play again
+		// If game over, don't allow user to keep playing
 		if (isOver()) {
-			// works, but console throws strange Uncaught ReferenceError bug:
-			if (confirm("You lost the game! Play again?")) {
-				initDisplay();
-			}
-			else
-				return;
-		} 
-		/* alternatively don't reinitialize for the user
-		alert("You lost the game. Click \"Play Again\" to continue");
-		return; */
+			alert("You lost the game. Click \'Play Again?\' to continue.");
+			return;
+		}
 
-		// otherwise, update the user display
+		// if game is not over, update the user display
 		write_location();
 		write_supplies();
 		write_energy();
-		write_message();
-		write_map();
 		write_collisions();
+		write_map();
+		write_message();
 		save_state(); // and save the state to local storage
 	}
 
@@ -93,7 +86,7 @@ function Game() {
 		document.getElementById('location').value = coords;
 	} 
 
-	function write_energy() { // TODO: US-3
+	function write_energy() { 
 		document.getElementById('energy').value = ship.energy;
 
 		if (ship.energy < 1) {
@@ -103,7 +96,7 @@ function Game() {
 		}
 	}
 
-	function write_supplies() { // TODO: US-4
+	function write_supplies() { 
 		document.getElementById('supplies').value = ship.supplies;
 
 		if (ship.supplies < 1) {
@@ -138,18 +131,18 @@ function Game() {
 	/* sets the game status to over */
 	function gameOver() { 
 		this.over = true; 
-		
-		// write a play again button to document
-		var container = document.getElementById("playagain");
 
-		var f = document.createElement("form");
+		// clear localStorage
+
+		// write 'play again?' button to document
+		var display = document.forms['display'];
+
 		var e = document.createElement("input");
 		e.setAttribute('type',"submit");
 		e.setAttribute('value',"Play Again?");
 		e.setAttribute('onSubmit',"game.initDisplay()");
 
-		f.appendChild(e);
-		container.appendChild(f);
+		display.appendChild(e);
 	}
 }
 
@@ -181,7 +174,7 @@ function Ship() {
 			this.wormhole();
 
 		// update energy
-		this.energy -= this.engine * Math.abs(distance);
+		this.energy -= this.engine * distance;
 	} 
 
 	// use the standard 2% of supplies

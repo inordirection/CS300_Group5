@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<script src="main.js"></script>
+		<title>SpaceHunt Game</title>
 	</head>
 	<body>
 		<script> var game = new Game(); </script>
@@ -35,15 +36,14 @@
 		energy
 		suplies
 		credits
-		explored map (128x128 textfield)
+		explored map (128x128 textarea)
 		message
 		-->
 		<form name="display">
 			Location:&nbsp;<input type="text" id="location"><br>
 			Supplies:&nbsp;<input type="text" id="supplies"><br>
 			Energy:&nbsp;<input type="text" id="energy"><br>
-			Message:&nbsp;<textarea id="message"></textarea>
-			<div id="playagain"/>
+			Message:&nbsp;<textarea id="message"></textarea><br>
 		</form>
 		<script> game.initDisplay(); </script>
 	</body>
