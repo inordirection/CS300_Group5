@@ -96,7 +96,7 @@ function Game() {
 	function write_energy() { // TODO: US-3
 		document.getElementById('energy').value = ship.energy;
 
-		if (ship.energy <= 0) {
+		if (ship.energy < 1) {
 			message += "You ran out of energy.\n";
 			message += "Try again next time.";
 			gameOver();
@@ -106,7 +106,7 @@ function Game() {
 	function write_supplies() { // TODO: US-4
 		document.getElementById('supplies').value = ship.supplies;
 
-		if (ship.supplies <= 0) {
+		if (ship.supplies < 1) {
 			message += "You ran out of supplies.\n"
 			message += "Try again next time.";
 			gameOver();
