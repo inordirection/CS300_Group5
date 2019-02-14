@@ -2,6 +2,8 @@
  *  has a: 
  *    ship: which tracks player location, status
  *    world (CPArray): 2d array of locations in the game space */
+var S = require('./sensor')
+
 function Game() {
 	/* private variables (var makes value private) */
 	var ship; // Ship object
@@ -21,6 +23,7 @@ function Game() {
 		// initialize variables
 		ship = new Ship();
 		cp = new CPArray();
+		// MAIN PUBLIM
 		sensor = new Sensor();
 		playing = true;
 		over = false;
@@ -59,7 +62,7 @@ function Game() {
 	 */
 	this.deploy_sensor = function() {
 		ship.useSupplies();
-		sensor.deploy_sensor(cp);
+		sensor.deploy_sensor(ship.x, ship.y, cp);
 		update();
 	}
 
