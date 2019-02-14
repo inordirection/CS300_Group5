@@ -28,6 +28,7 @@
 				<option> 330
 			</select>
 			<input type="submit" value="Move">
+		</form>
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here: (see page 4 of sprint packet)
 		location
@@ -38,9 +39,11 @@
 		message
 		-->
 		<form name="display">
-			Location:<input type="text" id="location"><br>
-			Supplies:<input type="text" id="supplies"></br>
-			Energy:<input type="text" id="energy"></br>
+			Location:&nbsp;<input type="text" id="location"><br>
+			Supplies:&nbsp;<input type="text" id="supplies"><br>
+			Energy:&nbsp;<input type="text" id="energy"><br>
+			Message:&nbsp;<textarea id="message"></textarea>
+			<div id="playagain"/>
 		</form>
 		<script> game.initDisplay(); </script>
 	</body>

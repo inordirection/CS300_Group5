@@ -4,17 +4,28 @@
  *    world (CPArray): 2d array of locations in the game space */
 function Game() {
 	/* private variables (var makes value private) */
-	var ship = new Ship();
-	var cp = new CPArray();
-
-	var playing = true;
-	var over = false;
-	var message = ""; // message to be displayed at end of turn
+	var ship; // Ship object
+	var cp; // CPArray
+	var playing; // track whether use wants to continue
+	var over; // track whether game over has occurred
+	var message; // message to be displayed at end of turn
 
 	/* Public (priviliged) methods:
      *   methods declared with this.methodname = function(params...) {}
      *   are publically accessible but may access private variables
      *   their internals are also private */
+
+	/* build the initial display */
+	this.initDisplay = function () { 
+		// initialize variables
+		ship = new Ship();
+		cp = new CPArray();
+		playing = true;
+		over = false;
+		message = "Welcome to SpaceHunt!"
+
+		update(); // display to user
+	}
 
 	/* moves ship, use supplies, visits whichever cp it lands on */
 	this.move = function() {
@@ -40,29 +51,43 @@ function Game() {
 		update();
 	}
 
-	/* build the initial display */
-	this.initDisplay = function () { update(); }
 
 	/* Private methods 
 	 *   declaring method with 'function name(params) {}' makes that method private 
 	 *   (it is equivalent to var name = function(params) {}) */
 
 	/* update: update the user display after each turn is taken
-	 * 	call at the end of any action that constitutes a 'turn' */
+	 * 	call at the end of any action that constitutes a 'turn',
+	 * 	after all internal data changes related to turn have been made */
 	function update() {
+		// If game over, see if user wants to play again
+		if (isOver()) {
+			// works, but console throws strange Uncaught ReferenceError bug:
+			if (confirm("You lost the game! Play again?")) {
+				initDisplay();
+			}
+			else
+				return;
+		} 
+		/* alternatively don't reinitialize for the user
+		alert("You lost the game. Click \"Play Again\" to continue");
+		return; */
+
+		// otherwise, update the user display
 		write_location();
 		write_supplies();
 		write_energy();
+		write_message();
 		write_map();
 		write_collisions();
-		save_state();
+		save_state(); // and save the state to local storage
 	}
 
 	/* write methods: 
 	 * 	write to forms of index.html to reflect changes at end of turn
 	 * 	write to all forms with update() function
-	 * 	display message if appropriate
-	 * 	call over() if game should end */
+	 * 	append to message variable if necessary
+	 * 	call gameOver() if game should end */
 	function write_location() {
 		coords = "(" + ship.x + ", " + ship.y + ")";
 		document.getElementById('location').value = coords;
@@ -70,10 +95,27 @@ function Game() {
 
 	function write_energy() { // TODO: US-3
 		document.getElementById('energy').value = ship.energy;
+
+		if (ship.energy <= 0) {
+			message += "You ran out of energy.\n";
+			message += "Try again next time.";
+			gameOver();
+		}
 	}
 
 	function write_supplies() { // TODO: US-4
 		document.getElementById('supplies').value = ship.supplies;
+
+		if (ship.supplies <= 0) {
+			message += "You ran out of supplies.\n"
+			message += "Try again next time.";
+			gameOver();
+		}
+	}
+
+	function write_message() {
+		document.getElementById('message').value = message;
+		message = "";
 	}
 
 	function write_collisions() { // TODO: US-5
@@ -94,7 +136,21 @@ function Game() {
 	function isOver() { return this.over; }
 
 	/* sets the game status to over */
-	function over() { this.over = true; }
+	function gameOver() { 
+		this.over = true; 
+		
+		// write a play again button to document
+		var container = document.getElementById("playagain");
+
+		var f = document.createElement("form");
+		var e = document.createElement("input");
+		e.setAttribute('type',"submit");
+		e.setAttribute('value',"Play Again?");
+		e.setAttribute('onSubmit',"game.initDisplay()");
+
+		f.appendChild(e);
+		container.appendChild(f);
+	}
 }
 
 /* class: ship
