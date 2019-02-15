@@ -1,9 +1,10 @@
 <html>
 	<head>
 		<script src="main.js"></script>
+		<script src="./sensor.js"></script>
 	</head>
 	<body>
-		<script> var game = new Game(); </script>
+		<!-- <script> var game = new Game(); </script> -->
 		<h1>OldSpice Bridge Display</h1>
 		<!-- add forms to get user input here: (see page 4 of sprint packet)
 	  	angle: pulldown
@@ -29,7 +30,7 @@
 			</select>
 			<input type="submit" value="Move">
 		</form>
-		<form name='sensor' onsubmit="game.deploy_sensor(); return false;">
+		<form name="deploy_sensor" onSubmit="game.deploy_sensor(); return false;">
 			<input type="submit" value="Deploy Sensor">
 		</form>
 		<h1>Current Status</h1>
@@ -48,6 +49,11 @@
 			Message:&nbsp;<textarea id="message"></textarea>
 			<div id="playagain"/>
 		</form>
-		<script> game.initDisplay(); </script>
+		<!-- <script> game.initDisplay(); </script> -->
 	</body>
-<html>
+	<script>
+		var game = new Game();
+		var sensor = new Sensor();
+		game.initDisplay(sensor);
+	</script>
+</html>

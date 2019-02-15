@@ -2,8 +2,6 @@
  *  has a: 
  *    ship: which tracks player location, status
  *    world (CPArray): 2d array of locations in the game space */
-var S = require('./sensor')
-
 function Game() {
 	/* private variables (var makes value private) */
 	var ship; // Ship object
@@ -19,12 +17,11 @@ function Game() {
      *   their internals are also private */
 
 	/* build the initial display */
-	this.initDisplay = function () { 
+	this.initDisplay = function (new_sensor) { 
 		// initialize variables
 		ship = new Ship();
 		cp = new CPArray();
-		// MAIN PUBLIM
-		sensor = new Sensor();
+		sensor = new_sensor;
 		playing = true;
 		over = false;
 		message = "Welcome to SpaceHunt!"
