@@ -5,10 +5,6 @@ class CelestialMap
           this.size = size;
           this.celestialPoints = this.InstantiateMap();
 
-          this.hasCeleron = false;
-          this.hasXeon = false;
-          this.hasRyzen = false;
-
           //Needs to randomly set Artifacts and such.
           this.FillMapWithEncounters();
           this.FillMapWithPlanets();
@@ -40,11 +36,13 @@ class CelestialMap
                          delete this.celestialPoints[x][y];
 
                     //If we are at the border, place a Wormhole.
+                    /* This might not be necessary.
                     if(x == 0 || y == 0 || x == (this.size - 1) || y == (this.size - 1))
                     {
                          this.celestialPoints[x][y] = new CelestialPoint(TypeEnum.WORMHOLE, false, x, y);
                          continue;
                     }
+                    */
 
                     //Get a random enocunter
                     var rand = Math.floor(Math.random() * 5);
@@ -72,11 +70,22 @@ class CelestialMap
           }
      }
 
-	   GetPoint(xCoord, yCoord)
-	   {
-            //console.log("Getting Point: (" + xCoord + ", " + yCoord + ")...");
-		          return this.celestialPoints[xCoord][yCoord];
-      }
+	GetPoint(xCoord, yCoord)
+	{
+          //console.log("Getting Point: (" + xCoord + ", " + yCoord + ")...");
+		return this.celestialPoints[xCoord][yCoord];
+     }
+
+     GetPoint(coordinate)
+     {
+          //console.log("Getting Point: (" + xCoord + ", " + yCoord + ")...");
+          return this.celestialPoints[coordinate.x][coordinate.y];
+     }
+
+     GetRandomPoint()
+     {
+          return this.celestialPoints[Math.floor(Math.random() * this.size)][Math.floor(Math.random() * this.size)];
+     }
 
      ToString()
      {

@@ -1,6 +1,12 @@
 <html>
 	<head>
-		<script src="main.js"></script>
+		<!--<script src="main.js"></script>-->
+		<script src="celestialMap.js"></script>
+		<script src="ship.js"></script>
+		<script src="celestialPoint.js"></script>
+		<script src="coordinate.js"></script>
+		<script src="game.js"></script>
+
 		<title>SpaceHunt Game</title>
 	</head>
 	<body>
@@ -12,7 +18,7 @@
 		beacon: could be a checkbox, indicating user wants to use beacon
 		save/quit: indicate that user would like to save to persistent storage and exit
 		-->
-		<form name="movement" onSubmit="game.move(); return false;">
+		<form name="movement" onSubmit="game.Turn(); return false;">
 			Distance:<input type="text" name="distance"><br>
 			Angle:<select name="angle">
 				<option> 0
@@ -45,6 +51,6 @@
 			Energy:&nbsp;<input type="text" id="energy"><br>
 			Message:&nbsp;<textarea id="message"></textarea><br>
 		</form>
-		<script> game.initDisplay(); </script>
+		<!--<script> game.initDisplay(); </script>-->
 	</body>
 <html>
