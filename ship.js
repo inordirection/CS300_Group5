@@ -1,4 +1,3 @@
-
 /* class: ship
  * 	has counters for energy and supplies
  * 	has an x,y position 
@@ -16,7 +15,7 @@ function Ship(json) {
 	else {
 		this.energy = 1000;
 		this.supplies = 100;
-		this.x = 0; 
+		this.x = 0;
 		this.y = 0;
 		this.range = 2; // sensor initially has range 2
 		this.engine = 10; // basic engine consumes 10 energy per unit traveled

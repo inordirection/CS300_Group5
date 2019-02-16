@@ -2,21 +2,17 @@
 	<head>
 		<script src="game.js"></script>
 		<script src="ship.js"></script>
-		<script src="cparray.js"></script>
 		<script src="sensor.js"></script>
-		
+		<script src="celestialMap.js"></script>
+		<script src="celestialPoint.js"></script>
+		<script src="coordinate.js"></script>
+
 		<title>SpaceHunt Game</title>
 
 	</head>
 	<body>
 		<script> var game = new Game(); </script>
 		<h1>OldSpice Control Panel</h1>
-		<!-- add forms to get user input here: (see page 4 of sprint packet)
-	  	angle: pulldown
-		distance: textfeld
-		beacon: could be a checkbox, indicating user wants to use beacon
-		save/quit: indicate that user would like to save to persistent storage and exit
-		-->
 		<form name="movement" onSubmit="game.move(); return false;">
 			Distance:<input type="text" name="distance"><br>
 			Angle:<select name="angle">
