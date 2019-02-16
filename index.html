@@ -35,16 +35,12 @@
 			</select>
 			<input type="submit" value="Move">
 		</form>
-		<!--
-		<form name="save/load" onSubmit="game.save_state(); return false">
-			<input type="submit" value="save">
-		</form>
-		<form name="load" onSubmit="game.initDisplay(); return false">
-			<input type="submit" value="load">
-		</form>
-		-->
 		<form name="deploy_sensor" onSubmit="game.deploy_sensor(); return false;">
 			<input type="submit" value="Deploy Sensor">
+		</form>
+		<form name="save/load" onSubmit="game.initDisplay(); return false">
+			<input type="submit" value="save">
+			<input type="submit" value="load">
 		</form>
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here: (see page 4 of sprint packet)
