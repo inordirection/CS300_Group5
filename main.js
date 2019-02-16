@@ -1,5 +1,5 @@
 /* class: game
- *  has a: 
+ *  has a:
  *    ship: which tracks player location, status
  *    world (CPArray): 2d array of locations in the game space */
 function Game() {
@@ -15,7 +15,7 @@ function Game() {
      *   their internals are also private */
 
 	/* build the initial display */
-	this.initDisplay = function () { 
+	this.initDisplay = function () {
 	  	// if user has localStorage, load persistent state:
 		ship = new Ship(JSON.parse(localStorage.getItem('ship')));
 		cp = new CPArray(JSON.parse(localStorage.getItem('cp')));
@@ -50,8 +50,14 @@ function Game() {
 		update();
 	}
 
+<<<<<<< HEAD
 	/* Private methods 
 	 *   declaring method with 'function name(params) {}' makes that method private 
+=======
+
+	/* Private methods
+	 *   declaring method with 'function name(params) {}' makes that method private
+>>>>>>> f464773fbf832764b641152cd5ae2e2bddcd6e88
 	 *   (it is equivalent to var name = function(params) {}) */
 
 	/* update: update the user display after each turn is taken
@@ -74,7 +80,7 @@ function Game() {
 		save_state(); // and save the state to local storage
 	}
 
-	/* write methods: 
+	/* write methods:
 	 * 	write to forms of index.html to reflect changes at end of turn
 	 * 	write to all forms with update() function
 	 * 	append to message variable if necessary
@@ -82,14 +88,18 @@ function Game() {
 	function write_location() {
 		coords = "(" + ship.x + ", " + ship.y + ")";
 		document.getElementById('location').value = coords;
+<<<<<<< HEAD
 
 		if (ship.wormed) {
 			message += "You passed through a wormhole!\n"
 			ship.wormed = false;
 		}
 	} 
+=======
+	}
+>>>>>>> f464773fbf832764b641152cd5ae2e2bddcd6e88
 
-	function write_energy() { 
+	function write_energy() {
 		document.getElementById('energy').value = ship.energy;
 
 		if (ship.energy < 1) {
@@ -99,7 +109,7 @@ function Game() {
 		}
 	}
 
-	function write_supplies() { 
+	function write_supplies() {
 		document.getElementById('supplies').value = ship.supplies;
 
 		if (ship.supplies < 1) {
@@ -124,6 +134,7 @@ function Game() {
 
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
+<<<<<<< HEAD
 	function save_state() {
 		// if user hit game over, clear localStorage
 		if (isOver()) localStorage.clear(); 
@@ -133,13 +144,25 @@ function Game() {
 			localStorage.setItem('message', JSON.stringify(message));
 		}
 	} 
+=======
+	function save_state() { // TODO: US-8
+
+	}
+>>>>>>> f464773fbf832764b641152cd5ae2e2bddcd6e88
 
 	/* isOver(): returns whether the game is over */
 	function isOver() { return over; }
 
 	/* sets the game status to over */
+<<<<<<< HEAD
 	function gameOver() { 
 		over = true; 
+=======
+	function gameOver() {
+		this.over = true;
+
+		// clear localStorage
+>>>>>>> f464773fbf832764b641152cd5ae2e2bddcd6e88
 
 		// write 'play again?' button to document
 		var display = document.forms['display'];
@@ -155,6 +178,7 @@ function Game() {
 
 /* class: ship
  * 	has counters for energy and supplies
+<<<<<<< HEAD
  * 	has an x,y position 
  * 	has an upgradable engine and beacon */
 function Ship(json) {
@@ -177,20 +201,36 @@ function Ship(json) {
 		this.wormed = false; // indicates whether ship just passed through a wormhole
 	}
 
+=======
+ * 	has an x,y position
+ * 	has a upgradable engine and beacon */
+function Ship() {
+	// initial state of ship:
+	this.energy = 1000;
+	this.supplies = 100;
+	this.x = 0;
+	this.y = 0;
+	this.engine = 10; // basic engine consumes 10 energy per unit traveled
+	this.beacon = 2; // basic beacon sees 2 units
+
+	var maxX = 127;
+	var maxY = 127;
+
+>>>>>>> f464773fbf832764b641152cd5ae2e2bddcd6e88
 	/* public methods */
 	/* move: update ship position, energy */
 	this.move = function(angle, distance) {
 		// update to final position
 		this.x = Math.round(this.x + distance*Math.cos(angle * Math.PI/180));
 		this.y = Math.round(this.y + distance*Math.sin(angle * Math.PI/180));
-		
+
 		// if going out of bounds, pass through wormhole
 		if (this.x < 0 || this.x > maxX || this.y < 0 || this.y > maxY)
 			this.wormhole();
 
 		// update energy
 		this.energy -= this.engine * distance;
-	} 
+	}
 
 	// use the standard 2% of supplies
 	this.useSupplies = function() {
@@ -209,13 +249,19 @@ function CPArray () {
 	/* TODO: US-2 write constructors for this class
 	 * 	collaborate with writer of US-8 about how to load from
 	 * 	game state saved from previous session to localStorage
-	
+
 	/* 2d array of tiles: (don't know syntax for this yet) */
 	var arr = []
-	
+
 	// visit an x,y coordinate of the CPArray
 	this.visit = function(x, y) {
+<<<<<<< HEAD
 		// update 'mapped' value for the tile
+=======
+		// if x or y out of bounds, visit random tile in valid range
+
+		// otherwise update mapped value for the tile
+>>>>>>> f464773fbf832764b641152cd5ae2e2bddcd6e88
 
 		// run the tile at cp[x][y]
 	}
