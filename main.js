@@ -84,6 +84,11 @@ function Game() {
 	function write_location() {
 		coords = "(" + ship.x + ", " + ship.y + ")";
 		document.getElementById('location').value = coords;
+
+		if (ship.wormed) {
+			message += "You passed through a wormhole!"
+			ship.wormed = false;
+		}
 	} 
 
 	function write_energy() { 
@@ -151,6 +156,9 @@ function Game() {
  * 	has an x,y position 
  * 	has a upgradable engine and beacon */
 function Ship() {
+	var maxX = 127;
+	var maxY = 127;
+
 	// initial state of ship:
 	this.energy = 1000;
 	this.supplies = 100;
@@ -158,10 +166,8 @@ function Ship() {
 	this.y = 0;
 	this.engine = 10; // basic engine consumes 10 energy per unit traveled
 	this.beacon = 2; // basic beacon sees 2 units
+	this.wormed = false; // indicates whether ship just passed through a wormhole
 
-	var maxX = 127;
-	var maxY = 127;
-	
 	/* public methods */
 	/* move: update ship position, energy */
 	this.move = function(angle, distance) {
@@ -186,6 +192,7 @@ function Ship() {
 	this.wormhole = function() {
 		this.x = Math.round(Math.random() * maxX);
 		this.y = Math.round(Math.random() * maxY);
+		this.wormed = true;
 	}
 }
 
