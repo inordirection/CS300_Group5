@@ -1,13 +1,13 @@
 /* class: ship
  * 	has counters for energy and supplies
- * 	has an x,y position 
+ * 	has an x,y position
  * 	has a upgradable engine and beacon */
 function Ship(json) {
 	var maxX = 127;
 	var maxY = 127;
 
 	// read ship from json if available
-	if (json != null) {
+	if (json != null && json != undefined) {
 		for (var key in json) this[key] = json[key];
 	}
 
@@ -28,14 +28,14 @@ function Ship(json) {
 		// update to final position
 		this.x = Math.round(this.x + distance*Math.cos(angle * Math.PI/180));
 		this.y = Math.round(this.y + distance*Math.sin(angle * Math.PI/180));
-		
+
 		// if going out of bounds, pass through wormhole
 		if (this.x < 0 || this.x > maxX || this.y < 0 || this.y > maxY)
 			this.wormhole();
 
 		// update energy
 		this.energy -= this.engine * distance;
-	} 
+	}
 
 	// use the standard 2% of supplies
 	this.useSupplies = function() {

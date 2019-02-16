@@ -1,5 +1,5 @@
 /* class: game
- *  has a: 
+ *  has a:
  *    ship: which tracks player location, status
  *    world (CPArray): 2d array of locations in the game space */
 function Game() {
@@ -16,20 +16,20 @@ function Game() {
      *   their internals are also private */
 
 	/* build the initial display */
-	this.initDisplay = function () { 
+	this.initDisplay = function () {
 	  	/* if user has localStorage, load persistent state :
 		 * 	 if there is nothing yet in localStorage, getItem will return null,
 		 * 	 which should be checked for in class initialization */
-		ship = new Ship(JSON.parse(localStorage.getItem('ship')));
-		cm = new CelestialMap(JSON.parse(localStorage.getItem('cm')), 128);
-		sensor = new Sensor(JSON.parse(localStorage.getItem('sensor')));
+		ship=new Ship(JSON.parse(load('ship')));
+		cm=new CelestialMap(JSON.parse(load('cm'),128));
+		sensor=new Sensor(JSON.parse(load('sensor')));
 
 		over = false;
 
-		message = JSON.parse(localStorage.getItem('message'));
-		if (message == null || message == "") 
+		message = JSON.parse(load('message'));
+		if (message == null || message == "")
 			message = "Welcome to SpaceHunt!";
-		
+
 		update(); // update user display
 	}
 
@@ -45,7 +45,7 @@ function Game() {
 		else {
 			ship.move(angle, dist);
 			ship.useSupplies();
-			//cm.GetPoint(ship.x, ship.y).Run() 
+			//cm.GetPoint(ship.x, ship.y).Run()
 			update();
 		}
 	}
@@ -64,8 +64,8 @@ function Game() {
 		cm.ToString();
 	}
 
-	/* Private methods 
-	 *   declaring method with 'function name(params) {}' makes that method private 
+	/* Private methods
+	 *   declaring method with 'function name(params) {}' makes that method private
 	 *   (it is equivalent to var name = function(params) {}) */
 
 	/* update: update the user display after each turn is taken
@@ -81,7 +81,7 @@ function Game() {
 		// else, update the user display
 		update_text();
 		// and save the state to local storage
-		save_state(); 
+		save_state();
 	}
 
 	function update_text() {
@@ -93,7 +93,7 @@ function Game() {
 		write_message();
 	}
 
-	/* write methods: 
+	/* write methods:
 	 * 	write to forms of index.html to reflect changes at end of turn
 	 * 	write to all forms with update() function
 	 * 	append to message variable if necessary
@@ -106,9 +106,9 @@ function Game() {
 			message += "You passed through a wormhole!\n"
 			ship.wormed = false;
 		}
-	} 
+	}
 
-	function write_energy() { 
+	function write_energy() {
 		document.getElementById('energy').value = ship.energy;
 
 		if (ship.energy < 1) {
@@ -118,7 +118,7 @@ function Game() {
 		}
 	}
 
-	function write_supplies() { 
+	function write_supplies() {
 		document.getElementById('supplies').value = ship.supplies;
 
 		if (ship.supplies < 1) {
@@ -185,22 +185,28 @@ function Game() {
 	 *   called at end of any turn */
 	function save_state() {
 		// if user hit game over, clear localStorage for the next game
-		if (isOver()) 
+		if (isOver())
 			localStorage.clear();
 		else {
-			localStorage.setItem('ship', JSON.stringify(ship));
-			localStorage.setItem('cm', JSON.stringify(cm));
-			localStorage.setItem('sensor', JSON.stringify(sensor));
-			localStorage.setItem('message', JSON.stringify(message));
+			save('ship',ship);
+			save('cm',cm);
+			save('sensor',sensor);
+			save('message',message);
 		}
-	} 
-
+	}
+	function save(key, value){
+		localStorage.setItem('key',value);
+	}
+	function load(key){
+		var getObject=localStorage.getItem(key);
+		return getObject;
+	}
 	/* isOver(): returns whether the game is over */
 	function isOver() { return over; }
 
 	/* sets the game status to over */
-	function gameOver() { 
-		over = true; 
+	function gameOver() {
+		over = true;
 
 		// write 'play again?' button to document
 		var display = document.forms['display'];
