@@ -1,6 +1,9 @@
 <html>
 	<head>
-		<script src="main.js"></script>
+		<script src="game.js"></script>
+		<script src="ship.js"></script>
+		<script src="cparray.js"></script>
+		
 		<title>SpaceHunt Game</title>
 	</head>
 	<body>
@@ -30,6 +33,14 @@
 			</select>
 			<input type="submit" value="Move">
 		</form>
+		<!--
+		<form name="save/load" onSubmit="game.save_state(); return false">
+			<input type="submit" value="save">
+		</form>
+		<form name="load" onSubmit="game.initDisplay(); return false">
+			<input type="submit" value="load">
+		</form>
+		-->
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here: (see page 4 of sprint packet)
 		location
