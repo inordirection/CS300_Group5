@@ -17,14 +17,13 @@ function Game() {
 	/* build the initial display */
 	this.initDisplay = function () { 
 	  	// if user has localStorage, load persistent state:
-
-		// otherwise, initialize variables:
-		ship = new Ship();
-		cp = new CPArray();
+		ship = new Ship(JSON.parse(localStorage.getItem('ship')));
+		cp = new CPArray(JSON.parse(localStorage.getItem('cp')));
 		over = false;
-		message = "Welcome to SpaceHunt!"
-
-		update(); // display to user
+		message = JSON.parse(localStorage.getItem('message'));
+		if (message == null) message = "Welcome to SpaceHunt!";
+		
+		update(); // update user display
 	}
 
 	/* moves ship, use supplies, visits whichever cp it lands on */
@@ -50,7 +49,6 @@ function Game() {
 		ship.useSupplies();
 		update();
 	}
-
 
 	/* Private methods 
 	 *   declaring method with 'function name(params) {}' makes that method private 
@@ -84,6 +82,11 @@ function Game() {
 	function write_location() {
 		coords = "(" + ship.x + ", " + ship.y + ")";
 		document.getElementById('location').value = coords;
+
+		if (ship.wormed) {
+			message += "You passed through a wormhole!"
+			ship.wormed = false;
+		}
 	} 
 
 	function write_energy() { 
@@ -121,18 +124,23 @@ function Game() {
 
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
-	function save_state() { // TODO: US-8
-
+	function save_state() {
+		// if user just hit game over:
+		if (isOver()) 
+			localStorage.clear();
+		else {
+			localStorage.setItem('ship', JSON.stringify(ship));
+			localStorage.setItem('cp', JSON.stringify(cp));
+			localStorage.setItem('message', JSON.stringify(message));
+		}
 	} 
 
 	/* isOver(): returns whether the game is over */
-	function isOver() { return this.over; }
+	function isOver() { return over; }
 
 	/* sets the game status to over */
 	function gameOver() { 
-		this.over = true; 
-
-		// clear localStorage
+		over = true; 
 
 		// write 'play again?' button to document
 		var display = document.forms['display'];
@@ -150,18 +158,26 @@ function Game() {
  * 	has counters for energy and supplies
  * 	has an x,y position 
  * 	has a upgradable engine and beacon */
-function Ship() {
-	// initial state of ship:
-	this.energy = 1000;
-	this.supplies = 100;
-	this.x = 0; 
-	this.y = 0;
-	this.engine = 10; // basic engine consumes 10 energy per unit traveled
-	this.beacon = 2; // basic beacon sees 2 units
-
+function Ship(json) {
 	var maxX = 127;
 	var maxY = 127;
-	
+
+	// read ship from json if available
+	if (json != null) {
+		for (var key in json) this[key] = json[key];
+	}
+
+	// otherwise, default state of ship:
+	else {
+		this.energy = 1000;
+		this.supplies = 100;
+		this.x = 0; 
+		this.y = 0;
+		this.engine = 10; // basic engine consumes 10 energy per unit traveled
+		this.beacon = 2; // basic beacon sees 2 units
+		this.wormed = false; // indicates whether ship just passed through a wormhole
+	}
+
 	/* public methods */
 	/* move: update ship position, energy */
 	this.move = function(angle, distance) {
@@ -186,6 +202,7 @@ function Ship() {
 	this.wormhole = function() {
 		this.x = Math.round(Math.random() * maxX);
 		this.y = Math.round(Math.random() * maxY);
+		this.wormed = true;
 	}
 }
 
