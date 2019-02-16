@@ -17,14 +17,13 @@ function Game() {
 	/* build the initial display */
 	this.initDisplay = function () { 
 	  	// if user has localStorage, load persistent state:
-
-		// otherwise, initialize variables:
-		ship = new Ship();
-		cp = new CPArray();
+		ship = new Ship(JSON.parse(localStorage.getItem('ship')));
+		cp = new CPArray(JSON.parse(localStorage.getItem('cp')));
 		over = false;
-		message = "Welcome to SpaceHunt!"
-
-		update(); // display to user
+		message = JSON.parse(localStorage.getItem('message'));
+		if (message == null) message = "Welcome to SpaceHunt!";
+		
+		update(); // update user display
 	}
 
 	/* moves ship, use supplies, visits whichever cp it lands on */
@@ -50,7 +49,6 @@ function Game() {
 		ship.useSupplies();
 		update();
 	}
-
 
 	/* Private methods 
 	 *   declaring method with 'function name(params) {}' makes that method private 
@@ -86,7 +84,7 @@ function Game() {
 		document.getElementById('location').value = coords;
 
 		if (ship.wormed) {
-			message += "You passed through a wormhole!"
+			message += "You passed through a wormhole!\n"
 			ship.wormed = false;
 		}
 	} 
@@ -96,7 +94,7 @@ function Game() {
 
 		if (ship.energy < 1) {
 			message += "You ran out of energy.\n";
-			message += "Try again next time.";
+			message += "Try again next time.\n";
 			gameOver();
 		}
 	}
@@ -106,14 +104,14 @@ function Game() {
 
 		if (ship.supplies < 1) {
 			message += "You ran out of supplies.\n"
-			message += "Try again next time.";
+			message += "Try again next time.\n";
 			gameOver();
 		}
 	}
 
 	function write_message() {
 		document.getElementById('message').value = message;
-		message = "";
+		message = ""; // reset message after writing
 	}
 
 	function write_collisions() { // TODO: US-5
@@ -126,18 +124,22 @@ function Game() {
 
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
-	function save_state() { // TODO: US-8
-
+	function save_state() {
+		// if user hit game over, clear localStorage
+		if (isOver()) localStorage.clear(); 
+		else { // otherwise, write to it
+			localStorage.setItem('ship', JSON.stringify(ship));
+			localStorage.setItem('cp', JSON.stringify(cp));
+			localStorage.setItem('message', JSON.stringify(message));
+		}
 	} 
 
 	/* isOver(): returns whether the game is over */
-	function isOver() { return this.over; }
+	function isOver() { return over; }
 
 	/* sets the game status to over */
 	function gameOver() { 
-		this.over = true; 
-
-		// clear localStorage
+		over = true; 
 
 		// write 'play again?' button to document
 		var display = document.forms['display'];
@@ -154,19 +156,26 @@ function Game() {
 /* class: ship
  * 	has counters for energy and supplies
  * 	has an x,y position 
- * 	has a upgradable engine and beacon */
-function Ship() {
+ * 	has an upgradable engine and beacon */
+function Ship(json) {
 	var maxX = 127;
 	var maxY = 127;
 
-	// initial state of ship:
-	this.energy = 1000;
-	this.supplies = 100;
-	this.x = 0; 
-	this.y = 0;
-	this.engine = 10; // basic engine consumes 10 energy per unit traveled
-	this.beacon = 2; // basic beacon sees 2 units
-	this.wormed = false; // indicates whether ship just passed through a wormhole
+	// load ship from json (if available)
+	if (json != null) {
+		for (var key in json) this[key] = json[key];
+	}
+
+	// otherwise, load default state of ship:
+	else {
+		this.energy = 1000;
+		this.supplies = 100;
+		this.x = 0; 
+		this.y = 0;
+		this.engine = 10; // basic engine consumes 10 energy per unit traveled
+		this.beacon = 2; // basic beacon sees 2 units
+		this.wormed = false; // indicates whether ship just passed through a wormhole
+	}
 
 	/* public methods */
 	/* move: update ship position, energy */
@@ -206,9 +215,7 @@ function CPArray () {
 	
 	// visit an x,y coordinate of the CPArray
 	this.visit = function(x, y) {
-		// if x or y out of bounds, visit random tile in valid range
-		
-		// otherwise update mapped value for the tile
+		// update 'mapped' value for the tile
 
 		// run the tile at cp[x][y]
 	}
