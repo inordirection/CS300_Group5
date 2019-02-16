@@ -3,12 +3,14 @@
 		<script src="game.js"></script>
 		<script src="ship.js"></script>
 		<script src="cparray.js"></script>
+		<script src="sensor.js"></script>
 		
 		<title>SpaceHunt Game</title>
+
 	</head>
 	<body>
 		<script> var game = new Game(); </script>
-		<h1>OldSpice Bridge Display</h1>
+		<h1>OldSpice Control Panel</h1>
 		<!-- add forms to get user input here: (see page 4 of sprint packet)
 	  	angle: pulldown
 		distance: textfeld
@@ -41,6 +43,9 @@
 			<input type="submit" value="load">
 		</form>
 		-->
+		<form name="deploy_sensor" onSubmit="game.deploy_sensor(); return false;">
+			<input type="submit" value="Deploy Sensor">
+		</form>
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here: (see page 4 of sprint packet)
 		location
@@ -58,4 +63,4 @@
 		</form>
 		<script> game.initDisplay(); </script>
 	</body>
-<html>
+</html>

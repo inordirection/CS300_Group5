@@ -8,6 +8,7 @@ function Game() {
 	var cp; // CPArray
 	var over; // track whether the game has ended
 	var message; // message to be displayed at end of turn
+	var sensor; // deployed to
 
 	/* Public (priviliged) methods:
      *   methods declared with this.methodname = function(params...) {}
@@ -19,6 +20,7 @@ function Game() {
 	  	// if user has localStorage, load persistent state:
 		ship = new Ship(JSON.parse(localStorage.getItem('ship')));
 		cp = new CPArray(JSON.parse(localStorage.getItem('cp')));
+		sensor = new Sensor(JSON.parse(localStorage.getItem('sensor')));
 		over = false;
 		message = JSON.parse(localStorage.getItem('message'));
 		if (message == null) message = "Welcome to SpaceHunt!";
@@ -43,10 +45,13 @@ function Game() {
 		}
 	}
 
-	/* call the beacon to reveal a portion of the map */
-	this.beacon = function() {
-		cp.useBeacon(ship.x, ship.y, ship.beacon);
+	/**
+	 * US-6: Sensors
+	 * deploy sensor one time. It cost one turn.
+	 */
+	this.deploy_sensor = function() {
 		ship.useSupplies();
+		sensor.deploy_sensor(ship.x, ship.y, cp, ship.range);
 		update();
 	}
 
@@ -84,7 +89,7 @@ function Game() {
 		document.getElementById('location').value = coords;
 
 		if (ship.wormed) {
-			message += "You passed through a wormhole!"
+			message += "You passed through a wormhole!\n"
 			ship.wormed = false;
 		}
 	} 
@@ -131,6 +136,7 @@ function Game() {
 		else {
 			localStorage.setItem('ship', JSON.stringify(ship));
 			localStorage.setItem('cp', JSON.stringify(cp));
+			localStorage.setItem('sensor', JSON.stringify(sensor));
 			localStorage.setItem('message', JSON.stringify(message));
 		}
 	} 
@@ -153,3 +159,4 @@ function Game() {
 		display.appendChild(e);
 	}
 }
+
