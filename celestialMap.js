@@ -35,7 +35,7 @@ class CelestialMap
           {
                for(var x = 0; x < this.size; x++)
                {
-                    //If we are over writing then delete first.
+                    //If we are over-writing then delete first.
                     if(this.celestialPoints[x][y] != null)
                          delete this.celestialPoints[x][y];
 					//Get a random enocunter
@@ -52,12 +52,13 @@ class CelestialMap
      {
          var planets = 10;
 		 var encounters = 5;
+		 var specialsStart = 12;
          var visible;
 
           for(var i = encounters; i < encounters + planets; i++)
           {
                visible = false;
-               if(i == 12 || i == 13 || i == 14) // set special planets visible
+               if(i >= specialsStart) // set special planets visible
                     visible = true;
 
                var c = new Coordinate(Math.round(Math.random() * (this.size-1)),
