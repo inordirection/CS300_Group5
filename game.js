@@ -3,13 +3,12 @@
  *    ship: which tracks player location, status
  *    world (CPArray): 2d array of locations in the game space */
 function Game() {
-	localStorage.clear();
 	/* private variables (var makes value private) */
 	var ship; // Ship object
 	var cm; // Celestial Map
 	var over; // track whether the game has ended
 	var message; // message to be displayed at end of turn
-	var sensor; // deployed to
+	var sensor; // deployed to reveal celestial points
 
 	/* Public (priviliged) methods:
      *   methods declared with this.methodname = function(params...) {}
@@ -18,13 +17,18 @@ function Game() {
 
 	/* build the initial display */
 	this.initDisplay = function () { 
-	  	// if user has localStorage, load persistent state:
+	  	/* if user has localStorage, load persistent state :
+		 * 	 if there is nothing yet in localStorage, getItem will return null,
+		 * 	 which should be checked for in class initialization */
 		ship = new Ship(JSON.parse(localStorage.getItem('ship')));
-		cm = new CelestialMap(JSON.parse(localStorage.getItem('cm'), 16));
+		cm = new CelestialMap(JSON.parse(localStorage.getItem('cm')), 128);
 		sensor = new Sensor(JSON.parse(localStorage.getItem('sensor')));
+
 		over = false;
+
 		message = JSON.parse(localStorage.getItem('message'));
-		if (message == null) message = "Welcome to SpaceHunt!";
+		if (message == null || message == "") 
+			message = "Welcome to SpaceHunt!";
 		
 		update(); // update user display
 	}
@@ -41,7 +45,7 @@ function Game() {
 		else {
 			ship.move(angle, dist);
 			ship.useSupplies();
-			//cm.GetPoint(ship.x, ship.y).Run()
+			//cm.GetPoint(ship.x, ship.y).Run() 
 			update();
 		}
 	}
@@ -74,9 +78,10 @@ function Game() {
 			return;
 		}
 
-		// if game is not over, update the user display
+		// else, update the user display
 		update_text();
-		save_state(); // and save the state to local storage
+		// and save the state to local storage
+		save_state(); 
 	}
 
 	function update_text() {
@@ -134,24 +139,25 @@ function Game() {
 
 	function write_map() // TODO: US-7
      {
-          /*
+		 /*
           var e = document.body;
 
-          for(var y = 0; y < this.celestialMap.size; y++)
+		 console.log(cm.size);
+          for(var y = 0; y < cm.size; y++)
           {
                var row = document.createElement("div");
                row.className = "row";
                //row.style.backgroundColor = "red";
-               //row.style.width = (this.celestialMap.size) + "px";
+               //row.style.width = (cm.size) + "px";
 
-               for(var x = 0; x < this.celestialMap.size; x++)
+               for(var x = 0; x < cm.size; x++)
                {
                     var cell = document.createElement("div");
                     cell.className = "gridSquare";
-                    //cell.innerText = (y * this.celestialMap.size) + x;
+                    //cell.innerText = (y * cm.size) + x;
 
-                    //console.log(this.celestialMap.GetPoint(x, y).ToString());
-                    if(this.celestialMap.GetPoint(x, y).type == 4)
+                    //console.log(cm.GetPoint(x, y).ToString());
+                    if(cm.GetPoint(x, y).type == 4)
                     {
                          //console.log("WORMHOLE");
                          cell.style.backgroundColor = "red";
@@ -170,14 +176,15 @@ function Game() {
                }
                e.appendChild(row);
           }
+		  */
           //document.getElementById("spawn").innerText = e.innerHTML;
-          */
+
      }
 
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
 	function save_state() {
-		// if user just hit game over:
+		// if user hit game over, clear localStorage for the next game
 		if (isOver()) 
 			localStorage.clear();
 		else {
@@ -206,4 +213,3 @@ function Game() {
 		display.appendChild(e);
 	}
 }
-     

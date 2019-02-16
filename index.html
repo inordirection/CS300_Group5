@@ -8,11 +8,11 @@
 		<script src="coordinate.js"></script>
 
 		<title>SpaceHunt Game</title>
-
 	</head>
 	<body>
 		<script> var game = new Game(); </script>
 		<h1>OldSpice Control Panel</h1>
+		<!-- forms for user input go here -->
 		<form name="movement" onSubmit="game.move(); return false;">
 			Distance:<input type="text" name="distance"><br>
 			Angle:<select name="angle">
@@ -39,20 +39,16 @@
 			<input type="submit" value="load">
 		</form>
 		<h1>Current Status</h1>
-		<!-- add forms to display ship status here: (see page 4 of sprint packet)
-		location
-		energy
-		suplies
-		credits
-		explored map (128x128 textarea)
-		message
-		-->
+		<!-- add forms to display ship status here -->
 		<form name="display">
 			Location:&nbsp;<input type="text" id="location"><br>
 			Supplies:&nbsp;<input type="text" id="supplies"><br>
 			Energy:&nbsp;<input type="text" id="energy"><br>
-			Message:&nbsp;<textarea id="message"></textarea><br>
+			Message:&nbsp;<textarea rows="2" cols="30"id="message">
+			</textarea><br>
 		</form>
 		<script> game.initDisplay(); </script>
+		<!-- only call initDisplay() after forms have been loaded, otherwise
+	  		 it will try to write to null -->
 	</body>
 </html>

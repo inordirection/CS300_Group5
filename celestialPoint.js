@@ -16,14 +16,16 @@ class CelestialPoint
 
      ToString()
      {
-          return "Celestial Point: Type: " + TypeEnum.properties[this.type].name + ", Visible: " + this.isVisible + ", Coordinate: " + this.coordinate.ToString();
+          return "Celestial Point: Type: " + TypeEnum.properties[this.type].name + 
+			 ", Visible: " + this.isVisible + ", Coordinate: " + this.coordinate.ToString();
+
      }
 }
 
 //May need to add to this enum later.
 TypeEnum =
 {
-     //0 to 4 are encounters, 5 to 14 are planets.
+     //0 to 4 are encounters, 5 to 15 are planets.
 	EMPTY: 0, ASTEROIDS: 1, METEORSTORM: 2, BADMAX: 3, WORMHOLE: 4, P_ONE: 5, P_TWO: 6, P_THREE: 7, P_FOUR: 8, P_FIVE: 9, P_SIX: 10, P_SEVEN: 11, CELERON: 12, XEON: 13, RYZEN: 14,
      properties:
      {
@@ -41,6 +43,7 @@ TypeEnum =
           11: {name: "Pentium 7"},
           12: {name: "Celeron"},
           13: {name: "Xeon"},
-          14: {name: "Ryzen"}
+          14: {name: "Ryzen"},
+		  15: {name: "Eniac"}
      }
 };
