@@ -2,7 +2,7 @@
  * Class Sensor:
  * As a player, I want to see what is located at nearby Celestial Points, so I know where things are.
  */
-function Sensor(json) {
+function Sensor() {
 	// the range of the sensor, default is 2
 	var visible = 2;
 	// Store the points that should be showed in this deployment.

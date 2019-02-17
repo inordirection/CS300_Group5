@@ -22,13 +22,14 @@ function Game() {
 		 *   which should be checked for in class initialization */
 		ship = new Ship(load('ship'));
 		cm = new CelestialMap(load('cm'), 128);
-		sensor = new Sensor(load('sensor'));
-
-		over = false;
+		sensor = new Sensor();
+		sensor.Update_range(ship.range);
 
 		message = load('message');
 		if (message == null || message == "")
 			message = "Welcome to SpaceHunt!";
+
+		over = false;
 
 		update(); // update user display
 	}
@@ -196,7 +197,6 @@ function Game() {
 		else {
 			save('ship', ship);
 			save('cm', cm);
-			save('sensor', sensor);
 			save('message', message);
 		}
 	}
