@@ -20,7 +20,6 @@ function Game() {
 	  	/* if user has localStorage, load persistent state :
 		 * 	 if there is nothing yet in localStorage, getItem will return null,
 		 * 	 which should be checked for in class initialization */
-		console.log(localStorage);
 		ship=new Ship(load('ship'));
 		cm=new CelestialMap(load('cm'),128);
 		sensor=new Sensor(load('sensor'));
@@ -185,7 +184,6 @@ function Game() {
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
 	function save_state() {
-		console.log("saving");
 		// if user hit game over, clear localStorage for the next game
 		if (isOver())
 			localStorage.clear();
@@ -195,7 +193,6 @@ function Game() {
 			save('sensor',sensor);
 			save('message',message);
 		}
-		console.log(localStorage);
 	}
 	function save(key, value){
 		var val = JSON.stringify(value);
