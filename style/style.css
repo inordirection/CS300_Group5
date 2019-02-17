@@ -1,0 +1,30 @@
+.reset_game_button{
+    background-color: red;
+    border: none;
+    color: black;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+}
+
+.display{
+    background-color: red;
+    border: none;
+    color: black;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+h1{
+    font-family: 'Roboto', sans-serif;
+}
