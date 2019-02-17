@@ -10,10 +10,12 @@ function Game() {
 	var message; // message to be displayed at end of turn
 	var sensor; // deployed to reveal celestial points
 
-	/* Public (priviliged) methods:
+	/*****************
+	 * Public (priviliged) methods:
      *   methods declared with this.methodname = function(params...) {}
-     *   are publically accessible but may access private variables
-     *   their internals are also private */
+     *   are publically accessible, but may access private variables
+     *   their internals are also private 
+	 *   */
 
 	/* build the initial display */
 	this.initDisplay = function () {
@@ -69,7 +71,8 @@ function Game() {
 		localStorage.clear();
 	}
 
-	/* Private methods
+	/****************
+	 * Private methods:
 	 *   declaring method with 'function name(params) {}' makes that method private
 	 *   (it is equivalent to var name = function(params) {}) */
 
@@ -97,11 +100,13 @@ function Game() {
 		write_message();
 	}
 
-	/* write methods:
+	/**
+	 * write methods:
 	 * 	write to forms of index.html to reflect changes at end of turn
 	 * 	write to all forms with update() function
 	 * 	append to message variable if necessary
-	 * 	call gameOver() if game should end */
+	 * 	call gameOver() if game should end 
+	 * 	*/
 	function write_location() {
 		coords = "(" + ship.x + ", " + ship.y + ")";
 		document.getElementById('location').value = coords;
@@ -185,6 +190,28 @@ function Game() {
 
 	}
 
+	/* write a prompt to the user display */
+	function write_prompt(text, formFunc) {
+
+		var display = document.forms['display'];
+
+		// write a label to align with display fields
+		var label = document.createElement("label");
+		label.innerHTML="&zwnj;"; 
+		display.appendChild(label);
+
+		// write input form to display
+		var e = document.createElement("input");
+		e.setAttribute('type', "submit");
+		e.setAttribute('value', text);
+		e.setAttribute('onSubmit', formFunc);
+		display.appendChild(e);
+	}
+
+	/**
+	 * State functions:
+	 ** /
+	 
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
 	function save_state() {
@@ -208,30 +235,12 @@ function Game() {
 	/* isOver(): returns whether the game is over */
 	function isOver() { return over; }
 
-	/* sets the game status to over */
+	/* gameOver: sets the game status to over */
 	function gameOver() {
 		over = true;
 		message+="Try again next time.";
 
-		// write 'play again?' button to document
-		writePrompt("Play Again?", "game.initDisplay()");
-	}
-
-	/* write a prompt to the user display */
-	function writePrompt(text, formFunc) {
-
-		var display = document.forms['display'];
-
-		// write a label to align with display fields
-		var label = document.createElement("label");
-		label.innerHTML="&zwnj;"; 
-		display.appendChild(label);
-
-		// write input form to display
-		var e = document.createElement("input");
-		e.setAttribute('type', "submit");
-		e.setAttribute('value', text);
-		e.setAttribute('onSubmit', formFunc);
-		display.appendChild(e);
+		// write 'Play Again?' button to display
+		write_prompt("Play Again?", "game.initDisplay()");
 	}
 }
