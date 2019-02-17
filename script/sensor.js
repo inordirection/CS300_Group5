@@ -13,8 +13,8 @@ function Sensor(json) {
 	/**
 	 * Just wrapper function, call `deploy` to deploy the sensor.
 	 */
-	this.deploy_sensor = function(x, y, cp) {
-		deploy(x, y, cp);
+	this.deploy_sensor = function(x, y, cm) {
+		deploy(x, y, cm);
 	}
 
 	/**
@@ -29,9 +29,9 @@ function Sensor(json) {
 	 *
 	 * @param   {int}  x      x coord of current ship
 	 * @param   {int}  y      y coord
-	 * @param   {object}  cp     the object of map class
+	 * @param   {object}  cm     the object of map class
 	 */
-	function deploy(x, y, cp) {
+	function deploy(x, y, cm) {
 		sur = undefined;
 		sur = new Array();
 
@@ -40,8 +40,9 @@ function Sensor(json) {
 				var tx = Math.round(x + i*Math.cos(a * Math.PI/180));
 				var ty = Math.round(y + i*Math.sin(a * Math.PI/180));
 				if (tx < 128 && ty < 128) {
+					// alert(tx + '+' + ty);
 					sur.push([tx, ty])
-					cp.Change_Visible(tx, ty);
+					cm.ChangeVisible(tx, ty);
 				}
 			}
 		}
