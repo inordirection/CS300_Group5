@@ -113,7 +113,6 @@ function Game() {
 
 		if (ship.wormed) {
 			message += "You passed through a wormhole!\n"
-			ship.wormed = false;
 		}
 	}
 
@@ -135,15 +134,15 @@ function Game() {
 		}
 	}
 
-	function write_message() {
-		document.getElementById('message').value = message;
-		message = "";
-	}
-
 	function write_collisions() { // TODO: US-5
 		if (ship.x == 17 && ship.y == 0) {
 			message += "You are at (17,0)";
 		}
+	}
+
+	function write_message() {
+		document.getElementById('message').value = message;
+		message = "";
 	}
 
 	function write_map() // TODO: US-7

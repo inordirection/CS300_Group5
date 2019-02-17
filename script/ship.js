@@ -30,8 +30,11 @@ function Ship(json) {
 		this.y = Math.round(this.y + distance*Math.sin(angle * Math.PI/180));
 
 		// if going out of bounds, pass through wormhole
-		if (this.x < 0 || this.x > maxX || this.y < 0 || this.y > maxY)
+		if (this.x < 0 || this.x > maxX || this.y < 0 || this.y > maxY) {
+			this.wormed = true;
 			this.wormhole();
+		}
+		else this.wormed = false;
 
 		// update energy
 		this.energy -= this.engine * distance;
@@ -46,6 +49,5 @@ function Ship(json) {
 	this.wormhole = function() {
 		this.x = Math.round(Math.random() * maxX);
 		this.y = Math.round(Math.random() * maxY);
-		this.wormed = true;
 	}
 }
