@@ -3,6 +3,8 @@
  * As a player, I want to see what is located at nearby Celestial Points, so I know where things are.
  */
 function Sensor(json) {
+	// the range of the sensor, default is 2
+	var visible = 2;
 	// Store the points that should be showed in this deployment.
 	var sur;
 	// Store nine angles
@@ -11,27 +13,38 @@ function Sensor(json) {
 	/**
 	 * Just wrapper function, call `deploy` to deploy the sensor.
 	 */
-	this.deploy_sensor = function(x, y, cp, range) {
-		deploy(x, y, cp, range);
+	this.deploy_sensor = function(x, y, cp) {
+		deploy(x, y, cp);
 	}
 
 	/**
-	 * @param object get things in point (x, y)
+	 * update the range.
 	 */
-	function deploy(x, y, cp, range) {
-		sur = new Array();
-		// NOT COMPLETE MUST SEE MAP IMPLEMENT
-		compute_range(x, y, range);
-		sur = undefined;
+	this.Update_range = function(new_range) {
+		visible = new_range;
 	}
 
-	function compute_range(x, y, range) {
+	/**
+	 * main function for deploy the sensor, should be called by wrapper function
+	 *
+	 * @param   {int}  x      x coord of current ship
+	 * @param   {int}  y      y coord
+	 * @param   {object}  cp     the object of map class
+	 */
+	function deploy(x, y, cp) {
+		sur = undefined;
+		sur = new Array();
+
 		for (var a in angle) {
-			for (var i = 1; i <= range; i++) {
+			for (var i = 1; i <= visible; i++) {
 				var tx = Math.round(x + i*Math.cos(a * Math.PI/180));
 				var ty = Math.round(y + i*Math.sin(a * Math.PI/180));
-				sur.push([tx, ty]);
+				if (tx < 128 && ty < 128) {
+					sur.push([tx, ty])
+					cp.Change_Visible(tx, ty);
+				}
 			}
 		}
 	}
+
 }
