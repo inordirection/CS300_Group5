@@ -17,8 +17,10 @@
 		<h1>OldSpice Control Panel</h1>
 		<!-- forms for user input go here -->
 		<form name="movement" onSubmit="game.move(); return false;">
-			Distance:<input type="text" name="distance"><br>
-			Angle:<select name="angle">
+			<label>Distance:&nbsp;</label>
+			<input type="text" name="distance" id="distance"><br>
+			<label>Angle:&nbsp;</label>
+			<select name="angle">
 				<option> 0
 				<option> 30
 				<option> 60
@@ -47,10 +49,10 @@
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here -->
 		<form name="display">
-			Location:&nbsp;<input type="text" id="location"><br>
-			Supplies:&nbsp;<input type="text" id="supplies"><br>
-			Energy:&nbsp;<input type="text" id="energy"><br>
-			Message:&nbsp;<textarea rows="2" cols="30"id="message"></textarea><br>
+			<label>Location:&nbsp;</label><input type="text" id="location"><br>
+			<label>Supplies:&nbsp;</label><input type="text" id="supplies"><br>
+			<label>Energy:&nbsp;</label><input type="text" id="energy"><br>
+			<label>Message:&nbsp;</label><textarea rows="3" id="message"></textarea><br>
 		</form>
 		<script> game.initDisplay(); </script>
 		<!-- only call initDisplay() after forms have been loaded, otherwise

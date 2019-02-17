@@ -98,7 +98,7 @@ class CelestialMap
      }
 
      ChangeVisible(x, y) {
-          if (x >= this.size && y >= this.size) {
+          if (x >= this.size || y >= this.size) {
                return ;
           }
 
