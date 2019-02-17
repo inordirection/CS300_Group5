@@ -9,7 +9,6 @@ function Game() {
 	var over; // track whether the game has ended
 	var message; // message to be displayed at end of turn
 	var sensor; // deployed to reveal celestial points
-	var that = this; // for accessing parent scope in helper funcs
 
 	/* Public (priviliged) methods:
      *   methods declared with this.methodname = function(params...) {}
@@ -67,7 +66,6 @@ function Game() {
 
 	this.reset_game = function () {
 		localStorage.clear();
-		that.initDisplay();
 	}
 
 	/* Private methods
