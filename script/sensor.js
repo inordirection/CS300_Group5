@@ -35,12 +35,12 @@ function Sensor(json) {
 		sur = undefined;
 		sur = new Array();
 
-		for (var a in angle) {
+		for (var a of angle) {
 			for (var i = 1; i <= visible; i++) {
 				var tx = Math.round(x + i*Math.cos(a * Math.PI/180));
 				var ty = Math.round(y + i*Math.sin(a * Math.PI/180));
 				if (tx < 128 && ty < 128) {
-					// alert(tx + '+' + ty);
+					// alert(tx + ',' + ty);
 					sur.push([tx, ty])
 					cm.ChangeVisible(tx, ty);
 				}
