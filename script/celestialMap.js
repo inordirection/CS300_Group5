@@ -98,12 +98,12 @@ class CelestialMap
      }
 
      ChangeVisible(x, y) {
-          if (x >= this.size && y >= this.size) {
+          if (x >= this.size || y >= this.size) {
                return ;
           }
 
           this.visibleList.push(this.celestialPoints[x][y]);
-          this.celestialPoints[x][y].ChangeVisible(true);
+          this.celestialPoints[x][y].isVisible=true;
      }
 
      ToString()

@@ -41,7 +41,7 @@ function Sensor(json) {
 				var ty = Math.round(y + i*Math.sin(a * Math.PI/180));
 				if (tx < 128 && ty < 128) {
 					sur.push([tx, ty])
-					cp.Change_Visible(tx, ty);
+					cp.ChangeVisible(tx, ty);
 				}
 			}
 		}
