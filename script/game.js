@@ -57,7 +57,7 @@ function Game() {
 	 */
 	this.deploy_sensor = function () {
 		ship.useSupplies();
-		sensor.deploy_sensor(ship.x, ship.y, cm, ship.range);
+		sensor.deploy_sensor(ship.x, ship.y, cm);
 		update();
 	}
 
