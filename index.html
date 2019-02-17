@@ -36,7 +36,11 @@
 			</select>
 			<input type="submit" value="Move">
 		</form>
-		<form name="deploy_sensor" onSubmit="game.deploy_sensor();">
+		<!-- we want the return false, because otherwise the page gets refreshed
+	  every time we call the function, which will make us rebuild every object in the
+	  game (inefficient), and makes the message display "Welcome to SpaceHunt"
+	  (kind of not what we want whenever we call sensor) -->
+		<form name="deploy_sensor" onSubmit="game.deploy_sensor(); return false;">
 			<input type="submit" value="Deploy Sensor">
 		</form>
 		<form name="save/load" onSubmit="return false;">
