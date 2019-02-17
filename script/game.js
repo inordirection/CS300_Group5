@@ -9,7 +9,7 @@ function Game() {
 	var over; // track whether the game has ended
 	var message; // message to be displayed at end of turn
 	var sensor; // deployed to reveal celestial points
-	var that = this;
+	var that = this; // for accessing parent scope in helper funcs
 
 	/* Public (priviliged) methods:
      *   methods declared with this.methodname = function(params...) {}
@@ -21,7 +21,6 @@ function Game() {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
-		console.log(localStorage);
 		ship = new Ship(load('ship'));
 		cm = new CelestialMap(load('cm'), 128);
 		sensor = new Sensor(load('sensor'));
@@ -84,7 +83,6 @@ function Game() {
 			alert("You lost the game. Click \'Play Again?\' to continue.");
 			return;
 		}
-
 		// else, update the user display
 		update_text();
 		// and save the state to local storage

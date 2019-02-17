@@ -6,7 +6,8 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
+    font-size: 14px;
+	font-weight: bold;
     margin: 4px 2px;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
@@ -25,10 +26,26 @@
     cursor: pointer;
 }
 
+label{
+    display: inline-block;
+    float: left;
+    width: 65px;
+    text-align: right;
+}
+
+input[type=text], textarea {
+	width: 170px;
+}
+
+#distance {
+	width: 98px;
+}
+
 h1{
     font-family: 'Roboto', sans-serif;
 	color: white;
 }
+
 
 body {
 	color: white;
