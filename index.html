@@ -6,6 +6,8 @@
 		<script src="script/celestialMap.js"></script>
 		<script src="script/celestialPoint.js"></script>
 		<script src="script/coordinate.js"></script>
+		<link rel="stylesheet" href="style/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
 		<title>SpaceHunt Game</title>
 	</head>
@@ -39,7 +41,7 @@
 			<input type="submit" value="load">
 		</form>
 		<form name="reset_game" onSubmit="game.reset_game(); return true;">
-			<input type="submit" value="Reset Game">
+			<input class="reset_game_button" type="submit" value="Reset Game">
 		</form>
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here -->
@@ -47,8 +49,7 @@
 			Location:&nbsp;<input type="text" id="location"><br>
 			Supplies:&nbsp;<input type="text" id="supplies"><br>
 			Energy:&nbsp;<input type="text" id="energy"><br>
-			Message:&nbsp;<textarea rows="2" cols="30"id="message">
-			</textarea><br>
+			Message:&nbsp;<textarea rows="2" cols="30"id="message"></textarea><br>
 		</form>
 		<script> game.initDisplay(); </script>
 		<!-- only call initDisplay() after forms have been loaded, otherwise
