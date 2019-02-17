@@ -17,13 +17,13 @@ function Game() {
 
 	/* build the initial display */
 	this.initDisplay = function () {
-	  	/* if user has localStorage, load persistent state :
-		 * 	 if there is nothing yet in localStorage, getItem will return null,
-		 * 	 which should be checked for in class initialization */
+		/* if user has localStorage, load persistent state :
+	 * 	 if there is nothing yet in localStorage, getItem will return null,
+	 * 	 which should be checked for in class initialization */
 		console.log(localStorage);
-		ship=new Ship(load('ship'));
-		cm=new CelestialMap(load('cm'),128);
-		sensor=new Sensor(load('sensor'));
+		ship = new Ship(load('ship'));
+		cm = new CelestialMap(load('cm'), 128);
+		sensor = new Sensor(load('sensor'));
 
 		over = false;
 
@@ -35,7 +35,7 @@ function Game() {
 	}
 
 	/* moves ship, use supplies, visits whichever cp it lands on */
-	this.move = function() {
+	this.move = function () {
 		/* get user input from forms */
 		angle = document.forms['movement']['angle'].value;
 		dist = document.forms['movement']['distance'].value;
@@ -55,14 +55,19 @@ function Game() {
 	 * US-6: Sensors
 	 * deploy sensor one time. It cost one turn.
 	 */
-	this.deploy_sensor = function() {
+	this.deploy_sensor = function () {
 		ship.useSupplies();
 		sensor.deploy_sensor(ship.x, ship.y, cm, ship.range);
 		update();
 	}
 
-	this.ToString = function() {
+	this.ToString = function () {
 		cm.ToString();
+	}
+
+	this.reset_game = function () {
+		localStorage.clear();
+		initDisplay();
 	}
 
 	/* Private methods
@@ -135,52 +140,55 @@ function Game() {
 	}
 
 	function write_collisions() { // TODO: US-5
-
+		if (ship.x == 17 && ship.y == 0) {
+			document.getElementById('message').value = message;
+			message = "You are at (17,0)";
+		}
 	}
 
 	function write_map() // TODO: US-7
-     {
-		 /*
-          var e = document.body;
+	{
+		/*
+		 var e = document.body;
 
-		 console.log(cm.size);
-          for(var y = 0; y < cm.size; y++)
-          {
-               var row = document.createElement("div");
-               row.className = "row";
-               //row.style.backgroundColor = "red";
-               //row.style.width = (cm.size) + "px";
+		console.log(cm.size);
+		 for(var y = 0; y < cm.size; y++)
+		 {
+			  var row = document.createElement("div");
+			  row.className = "row";
+			  //row.style.backgroundColor = "red";
+			  //row.style.width = (cm.size) + "px";
 
-               for(var x = 0; x < cm.size; x++)
-               {
-                    var cell = document.createElement("div");
-                    cell.className = "gridSquare";
-                    //cell.innerText = (y * cm.size) + x;
+			  for(var x = 0; x < cm.size; x++)
+			  {
+				   var cell = document.createElement("div");
+				   cell.className = "gridSquare";
+				   //cell.innerText = (y * cm.size) + x;
 
-                    //console.log(cm.GetPoint(x, y).ToString());
-                    if(cm.GetPoint(x, y).type == 4)
-                    {
-                         //console.log("WORMHOLE");
-                         cell.style.backgroundColor = "red";
+				   //console.log(cm.GetPoint(x, y).ToString());
+				   if(cm.GetPoint(x, y).type == 4)
+				   {
+						//console.log("WORMHOLE");
+						cell.style.backgroundColor = "red";
 
-                         cell.style.backgroundImage = "url('Wormhole1.png')";
-                    }
-                    else
-                         cell.style.backgroundImage = "url('Asteroid1.png')";
-                    //cell.style.repeat
-                    cell.style.backgroundColor = "black";
-                    //cell.style.margin = "0px";
-                    //cell.style.padding = "0px";
-                    cell.style.height = "16px";
-                    //cell.style.width = "16px";
-                    row.appendChild(cell);
-               }
-               e.appendChild(row);
-          }
-		  */
-          //document.getElementById("spawn").innerText = e.innerHTML;
+						cell.style.backgroundImage = "url('Wormhole1.png')";
+				   }
+				   else
+						cell.style.backgroundImage = "url('Asteroid1.png')";
+				   //cell.style.repeat
+				   cell.style.backgroundColor = "black";
+				   //cell.style.margin = "0px";
+				   //cell.style.padding = "0px";
+				   cell.style.height = "16px";
+				   //cell.style.width = "16px";
+				   row.appendChild(cell);
+			  }
+			  e.appendChild(row);
+		 }
+		 */
+		//document.getElementById("spawn").innerText = e.innerHTML;
 
-     }
+	}
 
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
@@ -190,19 +198,19 @@ function Game() {
 		if (isOver())
 			localStorage.clear();
 		else {
-			save('ship',ship);
-			save('cm',cm);
-			save('sensor',sensor);
-			save('message',message);
+			save('ship', ship);
+			save('cm', cm);
+			save('sensor', sensor);
+			save('message', message);
 		}
 		console.log(localStorage);
 	}
-	function save(key, value){
+	function save(key, value) {
 		var val = JSON.stringify(value);
 		localStorage.setItem(key, val);
 	}
-	function load(key){
-		var getObject=localStorage.getItem(key);
+	function load(key) {
+		var getObject = localStorage.getItem(key);
 		return JSON.parse(getObject);
 	}
 	/* isOver(): returns whether the game is over */
@@ -216,9 +224,9 @@ function Game() {
 		var display = document.forms['display'];
 
 		var e = document.createElement("input");
-		e.setAttribute('type',"submit");
-		e.setAttribute('value',"Play Again?");
-		e.setAttribute('onSubmit',"game.initDisplay()");
+		e.setAttribute('type', "submit");
+		e.setAttribute('value', "Play Again?");
+		e.setAttribute('onSubmit', "game.initDisplay()");
 
 		display.appendChild(e);
 	}
