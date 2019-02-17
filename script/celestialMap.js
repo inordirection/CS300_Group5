@@ -103,7 +103,7 @@ class CelestialMap
           }
 
           this.visibleList.push(this.celestialPoints[x][y]);
-          this.celestialPoints[x][y].isVisible=true;
+          this.celestialPoints[x][y].Change_visible(true);
      }
 
      ToString()
