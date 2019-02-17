@@ -7,7 +7,7 @@ function Ship(json) {
 	var maxY = 127;
 
 	// read ship from json if available
-	if (json != null && json != undefined) {
+	if (json != null) {
 		for (var key in json) this[key] = json[key];
 	}
 

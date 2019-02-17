@@ -20,13 +20,14 @@ function Game() {
 	  	/* if user has localStorage, load persistent state :
 		 * 	 if there is nothing yet in localStorage, getItem will return null,
 		 * 	 which should be checked for in class initialization */
-		ship=new Ship(JSON.parse(load('ship')));
-		cm=new CelestialMap(JSON.parse(load('cm'),128));
-		sensor=new Sensor(JSON.parse(load('sensor')));
+		console.log(localStorage);
+		ship=new Ship(load('ship'));
+		cm=new CelestialMap(load('cm'),128);
+		sensor=new Sensor(load('sensor'));
 
 		over = false;
 
-		message = JSON.parse(load('message'));
+		message = load('message');
 		if (message == null || message == "")
 			message = "Welcome to SpaceHunt!";
 
@@ -184,6 +185,7 @@ function Game() {
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
 	function save_state() {
+		console.log("saving");
 		// if user hit game over, clear localStorage for the next game
 		if (isOver())
 			localStorage.clear();
@@ -193,13 +195,15 @@ function Game() {
 			save('sensor',sensor);
 			save('message',message);
 		}
+		console.log(localStorage);
 	}
 	function save(key, value){
-		localStorage.setItem('key',value);
+		var val = JSON.stringify(value);
+		localStorage.setItem(key, val);
 	}
 	function load(key){
 		var getObject=localStorage.getItem(key);
-		return getObject;
+		return JSON.parse(getObject);
 	}
 	/* isOver(): returns whether the game is over */
 	function isOver() { return over; }
