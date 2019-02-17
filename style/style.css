@@ -26,7 +26,17 @@
     cursor: pointer;
 }
 
-label{
+body {
+	color: white;
+	background-color: black;
+}
+
+h1{
+    font-family: 'Roboto', sans-serif;
+	color: white;
+}
+
+label {
     display: inline-block;
     float: left;
     width: 65px;
@@ -39,15 +49,4 @@ input[type=text], textarea {
 
 #distance {
 	width: 98px;
-}
-
-h1{
-    font-family: 'Roboto', sans-serif;
-	color: white;
-}
-
-
-body {
-	color: white;
-	background-color: black;
 }

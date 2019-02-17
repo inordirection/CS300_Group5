@@ -27,7 +27,7 @@ function Game() {
 
 		message = load('message');
 		if (message == null || message == "")
-			message = "Welcome to SpaceHunt!";
+			message = "Welcome to SpaceHunt!\n";
 
 		over = false;
 
@@ -115,9 +115,8 @@ function Game() {
 	function write_energy() {
 		document.getElementById('energy').value = ship.energy;
 
-		if (ship.energy < 1) {
+		if (ship.energy < 1 && !over) {
 			message += "You ran out of energy.\n";
-			message += "Try again next time.";
 			gameOver();
 		}
 	}
@@ -125,9 +124,8 @@ function Game() {
 	function write_supplies() {
 		document.getElementById('supplies').value = ship.supplies;
 
-		if (ship.supplies < 1) {
+		if (ship.supplies < 1 && !over) {
 			message += "You ran out of supplies.\n"
-			message += "Try again next time.";
 			gameOver();
 		}
 	}
@@ -139,8 +137,7 @@ function Game() {
 
 	function write_collisions() { // TODO: US-5
 		if (ship.x == 17 && ship.y == 0) {
-			document.getElementById('message').value = message;
-			message = "You are at (17,0)";
+			message += "You are at (17,0)";
 		}
 	}
 
@@ -214,15 +211,27 @@ function Game() {
 	/* sets the game status to over */
 	function gameOver() {
 		over = true;
+		message+="Try again next time.";
 
 		// write 'play again?' button to document
+		writePrompt("Play Again?", "game.initDisplay()");
+	}
+
+	/* write a prompt to the user display */
+	function writePrompt(text, formFunc) {
+
 		var display = document.forms['display'];
 
+		// write a label to align with display fields
+		var label = document.createElement("label");
+		label.innerHTML="&zwnj;"; 
+		display.appendChild(label);
+
+		// write input form to display
 		var e = document.createElement("input");
 		e.setAttribute('type', "submit");
-		e.setAttribute('value', "Play Again?");
-		e.setAttribute('onSubmit', "game.initDisplay()");
-
+		e.setAttribute('value', text);
+		e.setAttribute('onSubmit', formFunc);
 		display.appendChild(e);
 	}
 }
