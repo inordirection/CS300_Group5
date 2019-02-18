@@ -25,7 +25,7 @@ function Game() {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
-		cm = new CelestialMap(load('cm'));
+		cm = new CelestialMap(load('cm'), 16);
 		ship = new Ship(load('ship'));
 		sensor = new Sensor();
 		sensor.Update_range(ship.range);
@@ -65,6 +65,35 @@ function Game() {
 		sensor.deploy_sensor(ship.x, ship.y, cm);
 		update();
 		console.log('after sensor');
+	}
+
+	this.render_map = function() {
+		var size = cm.GetSize();
+
+		// if first call, init to empty space
+		if (this.textMap == undefined) {
+			this.textMap = new Array(size);
+			for (i = 0; i < size; i++) {
+				this.textMap[i] = new Array(size);
+				for (j = 0; j < size; j++)
+					this.textMap[i][j] = '0';
+			}
+		}
+
+		var visibleCPs = cm.visibleSet;
+		for (cp of visibleCPs) {
+			var type = cp.type;
+			var c = cp.coordinate;
+			var ch = TypeEnum.properties[type].ch;
+			this.textMap[c.y][c.x] = ch;
+		}
+
+		var m = document.forms['shitmap'];
+		m.innerText = "";
+		for (i = 0; i < size; i++) {
+			m.innerText += this.textMap[i];
+			m.innerText += "\n";
+		}
 	}
 
 	this.ToString = function () {
@@ -229,6 +258,8 @@ function Game() {
 
 	function write_map() // TODO: US-7
 	{
+		var style = document.getElementById('map').style.display;
+		if (style != 'none') that.render_map();
 		/*
 		 var e = document.body;
 

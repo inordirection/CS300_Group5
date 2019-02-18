@@ -43,10 +43,16 @@ label {
     text-align: right;
 }
 
-input[type=text], textarea {
+input[type=text], #message {
 	width: 170px;
 }
 
 #distance {
 	width: 98px;
+}
+
+#map {
+	font-size: 14px;
+	font-color: white;
+	font-family: courier-new, monospace;
 }

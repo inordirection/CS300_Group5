@@ -11,11 +11,21 @@
 		<link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
 
 		<title>SpaceHunt Game</title>
+
+		<script> 
+			function toggleHidden(dev) {
+				var v = document.getElementById(dev);
+				v.style.display = (v.style.display == 'none') ? 'block' : 'none';
+				if (dev == 'dev1') game.DEV_open();
+			}
+		</script>
 	</head>
 	<body>
 		<script> var game = new Game(); </script>
+
+		<!-- User Input/Control Panel -->
+
 		<h1>OldSpice Control Panel</h1>
-		<!-- forms for user input go here -->
 		<form name="movement" onSubmit="game.move(); return false;">
 			<label>Distance:&nbsp;</label>
 			<input type="text" name="distance" id="distance"><br>
@@ -39,13 +49,16 @@
 		<form name="deploy_sensor" onsubmit="game.deploy_sensor(); return false;">
 			<input type="submit" value="Deploy Sensor">
 		</form>
-		<form name="save/load" onSubmit="return false;">
-			<input type="submit" value="save">
-			<input type="submit" value="load">
+		<form name="togglemap">
+			<input type="submit" value="Open/Close Map" onclick="toggleHidden('map'); 
+			game.render_map(); return false;">
 		</form>
 		<form name="reset_game" onSubmit="game.reset_game(); return true;">
 			<input class="reset_game_button" type="submit" value="Reset Game">
 		</form>
+
+		<!-- Status Display -->
+
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here -->
 		<form name="display">
@@ -56,8 +69,15 @@
 			<label>Message:&nbsp;</label>
 			<textarea rows="3" id="message"></textarea><br>
 		</form>
+		<div id="map" style="display:none">
+			<form name="shitmap" id="shitmap">
+				<textarea rows="128" cols="128"></textarea>
+			</form>
+		</div>
+
 		<!-- Those are used by developer mode -->
-		<div style="cursor:hand" onclick="isHidden('dev1')"><b>Developer Mode Control</b></div>
+
+		<div style="cursor:hand" onclick="toggleHidden('dev1')"><b>Developer Mode Control</b></div>
 		<div id="dev1" style="display:none">
 			<!-- For open or close the mode -->
 			<form name="open_dev_mode">
@@ -85,11 +105,7 @@
 		</div>
 		<script>
 			game.initDisplay();
-			function isHidden(dev) {
-				var v = document.getElementById(dev);
-				v.style.display = (v.style.display == 'none') ? 'block' : 'none';
-				game.DEV_open();
-			}
+			
 		</script>
 	</body>
 </html>

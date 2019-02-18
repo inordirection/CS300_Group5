@@ -32,9 +32,8 @@ function Sensor() {
 	 * @param   {object}  cm     the object of map class
 	 */
 	function deploy(x, y, cm) {
-		sur = undefined;
-		sur = new Set();
-
+	/*	sur = new Set();
+		
 		for (var a of angle) {
 			for (var i = 1; i <= visible; i++) {
 				var tx = Math.round(x + i*Math.cos(a * Math.PI/180));
@@ -46,26 +45,26 @@ function Sensor() {
 				}
 			}
 		}
-		/* Testing deploy function
 		console.log("sensor 1:");
 		for (i = 0; i < sur.length; i++)
-			console.log(sur[i]);
+			console.log(sur[i]);*/
 
 		sur = new Array();
 		var r = visible;
 		// grab all coords within a square around x and y
 		for (scanX = x-r; scanX <= x+r; scanX++) {
 			for (scanY = y+r; scanY >= y-r; scanY--) {
+				if (cm.Check_size(scanX, scanY));
 				sur.push(new Coordinate(scanX, scanY));
 			}
 		}
 		// reduce set to just points within circle
 		sur = sur.filter(coord => Math.pow(x-coord.x,2) + Math.pow(y-coord.y,2) <= r*r);
-		console.log("sensor 2:");
+		//console.log("sensor 2:");
 		for (i = 0; i < sur.length; i++) {
 			// add to visisble
-			console.log(sur[i]);
-			cp.ChangeVisible(sur[i].x, sur[i].y);
-		}*/
+			//console.log(sur[i]);
+			cm.ChangeVisible(sur[i].x, sur[i].y);
+		}
 	}
 }
