@@ -125,7 +125,7 @@ class CelestialMap
 	 */
 	DEV_set_size() {
 		var size = parseInt(prompt('new game size = '));
-		if (size < 0 || size > 128) {
+		if (size < 1 || size > 128) {
 			alert('The new size is wrong.');
 			return ;
 		}

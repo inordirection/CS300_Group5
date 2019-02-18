@@ -25,7 +25,7 @@ function Game() {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
-		cm = new CelestialMap(load('cm'), 16);
+		cm = new CelestialMap(load('cm'));
 		ship = new Ship(load('ship'));
 		sensor = new Sensor();
 		sensor.Update_range(ship.range);
