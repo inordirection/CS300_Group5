@@ -2,9 +2,9 @@
  * 	has counters for energy and supplies
  * 	has an x,y position
  * 	has a upgradable engine and beacon */
-function Ship(json) {
-	var maxX = 127;
-	var maxY = 127;
+function Ship(json, size = 128) {
+	var maxX = size-1;
+	var maxY = size-1;
 
 	// read ship from json if available
 	if (json != null) {

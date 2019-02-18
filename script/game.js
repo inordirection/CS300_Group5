@@ -9,6 +9,7 @@ function Game() {
 	var over; // track whether the game has ended
 	var message; // message to be displayed at end of turn
 	var sensor; // deployed to reveal celestial points
+	var that = this; // (for accessing parent scope)
 
 	/*****************
 	 * Public (priviliged) methods:
@@ -22,8 +23,8 @@ function Game() {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
-		ship = new Ship(load('ship'));
-		cm = new CelestialMap(load('cm'), 128);
+		ship = new Ship(load('ship'), 16);
+		cm = new CelestialMap(load('cm'), 16);
 		sensor = new Sensor();
 		sensor.Update_range(ship.range);
 
@@ -135,14 +136,22 @@ function Game() {
 	}
 
 	function write_collisions() { // TODO: US-5
-		if (ship.x == 17 && ship.y == 0) {
-			message += "You are at (17,0)";
+
+		var cpType = cm.celestialPoints[ship.x][ship.y].type;
+
+		// if we didn't hit empty space, wormhole, or Eniac
+		if (cpType!=TypeEnum['EMPTY'] && cpType!=TypeEnum['WORMHOLE']
+			&& cpType!=TypeEnum['ENIAC']) 
+		{
+			var name = TypeEnum.properties[cpType].name;
+			message += "Oh no. We hit a " + name + "!\n";
+			gameOver();
 		}
 	}
 
 	function write_message() {
 		document.getElementById('message').value = message;
-		message = "";
+		message = ""; 
 	}
 
 	function write_map() // TODO: US-7
