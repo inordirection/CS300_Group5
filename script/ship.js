@@ -2,7 +2,7 @@
  * 	has counters for energy and supplies
  * 	has an x,y position
  * 	has a upgradable engine and beacon */
-function Ship(json, size = 128) {
+function Ship(json) {
 	// read ship from json if available
 	if (json != null) {
 		for (var key in json) this[key] = json[key];
@@ -31,9 +31,9 @@ function Ship(json, size = 128) {
 		// if going out of bounds, pass through wormhole
 		if (!cm.Check_size(this.x, this.y)) {
 			if (!this.isFIXW) {
-				this.wormhole();
+				this.wormhole(cm);
 			} else {
-				this.DEV_fixed_wormhole();
+				this.DEV_fixed_wormhole(cm);
 			}
 		} else this.wormed = false;
 
@@ -42,41 +42,36 @@ function Ship(json, size = 128) {
 		this.energy -= this.engine * distance;
 	}
 
+	/**
+	 * if the ship get money, the `used` < 0
+	 */
+	this.useCredits = function(used) {
+		this.credits -= used;
+		if (this.credits < 0) {
+			this.credits = 0;
+		}
+	}
+
 	// use the standard 2% of supplies
 	this.useSupplies = function() {
 		this.supplies -= 2;
 	}
 
 	/* warp to a random location */
-	this.wormhole = function() {
-		// alert('get max and min');
-		this.x = Math.round(Math.random() * (size-1));
-		this.y = Math.round(Math.random() * (size-1));
+	this.wormhole = function(cm) {
+		this.x = parseInt(Math.random() * cm.GetSize());
+		this.y = parseInt(Math.random() * cm.GetSize());
 		this.wormed = true;
-	}
-
-	/**
-	 * FOR DEV MODE
-	 * set new game size.
-	 */
-	this.DEV_set_size = function() {
-		var size = parseInt(prompt('new game size = '));
-		if (size < 0 || size > 128) {
-			alert('The new size is wrong.');
-			return ;
-		}
-		this.size = size;
-		alert('already set size')
 	}
 
 	/**
 	 * FOR DEV MODE
 	 * fixed wormhole, set the ship to a special position.
 	 */
-	this.DEV_fixed_wormhole = function() {
+	this.DEV_fixed_wormhole = function(cm) {
 		var x = parseInt(prompt('new x = '));
 		var y = parseInt(prompt('new y = '));
-		if (x < 0 || y < 0 || x > this.size || y > this.size) {
+		if (!cm.Check_size(x, y)) {
 			alert('The new size is wrong');
 			return ;
 		}

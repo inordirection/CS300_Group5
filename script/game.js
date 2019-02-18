@@ -4,8 +4,8 @@
  *    world (CelestialMap): 2d array of locations in the game space */
 function Game() {
 	/* private variables (var makes value private) */
-	var ship; // Ship object
 	var cm; // Celestial Map
+	var ship; // Ship object
 	var over; // track whether the game has ended
 	var message; // message to be displayed at end of turn
 	var sensor; // deployed to reveal celestial points
@@ -25,8 +25,8 @@ function Game() {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
-		ship = new Ship(load('ship'), 16);
 		cm = new CelestialMap(load('cm'), 16);
+		ship = new Ship(load('ship'));
 		sensor = new Sensor();
 		sensor.Update_range(ship.range);
 
@@ -106,6 +106,9 @@ function Game() {
 		if (document.getElementById('ecsl').l.checked) {
 			ship.DEV_set_location(cm);
 		}
+		if (document.getElementById('ecsl').size.checked) {
+			cm.DEV_set_size();
+		}
 		update();
 		// alert('after change those.');
 	}
@@ -161,6 +164,7 @@ function Game() {
 		write_location();
 		write_supplies();
 		write_energy();
+		write_credits();
 		write_collisions();
 		write_map();
 		write_message();
@@ -198,6 +202,10 @@ function Game() {
 			message += "You ran out of supplies.\n"
 			gameOver();
 		}
+	}
+
+	function write_credits() {
+		document.getElementById('credits').value = ship.credits;
 	}
 
 	function write_collisions() { // TODO: US-5
