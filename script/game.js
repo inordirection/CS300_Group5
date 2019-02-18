@@ -164,6 +164,7 @@ function Game() {
 		write_location();
 		write_supplies();
 		write_energy();
+		write_credits();
 		write_collisions();
 		write_map();
 		write_message();
@@ -201,6 +202,10 @@ function Game() {
 			message += "You ran out of supplies.\n"
 			gameOver();
 		}
+	}
+
+	function write_credits() {
+		document.getElementById('credits').value = ship.credits;
 	}
 
 	function write_collisions() { // TODO: US-5

@@ -44,6 +44,16 @@ function Ship(json) {
 		this.energy -= this.engine * distance;
 	}
 
+	/**
+	 * if the ship get money, the `used` < 0
+	 */
+	this.useCredits = function(used) {
+		this.credits -= used;
+		if (this.credits < 0) {
+			this.credits = 0;
+		}
+	}
+
 	// use the standard 2% of supplies
 	this.useSupplies = function() {
 		this.supplies -= 2;
