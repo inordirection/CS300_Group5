@@ -2,16 +2,38 @@ class CelestialMap
 {
 	constructor(json, size = 128)
 	{
-		this.size = size;
-		this.celestialPoints = this.InstantiateMap();
-		this.visibleSet = new Set(); /* maybe keep a set of just what has been seen so 
-		 we don't have to render all 16k tiles every time, just visible ones */
+		if (json != null) {
+			for (var key in json) {
+				this[key] = json[key];
+				console.log(json[key]);
+			}
+			/**
+			 * set of objects will not load correctly:
+			 * save() called on a set of CP just writes to local storage
+			 * {CelestialPoint, CelestialPoint, CelestialPoint...},
+			 * which of course doesn't really preserve any data for load(), 
+			 * thus we have to repopulate the visibleSet on every load.
+			 *
+			 * not a big problem, but maybe we can find a way to actually save it.
+			 * */
+			this['visibleSet'] = new Set();
+			for (var i = 0; i < this.size; i++) {
+				for (var j = 0; j < this.size; j++) {
+					var cp = this.celestialPoints[i][j]
+					if (cp.isVisible) this.visibleSet.add(cp);
+				}
+			}
+		}
+		else { 
+			this.size = size;
+			this.celestialPoints = this.InstantiateMap();
 
-		//Needs to randomly set Artifacts and such.
-		this.FillMapWithEncounters();
-		this.FillMapWithPlanets();
+			this.visibleSet = new Set(); 
 
-		 //console.log("Map Constructed");
+			//Needs to randomly set Artifacts and such.
+			this.FillMapWithEncounters();
+			this.FillMapWithPlanets();
+		}
 	}
 
 	InstantiateMap()
@@ -58,9 +80,12 @@ class CelestialMap
 			visible = false;
 			if (i > TypeEnum['P_SEVEN']) // set special planets visible
 				visible = true;
-
-			var c = new Coordinate(Math.round(Math.random() * (this.size-1)),
+			
+			var c; // check to make sure planets do not overwrite themselves
+			do {
+				c = new Coordinate(Math.round(Math.random() * (this.size-1)),
 				Math.round(Math.random() * (this.size-1)));
+			} while (this.celestialPoints[c.x][c.y].type > encounters);
 
 			// clear anything that might already be in celestialPoints
 			delete this.celestialPoints[c.x][c.y];
@@ -139,12 +164,12 @@ class CelestialMap
 
      ToString()
      {
-          temp;
-          for(y = 0; y < this.size; y++)
+          var temp;
+          for(var y = 0; y < this.size; y++)
           {
-               for(x = 0; x < this.size; x++)
+               for(var x = 0; x < this.size; x++)
                {
-                    temp += celestialPoints[x][y].ToString();
+                    temp += this.celestialPoints[x][y].ToString();
                }
           }
           return temp;

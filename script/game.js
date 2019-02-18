@@ -51,7 +51,6 @@ function Game() {
 		else {
 			ship.move(angle, dist, cm);
 			ship.useSupplies();
-			//cm.GetPoint(ship.x, ship.y).Run()
 			update();
 		}
 	}
@@ -69,16 +68,15 @@ function Game() {
 	this.render_map = function() {
 		var size = cm.GetSize();
 
-		// if first call, init to empty space
+		// if first call, init to undiscovered
 		if (this.textMap == undefined) {
 			this.textMap = new Array(size);
 			this.last = cm.GetPoint(0,0);
 			for (i = 0; i < size; i++) {
 				this.textMap[i] = new Array(size);
 				for (j = 0; j < size; j++)
-					this.textMap[i][j] = '0';
+					this.textMap[i][j] = '_';
 			}
-			console.log(this.last);
 		}
 
 		var visibleCPs = cm.visibleSet;
@@ -104,12 +102,12 @@ function Game() {
 		}
 	}
 
-	this.ToString = function () {
-		cm.ToString();
-	}
-
 	this.reset_game = function () {
 		localStorage.clear();
+	}
+
+	this.ToString = function () {
+		cm.ToString();
 	}
 
 	/**
@@ -257,6 +255,7 @@ function Game() {
 			message += "Oh no. We hit a " + name + "!\n";
 			gameOver();
 		}
+		// if we hit a wormhole, warp and update location
 		if (cpType==TypeEnum['WORMHOLE']) {
 			ship.move(0, cm.GetSize(), cm);
 			ship.energy += cm.GetSize() * ship.engine;
@@ -269,50 +268,10 @@ function Game() {
 		message = ""; 
 	}
 
-	function write_map() // TODO: US-7
+	function write_map()
 	{
 		var style = document.getElementById('map').style.display;
 		if (style != 'none') that.render_map();
-		/*
-		 var e = document.body;
-
-		console.log(cm.size);
-		 for(var y = 0; y < cm.size; y++)
-		 {
-			  var row = document.createElement("div");
-			  row.className = "row";
-			  //row.style.backgroundColor = "red";
-			  //row.style.width = (cm.size) + "px";
-
-			  for(var x = 0; x < cm.size; x++)
-			  {
-				   var cell = document.createElement("div");
-				   cell.className = "gridSquare";
-				   //cell.innerText = (y * cm.size) + x;
-
-				   //console.log(cm.GetPoint(x, y).ToString());
-				   if(cm.GetPoint(x, y).type == 4)
-				   {
-						//console.log("WORMHOLE");
-						cell.style.backgroundColor = "red";
-
-						cell.style.backgroundImage = "url('Wormhole1.png')";
-				   }
-				   else
-						cell.style.backgroundImage = "url('Asteroid1.png')";
-				   //cell.style.repeat
-				   cell.style.backgroundColor = "black";
-				   //cell.style.margin = "0px";
-				   //cell.style.padding = "0px";
-				   cell.style.height = "16px";
-				   //cell.style.width = "16px";
-				   row.appendChild(cell);
-			  }
-			  e.appendChild(row);
-		 }
-		 */
-		//document.getElementById("spawn").innerText = e.innerHTML;
-
 	}
 
 	/* write a prompt to the user display */
@@ -350,12 +309,12 @@ function Game() {
 		}
 	}
 	function save(key, value) {
-		var val = JSON.stringify(value);
-		localStorage.setItem(key, val);
+		var json = JSON.stringify(value);
+		localStorage.setItem(key, json);
 	}
 	function load(key) {
-		var getObject = localStorage.getItem(key);
-		return JSON.parse(getObject);
+		var json = localStorage.getItem(key);
+		return JSON.parse(json);
 	}
 	/* isOver(): returns whether the game is over */
 	function isOver() {
