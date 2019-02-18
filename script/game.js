@@ -106,6 +106,9 @@ function Game() {
 		if (document.getElementById('ecsl').l.checked) {
 			ship.DEV_set_location(cm);
 		}
+		if (document.getElementById('ecsl').size.checked) {
+			cm.DEV_set_size();
+		}
 		update();
 		// alert('after change those.');
 	}

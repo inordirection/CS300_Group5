@@ -2,9 +2,7 @@
  * 	has counters for energy and supplies
  * 	has an x,y position
  * 	has a upgradable engine and beacon */
-function Ship(json, size = 128) {
-	var maxX = size-1;
-	var maxY = size-1;
+function Ship(json) {
 
 	// read ship from json if available
 	if (json != null) {
@@ -35,9 +33,9 @@ function Ship(json, size = 128) {
 		// if going out of bounds, pass through wormhole
 		if (!cm.Check_size(this.x, this.y)) {
 			if (!this.isFIXW) {
-				this.wormhole();
+				this.wormhole(cm);
 			} else {
-				this.DEV_fixed_wormhole();
+				this.DEV_fixed_wormhole(cm);
 			}
 		} else this.wormed = false;
 
@@ -52,35 +50,21 @@ function Ship(json, size = 128) {
 	}
 
 	/* warp to a random location */
-	this.wormhole = function() {
+	this.wormhole = function(cm) {
 		// alert('get max and min');
-		this.x = parseInt(Math.random() * maxX);
-		this.y = parseInt(Math.random() * maxY);
+		this.x = parseInt(Math.random() * cm.GetSize());
+		this.y = parseInt(Math.random() * cm.GetSize());
 		this.wormed = true;
-	}
-
-	/**
-	 * FOR DEV MODE
-	 * set new game size.
-	 */
-	this.DEV_set_size = function() {
-		var size = parseInt(prompt('new game size = '));
-		if (size < 0 || size > 128) {
-			alert('The new size is wrong.');
-			return ;
-		}
-		this.size = size;
-		alert('already set size')
 	}
 
 	/**
 	 * FOR DEV MODE
 	 * fixed wormhole, set the ship to a special position.
 	 */
-	this.DEV_fixed_wormhole = function() {
+	this.DEV_fixed_wormhole = function(cm) {
 		var x = parseInt(prompt('new x = '));
 		var y = parseInt(prompt('new y = '));
-		if (x < 0 || y < 0 || x > this.size || y > this.size) {
+		if (!cm.Check_size(x, y)) {
 			alert('The new size is wrong');
 			return ;
 		}
