@@ -55,15 +55,11 @@
 			<label>Message:&nbsp;</label>
 			<textarea rows="3" id="message"></textarea><br>
 		</form>
-		<!-- <script> game.initDisplay(); </script>
-		<!-- only call initDisplay() after forms have been loaded, otherwise -->
-			   <!-- it will try to write to null -->
-
 		<!-- Those are used by developer mode -->
 		<div style="cursor:hand" onclick="isHidden('dev1')"><b>Developer Mode Control</b></div>
 		<div id="dev1" style="display:none">
 			<!-- For open or close the mode -->
-			<form name="open_dev_mode" onsubmit="game.DEV_open(); return false;">
+			<form name="open_dev_mode">
 				<p id="whether_open">Using game configuration: false</p>
 			</form>
 			<!-- For change energy, credits, supplies, and location -->
@@ -90,14 +86,8 @@
 			function isHidden(dev) {
 				var v = document.getElementById(dev);
 				v.style.display = (v.style.display == 'none') ? 'block' : 'none';
+				game.DEV_open();
 			}
 		</script>
 	</body>
-		<!-- <script>
-			game.initDisplay();
-			function isHidden(dev) {
-				var v = document.getElementById(dev);
-				v.style.display = (v.style.display == 'none') ? 'block' : 'none';
-			}
-		</script> -->
 </html>

@@ -80,7 +80,7 @@ function Game() {
 	 * whether the dev mode is open
 	 */
 	this.DEV_open = function() {
-		isDEV = (isDEV == true) ? false : true;
+		isDEV = !isDEV;
 		document.getElementById('whether_open').innerHTML = "Using game configuration: " + isDEV;
 	}
 
