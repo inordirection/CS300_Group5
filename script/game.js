@@ -206,7 +206,7 @@ function Game() {
 
 		// if we didn't hit empty space, wormhole, or Eniac
 		if (cpType!=TypeEnum['EMPTY'] && cpType!=TypeEnum['WORMHOLE']
-			&& cpType!=TypeEnum['ENIAC']) 
+			&& cpType!=TypeEnum['ENIAC'] &&!over) 
 		{
 			var name = TypeEnum.properties[cpType].name;
 			message += "Oh no. We hit a " + name + "!\n";

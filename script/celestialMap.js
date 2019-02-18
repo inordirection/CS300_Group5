@@ -95,7 +95,7 @@ class CelestialMap
       * @param   {int}  y  coord
       */
      ChangeVisible(x, y) {
-          if (!Check_size(x, y)) {
+          if (!this.Check_size(x, y)) {
                return ;
           }
 
