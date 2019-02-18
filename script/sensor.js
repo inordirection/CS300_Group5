@@ -33,15 +33,15 @@ function Sensor() {
 	 */
 	function deploy(x, y, cm) {
 		sur = undefined;
-		sur = new Array();
+		sur = new Set();
 
 		for (var a of angle) {
 			for (var i = 1; i <= visible; i++) {
 				var tx = Math.round(x + i*Math.cos(a * Math.PI/180));
 				var ty = Math.round(y + i*Math.sin(a * Math.PI/180));
-				if (tx < 128 && ty < 128 && tx >=0 && ty >=0) {
+				if (cm.Check_size(tx, ty)) {
 					// alert(tx + ',' + ty);
-					sur.push([tx, ty])
+					sur.add([tx, ty])
 					cm.ChangeVisible(tx, ty);
 				}
 			}
