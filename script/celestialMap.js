@@ -112,7 +112,7 @@ class CelestialMap
       * @return  {bool}     whether the point in the map
       */
      Check_size(x, y) {
-          if (x < 0 || y < 0 || x > this.size || y > this.size || x == NaN || y == NaN) {
+          if (x < 0 || y < 0 || x > this.size-1 || y > this.size-1 || x == NaN || y == NaN) {
                return false;
           } else {
                return true;
