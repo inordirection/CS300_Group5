@@ -3,9 +3,6 @@
  * 	has an x,y position
  * 	has a upgradable engine and beacon */
 function Ship(json, size = 128) {
-	var maxX = size-1;
-	var maxY = size-1;
-
 	// read ship from json if available
 	if (json != null) {
 		for (var key in json) this[key] = json[key];
@@ -21,7 +18,6 @@ function Ship(json, size = 128) {
 		this.range = 2; // sensor initially has range 2
 		this.engine = 10; // basic engine consumes 10 energy per unit traveled
 		this.wormed = false; // indicates whether ship just passed through a wormhole
-		// this.size = 127; // the size of the game map, default value is 127.
 		this.isFIXW = false;
 	}
 
@@ -54,8 +50,8 @@ function Ship(json, size = 128) {
 	/* warp to a random location */
 	this.wormhole = function() {
 		// alert('get max and min');
-		this.x = parseInt(Math.random() * maxX);
-		this.y = parseInt(Math.random() * maxY);
+		this.x = Math.round(Math.random() * (size-1));
+		this.y = Math.round(Math.random() * (size-1));
 		this.wormed = true;
 	}
 
