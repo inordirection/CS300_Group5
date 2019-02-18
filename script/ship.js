@@ -35,14 +35,13 @@ function Ship(json, size = 128) {
 		// if going out of bounds, pass through wormhole
 		if (!cm.Check_size(this.x, this.y)) {
 			if (!this.isFIXW) {
-				alert('normal wh');
 				this.wormhole();
 			} else {
-				alert('special wh');
 				this.DEV_fixed_wormhole();
 			}
 		} else this.wormed = false;
 
+		cm.ChangeVisible(this.x, this.y);
 		// update energy
 		this.energy -= this.engine * distance;
 	}
