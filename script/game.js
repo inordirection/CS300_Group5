@@ -260,7 +260,7 @@ function Game() {
 		if (cpType==TypeEnum['WORMHOLE']) {
 			ship.move(0, cm.GetSize(), cm);
 			ship.energy += cm.GetSize() * ship.engine;
-			update();
+			write_location();
 		}
 	}
 
