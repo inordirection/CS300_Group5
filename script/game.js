@@ -64,7 +64,6 @@ function Game() {
 		ship.useSupplies();
 		sensor.deploy_sensor(ship.x, ship.y, cm);
 		update();
-		console.log('after sensor');
 	}
 
 	this.render_map = function() {
@@ -73,11 +72,13 @@ function Game() {
 		// if first call, init to empty space
 		if (this.textMap == undefined) {
 			this.textMap = new Array(size);
+			this.last = cm.GetPoint(0,0);
 			for (i = 0; i < size; i++) {
 				this.textMap[i] = new Array(size);
 				for (j = 0; j < size; j++)
 					this.textMap[i][j] = '0';
 			}
+			console.log(this.last);
 		}
 
 		var visibleCPs = cm.visibleSet;
@@ -87,6 +88,13 @@ function Game() {
 			var ch = TypeEnum.properties[type].ch;
 			this.textMap[c.y][c.x] = ch;
 		}
+
+		/* update 'S' to reflect ship's current position
+		 * and rewrite the prior 'S' to its proper tile */
+		this.textMap[this.last.coordinate.y][this.last.coordinate.x] 
+			= TypeEnum.properties[this.last.type].ch;
+		this.textMap[ship.y][ship.x] = 'S';
+		this.last = cm.GetPoint(ship.x, ship.y);
 
 		var m = document.forms['shitmap'];
 		m.innerText = "";
@@ -237,7 +245,7 @@ function Game() {
 		document.getElementById('credits').value = ship.credits;
 	}
 
-	function write_collisions() { // TODO: US-5
+	function write_collisions() {
 
 		var cpType = cm.celestialPoints[ship.x][ship.y].type;
 
@@ -248,6 +256,11 @@ function Game() {
 			var name = TypeEnum.properties[cpType].name;
 			message += "Oh no. We hit a " + name + "!\n";
 			gameOver();
+		}
+		if (cpType==TypeEnum['WORMHOLE']) {
+			ship.move(0, cm.GetSize(), cm);
+			ship.energy += cm.GetSize() * ship.engine;
+			update();
 		}
 	}
 

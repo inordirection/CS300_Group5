@@ -18,7 +18,7 @@ function Ship(json) {
 		this.range = 2; // sensor initially has range 2
 		this.engine = 10; // basic engine consumes 10 energy per unit traveled
 		this.wormed = false; // indicates whether ship just passed through a wormhole
-		this.isFIXW = false;
+		this.isFIXW = false; // is 'fixed wormhole'
 	}
 
 	/* public methods */
