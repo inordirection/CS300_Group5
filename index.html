@@ -58,12 +58,13 @@
 		<!-- <script> game.initDisplay(); </script>
 		<!-- only call initDisplay() after forms have been loaded, otherwise -->
 			   <!-- it will try to write to null -->
+
 		<!-- Those are used by developer mode -->
 		<div style="cursor:hand" onclick="isHidden('dev1')"><b>Developer Mode Control</b></div>
 		<div id="dev1" style="display:none">
 			<!-- For open or close the mode -->
 			<form name="open_dev_mode" onsubmit="game.DEV_open(); return false;">
-				<input type="submit" value="Open / Close Developer Mode">
+				<p id="whether_open">Using game configuration: false</p>
 			</form>
 			<!-- For change energy, credits, supplies, and location -->
 			<form id="ecsl" name="ecsl" onsubmit="game.DEV_ecsl(); return false;">

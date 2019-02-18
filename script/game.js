@@ -81,7 +81,7 @@ function Game() {
 	 */
 	this.DEV_open = function() {
 		isDEV = (isDEV == true) ? false : true;
-		alert('developer mode is ' + isDEV);
+		document.getElementById('whether_open').innerHTML = "Using game configuration: " + isDEV;
 	}
 
 	/**
