@@ -9,6 +9,9 @@ function Game() {
 	var over; // track whether the game has ended
 	var message; // message to be displayed at end of turn
 	var sensor; // deployed to reveal celestial points
+	var that = this; // for accessing parent scope in helper funcs
+	var isDEV = false; // FOR DEV MODE whether the dev mode is open
+	var isNEVERDIES = false; // FOR DEV MODE whether the player never dies
 
 	/*****************
 	 * Public (priviliged) methods:
@@ -46,7 +49,7 @@ function Game() {
 			alert("You must enter a distance of at least 1.");
 		}
 		else {
-			ship.move(angle, dist);
+			ship.move(angle, dist, cm);
 			ship.useSupplies();
 			//cm.GetPoint(ship.x, ship.y).Run()
 			update();
@@ -61,6 +64,7 @@ function Game() {
 		ship.useSupplies();
 		sensor.deploy_sensor(ship.x, ship.y, cm);
 		update();
+		console.log('after sensor');
 	}
 
 	this.ToString = function () {
@@ -71,8 +75,69 @@ function Game() {
 		localStorage.clear();
 	}
 
-	/****************
-	 * Private methods:
+	/**
+	 * FOR DEV MODE
+	 * whether the dev mode is open
+	 */
+	this.DEV_open = function() {
+		isDEV = (isDEV == true) ? false : true;
+		alert('developer mode is ' + isDEV);
+	}
+
+	/**
+	 * FOR DEV MODE
+	 * change the selected value
+	 * energy, credits, supplies, and location
+	 */
+	this.DEV_ecsl = function() {
+		if (!isDEV) {
+			alert('the developer mode is not open');
+			return ;
+		}
+		if (document.getElementById('ecsl').e.checked){
+			ship.DEV_set_e();
+		}
+		if (document.getElementById('ecsl').c.checked) {
+			ship.DEV_set_c();
+		}
+		if (document.getElementById('ecsl').s.checked) {
+			ship.DEV_set_s();
+		}
+		if (document.getElementById('ecsl').l.checked) {
+			ship.DEV_set_location(cm);
+		}
+		update();
+		// alert('after change those.');
+	}
+
+	/**
+	 * FOR DEV MODE
+	 * select fixed wormhole or normal wormhole behavior
+	 */
+	this.DEV_fixed_wh = function() {
+		if (!isDEV) {
+			alert('developer mode is close');
+			return ;
+		}
+		ship.isFIXW = (ship.isFIXW == true) ? false : true;
+		document.getElementById('whether_fixed').innerHTML = "Use the fixed wormhole mode is " + ship.isFIXW;
+	}
+
+	/**
+	 * FOR DEV MODE
+	 * never dies
+	 */
+	this.DEV_never = function() {
+		if (!isDEV) {
+			alert('developer mode is close');
+			return ;
+		}
+		isNEVERDIES = (isNEVERDIES == true) ? false : true;
+		document.getElementById('whether_never').innerHTML = "Use never dies mode is " + isNEVERDIES;
+		update();
+	}
+
+	/* Private methods
 	 *   declaring method with 'function name(params) {}' makes that method private
 	 *   (it is equivalent to var name = function(params) {}) */
 
@@ -232,10 +297,19 @@ function Game() {
 		return JSON.parse(getObject);
 	}
 	/* isOver(): returns whether the game is over */
-	function isOver() { return over; }
+	function isOver() {
+		return over;
+	}
 
-	/* gameOver: sets the game status to over */
+	/* sets the game status to over */
+	// If the dev mode and never dies mode both are open
+	// always return set to false and return direactly.
 	function gameOver() {
+		if (isDEV && isNEVERDIES) {
+			over = false;
+			return ;
+		}
+
 		over = true;
 		message+="Try again next time.";
 

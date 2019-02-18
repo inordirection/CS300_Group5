@@ -4,7 +4,7 @@ class CelestialMap
      {
 		this.size = size;
 		this.celestialPoints = this.InstantiateMap();
-		this.visibleList = new Array(); /* maybe keep a list of just what has been seen so 
+		this.visibleSet = new Set(); /* maybe keep a set of just what has been seen so 
 		 we don't have to render all 16k tiles every time, just visible ones */
 
 		//Needs to randomly set Artifacts and such.
@@ -69,12 +69,12 @@ class CelestialMap
 
 			  var cPoint = new CelestialPoint(i, visible, c.x, c.y);
                this.celestialPoints[c.x][c.y] = cPoint;
-			  if (visible) this.visibleList.push(cPoint);
+			  if (visible) this.visibleSet.add(cPoint);
           }
 		 // set 0,0 to contain Eniac
 		 var eniac = new CelestialPoint(planets+encounters, true, 0,0);
 		 this.celestialPoints[0][0] = eniac;
-		 this.visibleList.push(eniac);
+		 this.visibleSet.add(eniac);
      }
 
 	GetPoint(xCoord, yCoord)
@@ -97,13 +97,35 @@ class CelestialMap
 		 [Math.floor(Math.random() * this.size)];
      }
 
+     /**
+      * change this point x,y to visible
+      *
+      * @param   {int}  x  coordinate
+      * @param   {int}  y  coord
+      */
      ChangeVisible(x, y) {
-          if (x >= this.size || y >= this.size) {
+          if (!Check_size(x, y)) {
                return ;
           }
 
-          this.visibleList.push(this.celestialPoints[x][y]);
+          this.visibleSet.add(this.celestialPoints[x][y]);
           this.celestialPoints[x][y].Change_visible(true);
+     }
+
+     /**
+      * return whether the coordinate in the map
+      *
+      * @param   {int}  x  coord
+      * @param   {int}  y  coord
+      *
+      * @return  {bool}     whether the point in the map
+      */
+     Check_size(x, y) {
+          if (x < 0 || y < 0 || x > this.size || y > this.size || x == NaN || y == NaN) {
+               return false;
+          } else {
+               return true;
+          }
      }
 
      ToString()
