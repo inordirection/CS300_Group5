@@ -130,7 +130,7 @@ class CelestialMap
 			return ;
 		}
 		this.size = size;
-		alert(this.size);
+		//alert(this.size);
      }
 
      GetSize() {

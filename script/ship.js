@@ -43,7 +43,7 @@ function Ship(json) {
 	}
 
 	/**
-	 * if the ship get money, the `used` < 0
+	 * can pass negative value to gain money
 	 */
 	this.useCredits = function(used) {
 		this.credits -= used;
