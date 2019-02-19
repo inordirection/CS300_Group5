@@ -50,3 +50,8 @@ input[type=text], textarea {
 #distance {
 	width: 98px;
 }
+
+canvas{
+    border: 1px;
+    background-color: white;
+}

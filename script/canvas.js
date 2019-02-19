@@ -1,16 +1,18 @@
 
+
+/*
 var myGamePiece;
 
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(30, 30, "red", 120, 120);
+    myGamePiece = new component(30, 30, "red", 0, 0);
 }
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 480;
-        this.canvas.height = 270;
+        this.canvas.width = 500;
+        this.canvas.height = 500;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     }
@@ -26,3 +28,4 @@ function component(width, height, color, x, y) {
     ctx.fillRect(this.x, this.y, this.width, this.height);
 }
 
+*/
