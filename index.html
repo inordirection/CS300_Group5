@@ -20,9 +20,9 @@
 		<!-- forms for user input go here -->
 		<form name="movement" onSubmit="game.move(); return false;">
 			<label>Distance:&nbsp;</label>
-			<input type="text" name="distance" id="distance"><br>
+			<input type="text" name="distance" id="distance" class="input"><br>
 			<label>Angle:&nbsp;</label>
-			<select name="angle">
+			<select name="angle" class="selectBox">
 				<option> 0
 				<option> 30
 				<option> 60
@@ -36,18 +36,18 @@
 				<option> 300
 				<option> 330
 			</select>
-			<input type="submit" value="Move">
+			<input type="submit" value="Move" class="inputButton">
 		</form>
 		<!-- we want the return false, because otherwise the page gets refreshed
 		  every time we call the function, which will make us rebuild every object in the
 		  game (inefficient), and makes the message display "Welcome to SpaceHunt"
 		  (kind of not what we want whenever we call sensor) -->
 		<form name="deploy_sensor" onSubmit="game.deploy_sensor(); return false;">
-			<input type="submit" value="Deploy Sensor">
+			<input type="submit" value="Deploy Sensor" class="inputButton">
 		</form>
 		<form name="save/load" onSubmit="return false;">
-			<input type="submit" value="save">
-			<input type="submit" value="load">
+			<input type="submit" value="save" class="inputButton">
+			<input type="submit" value="load" class="inputButton">
 		</form>
 		<form name="reset_game" onSubmit="game.reset_game(); return true;">
 			<input class="reset_game_button" type="submit" value="Reset Game">

@@ -1,7 +1,7 @@
 .reset_game_button {
 	border: none;
 	color: black;
-	padding: 7px 20px;
+	padding: 5px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
@@ -23,16 +23,19 @@
 	font-size: 12px;
 	margin: 4px 2px;
 	cursor: pointer;
+	font-family: 'Roboto', sans-serif;
 }
 
 body {
 	color: white;
 	background-color: #676767;
 	align-content: center;
+	font-family: 'Roboto', sans-serif;
 }
 h1 {
 	font-family: 'Roboto', sans-serif;
 	color: white;
+	
 }
 
 label {
@@ -40,19 +43,23 @@ label {
 	float: left;
 	width: 65px;
 	text-align: right;
+	font-family: 'Roboto', sans-serif;
 }
 
 input[type=text], textarea {
 	width: 170px;
+	font-family: 'Roboto', sans-serif;
 }
 
 #distance {
 	width: 98px;
+	font-family: 'Roboto', sans-serif;
 }
 
 canvas {
 	border: 1px;
 	background-color: white;
+	
 }
 
 .controlPanel {
@@ -61,4 +68,34 @@ canvas {
 	padding: 15px;
 	background-color: 708090;
 	border-style: solid;
+
+}
+
+.inputButton{
+	border: none;
+	color: black;
+	padding: 5px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 4px 2px;
+	cursor: pointer;
+	font-family: 'Roboto', sans-serif;
+	font-style: bold;
+}
+
+.selectBox{
+	border: none;
+	color: black;
+	padding: 4px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+	font-family: 'Roboto', sans-serif;
+	font-style: bold;
 }
