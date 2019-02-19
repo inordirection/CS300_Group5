@@ -59,7 +59,7 @@ input[type=text], textarea {
 canvas {
 	border: 1px;
 	background-color: white;
-	
+	background-image: url("background.png");
 }
 
 .controlPanel {

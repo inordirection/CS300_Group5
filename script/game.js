@@ -27,7 +27,7 @@ function Game() {
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
 		ship = new Ship(load('ship'));
-		cm = new CelestialMap(load('cm'), 128);
+		cm = new CelestialMap(load('cm'), 64);
 		sensor = new Sensor();
 		sensor.Update_range(ship.range);
 
@@ -37,17 +37,13 @@ function Game() {
 
 		over = false;
 
-
-
 		startGame();
-
 		update(); // update user display
 	}
 
-
-
 	function startGame() {
-		myGamePiece = new component(25, 25, "blue", 0, 0);
+		//myGamePiece = new component(25, 25, "blue", 0, 0);
+		myGamePiece = new component(30, 30, "images/flyer.jpg", 10, 120, "image");
 		myGameArea.start();
 	}
 	
@@ -64,6 +60,8 @@ function Game() {
 			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		}
 	}
+
+	/*
 	
 	function component(width, height, color, x, y) {
 		this.width = width;
@@ -82,6 +80,47 @@ function Game() {
 			this.y = ship.y*25;        
 		}    
 	}
+	*/
+
+
+	function component(width, height, color, x, y, type) {
+		this.type = type;
+		if (type == "image") {
+			this.image = new Image();
+			this.image.src = color;
+		}
+		this.width = width;
+		this.height = height;
+ 
+		this.x = x;
+		this.y = y;    
+		this.update = function() {
+			ctx = myGameArea.context;
+			if (type == "image") {
+				ctx.drawImage(this.image, 
+					this.x, 
+					this.y,
+					this.width, this.height);
+			} else {
+				ctx.fillStyle = color;
+				ctx.fillRect(this.x, this.y, this.width, this.height);
+			}
+		}
+		this.newPos = function() {
+			this.x = ship.x*25;
+			this.y = ship.y*25;          
+		}
+	}
+
+
+
+
+
+
+
+
+
+
 	
 	function updateGameArea() {
 		myGameArea.clear();
