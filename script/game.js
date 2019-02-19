@@ -48,10 +48,10 @@ function Game() {
 
 	function startGame() {
 		//myGamePiece = new component(25, 25, "blue", 0, 0);
-		myGamePiece = new component(25, 25, "images/flyer.jpg", 0, 0, "image");
-		myObstacle  = new component(25, 25, "images/Asteroid1.png", 300, 120, "image");
-		myObstacle2  = new component(25, 25, "images/Asteroid1.png", 192, 400, "image");
-		myObstacle3  = new component(25, 25, "images/Wormhole1.png", 400, 300, "image"); 
+		myGamePiece = new component(24, 24, "images/flyer.jpg", 0, 0, "image");
+		myObstacle  = new component(24, 24, "images/Asteroid1.png", 300, 120, "image");
+		myObstacle2  = new component(24, 24, "images/Asteroid1.png", 192, 400, "image");
+		myObstacle3  = new component(24, 24, "images/Wormhole1.png", 400, 300, "image"); 
 	  
 
 		myGameArea.start();
@@ -60,8 +60,8 @@ function Game() {
 	var myGameArea = {
 		canvas : document.createElement("canvas"),
 		start : function() {
-			this.canvas.width = 640;
-			this.canvas.height = 640;
+			this.canvas.width = 768;
+			this.canvas.height = 768;
 			this.context = this.canvas.getContext("2d");
 			document.body.insertBefore(this.canvas, document.body.childNodes[0]);
 			this.interval = setInterval(updateGameArea, 20);
