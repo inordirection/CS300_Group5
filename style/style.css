@@ -1,46 +1,45 @@
-.reset_game_button{
-    background-color: red;
-    border: none;
-    color: white;
-    padding: 7px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
+.reset_game_button {
+	border: none;
+	color: black;
+	padding: 7px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
 	font-weight: bold;
-    margin: 4px 2px;
-    cursor: pointer;
-    font-family: 'Roboto', sans-serif;
+	margin: 4px 2px;
+	cursor: pointer;
+	font-family: 'Roboto', sans-serif;
+	font-style: bold;
 }
-
-.display{
-    background-color: red;
-    border: none;
-    color: black;
-    padding: 7px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    margin: 4px 2px;
-    cursor: pointer;
+.display {
+	background-color: red;
+	border: none;
+	color: black;
+	padding: 7px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	margin: 4px 2px;
+	cursor: pointer;
 }
 
 body {
 	color: white;
-    background-color: #676767;
+	background-color: #676767;
+	align-content: center;
 }
-
-h1{
-    font-family: 'Roboto', sans-serif;
+h1 {
+	font-family: 'Roboto', sans-serif;
 	color: white;
 }
 
 label {
-    display: inline-block;
-    float: left;
-    width: 65px;
-    text-align: right;
+	display: inline-block;
+	float: left;
+	width: 65px;
+	text-align: right;
 }
 
 input[type=text], textarea {
@@ -51,12 +50,15 @@ input[type=text], textarea {
 	width: 98px;
 }
 
-canvas{
-    border: 1px;
-    background-color: white;
+canvas {
+	border: 1px;
+	background-color: white;
 }
 
-.controlPanel{
-   width: 380px; 
-   float: left; 
+.controlPanel {
+	width: 380px;
+	float: left;
+	padding: 15px;
+	background-color: 708090;
+	border-style: solid;
 }

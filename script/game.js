@@ -40,7 +40,7 @@ function Game() {
 
 
 		startGame();
-		
+
 		update(); // update user display
 	}
 
@@ -78,8 +78,8 @@ function Game() {
 			ctx.fillRect(this.x, this.y, this.width, this.height);
 		}
 		this.newPos = function() {
-			this.x = ship.x*6;
-			this.y = ship.y*6;        
+			this.x = ship.x*25;
+			this.y = ship.y*25;        
 		}    
 	}
 	
