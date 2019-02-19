@@ -28,7 +28,7 @@
 
 body {
 	color: white;
-	background-color: black;
+    background-color: black;
 }
 
 h1{
@@ -54,4 +54,9 @@ input[type=text], textarea {
 canvas{
     border: 1px;
     background-color: white;
+}
+
+.controlPanel{
+   width: 380px; 
+   float: left; 
 }

@@ -14,62 +14,56 @@
 
 	<title>SpaceHunt Game</title>
 </head>
-
-<header>
-	<script> var game = new Game(); </script>
-	<h1>OldSpice Control Panel</h1>
-	<!-- forms for user input go here -->
-	<form name="movement" onSubmit="game.move(); return false;">
-		<label>Distance:&nbsp;</label>
-		<input type="text" name="distance" id="distance"><br>
-		<label>Angle:&nbsp;</label>
-		<select name="angle">
-			<option> 0
-			<option> 30
-			<option> 60
-			<option> 90
-			<option> 120
-			<option> 150
-			<option> 180
-			<option> 210
-			<option> 240
-			<option> 270
-			<option> 300
-			<option> 330
-		</select>
-		<input type="submit" value="Move">
-	</form>
-	<!-- we want the return false, because otherwise the page gets refreshed
+	<header class="controlPanel">
+		<script> var game = new Game(); </script>
+		<h1>OldSpice Control Panel</h1>
+		<!-- forms for user input go here -->
+		<form name="movement" onSubmit="game.move(); return false;">
+			<label>Distance:&nbsp;</label>
+			<input type="text" name="distance" id="distance"><br>
+			<label>Angle:&nbsp;</label>
+			<select name="angle">
+				<option> 0
+				<option> 30
+				<option> 60
+				<option> 90
+				<option> 120
+				<option> 150
+				<option> 180
+				<option> 210
+				<option> 240
+				<option> 270
+				<option> 300
+				<option> 330
+			</select>
+			<input type="submit" value="Move">
+		</form>
+		<!-- we want the return false, because otherwise the page gets refreshed
 		  every time we call the function, which will make us rebuild every object in the
 		  game (inefficient), and makes the message display "Welcome to SpaceHunt"
 		  (kind of not what we want whenever we call sensor) -->
-	<form name="deploy_sensor" onSubmit="game.deploy_sensor(); return false;">
-		<input type="submit" value="Deploy Sensor">
-	</form>
-	<form name="save/load" onSubmit="return false;">
-		<input type="submit" value="save">
-		<input type="submit" value="load">
-	</form>
-	<form name="reset_game" onSubmit="game.reset_game(); return true;">
-		<input class="reset_game_button" type="submit" value="Reset Game">
-	</form>
-	<h1>Current Status</h1>
-	<!-- add forms to display ship status here -->
-	<form name="display">
-		<label>Location:&nbsp;</label><input type="text" id="location"><br>
-		<label>Supplies:&nbsp;</label><input type="text" id="supplies"><br>
-		<label>Energy:&nbsp;</label><input type="text" id="energy"><br>
-		<label>Message:&nbsp;</label>
-		<textarea rows="3" id="message"></textarea><br>
-	</form>
-	<script> game.initDisplay(); </script>
-	<!-- only call initDisplay() after forms have been loaded, otherwise
+		<form name="deploy_sensor" onSubmit="game.deploy_sensor(); return false;">
+			<input type="submit" value="Deploy Sensor">
+		</form>
+		<form name="save/load" onSubmit="return false;">
+			<input type="submit" value="save">
+			<input type="submit" value="load">
+		</form>
+		<form name="reset_game" onSubmit="game.reset_game(); return true;">
+			<input class="reset_game_button" type="submit" value="Reset Game">
+		</form>
+		<h1>Current Status</h1>
+		<!-- add forms to display ship status here -->
+		<form name="display">
+			<label>Location:&nbsp;</label><input type="text" id="location"><br>
+			<label>Supplies:&nbsp;</label><input type="text" id="supplies"><br>
+			<label>Energy:&nbsp;</label><input type="text" id="energy"><br>
+			<label>Message:&nbsp;</label>
+			<textarea rows="3" id="message"></textarea><br>
+		</form>
+		<script> game.initDisplay(); </script>
+		<!-- only call initDisplay() after forms have been loaded, otherwise
 				   it will try to write to null -->
-</header>
-
-<body onload="startGame()">
-
-
-	</body>
-
+	</header>
+		<body onload="startGame()"></body>
 </html>
