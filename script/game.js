@@ -37,25 +37,25 @@ function Game() {
 
 		over = false;
 
-	
 
 
 		startGame();
+		
 		update(); // update user display
 	}
 
 
 
 	function startGame() {
-		myGamePiece = new component(30, 30, "red", 14, 0);
+		myGamePiece = new component(25, 25, "blue", 0, 0);
 		myGameArea.start();
 	}
 	
 	var myGameArea = {
 		canvas : document.createElement("canvas"),
 		start : function() {
-			this.canvas.width = 500;
-			this.canvas.height = 500;
+			this.canvas.width = 640;
+			this.canvas.height = 640;
 			this.context = this.canvas.getContext("2d");
 			document.body.insertBefore(this.canvas, document.body.childNodes[0]);
 			this.interval = setInterval(updateGameArea, 20);
@@ -78,8 +78,8 @@ function Game() {
 			ctx.fillRect(this.x, this.y, this.width, this.height);
 		}
 		this.newPos = function() {
-			this.x = ship.x;
-			this.y = ship.y;        
+			this.x = ship.x*6;
+			this.y = ship.y*6;        
 		}    
 	}
 	
@@ -88,9 +88,6 @@ function Game() {
 		myGamePiece.newPos();    
 		myGamePiece.update();
 	}
-
-
-	
 
 	/* moves ship, use supplies, visits whichever cp it lands on */
 	this.move = function () {
