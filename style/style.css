@@ -64,11 +64,12 @@ canvas {
 
 .controlPanel {
 	width: 380px;
+	height: 604px;
 	float: left;
 	padding: 15px;
 	background-color: 708090;
 	border-style: solid;
-
+	border-color: black;
 }
 
 .inputButton{
