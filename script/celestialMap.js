@@ -5,7 +5,6 @@ class CelestialMap
 		if (json != null) {
 			for (var key in json) {
 				this[key] = json[key];
-				console.log(json[key]);
 			}
 			/**
 			 * set of objects will not load correctly:
@@ -125,7 +124,7 @@ class CelestialMap
           }
 
           this.visibleSet.add(this.celestialPoints[x][y]);
-          this.celestialPoints[x][y].Change_visible(true);
+          this.celestialPoints[x][y].isVisible = true;
      }
 
      /**

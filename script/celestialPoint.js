@@ -9,16 +9,7 @@ class CelestialPoint
 		//console.log(this.ToString());
 	}
 
-	Change_visible(new_visible) {
-		this.isVisible  = new_visible;
-	}
-
-	// process the event at this location
-	Run() {
-
-	}
-
-	ToString()
+		ToString()
 	{
 		return "Celestial Point: Type: " + TypeEnum.properties[this.type].name + 
 			 ", Visible: " + this.isVisible + ", Coordinate: " + this.coordinate.ToString();
