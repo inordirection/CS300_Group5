@@ -96,7 +96,7 @@ function Game() {
 
 		var m = document.forms['shitmap'];
 		m.innerText = "";
-		for (i = 0; i < size; i++) {
+		for (i = size-1; i >= 0; i--) {
 			m.innerText += this.textMap[i];
 			m.innerText += "\n";
 		}
