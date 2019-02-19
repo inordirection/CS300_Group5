@@ -65,11 +65,11 @@ function Game() {
 		update();
 	}
 
-	this.render_map = function(newMap = false) {
+	this.render_map = function() {
 		var size = cm.GetSize();
 
 		// if first call, init to undiscovered
-		if (this.textMap == undefined || newMap) {
+		if (this.textMap == undefined || this.textMap.size != size) {
 			this.textMap = new Array(size);
 			this.last = cm.GetPoint(0,0);
 			for (i = 0; i < size; i++) {
@@ -167,7 +167,6 @@ function Game() {
 		}
 		that.reset_game();
 		that.initDisplay(size);
-		that.render_map(true);
 	}
 
 	/**
