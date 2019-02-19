@@ -21,11 +21,11 @@ function Game() {
 	 *   */
 
 	/* build the initial display */
-	this.initDisplay = function () {
+	this.initDisplay = function (size = 16) {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
-		cm = new CelestialMap(load('cm'), 16);
+		cm = new CelestialMap(load('cm'), size);
 		ship = new Ship(load('ship'));
 		sensor = new Sensor();
 		sensor.Update_range(ship.range);
@@ -65,11 +65,11 @@ function Game() {
 		update();
 	}
 
-	this.render_map = function() {
+	this.render_map = function(newMap = false) {
 		var size = cm.GetSize();
 
 		// if first call, init to undiscovered
-		if (this.textMap == undefined) {
+		if (this.textMap == undefined || newMap) {
 			this.textMap = new Array(size);
 			this.last = cm.GetPoint(0,0);
 			for (i = 0; i < size; i++) {
@@ -122,12 +122,18 @@ function Game() {
 	/**
 	 * FOR DEV MODE
 	 * change the selected value
-	 * energy, credits, supplies, and location
+	 * energy, credits, supplies, location, sensor, and size
 	 */
 	this.DEV_ecsl = function() {
 		if (!isDEV) {
 			alert('the developer mode is not open');
 			return ;
+		}
+		if (document.getElementById('ecsl').size.checked) {
+			that.DEV_set_size(); 
+			/* moved to game- cannot change size of map without re-initializing,
+			 * or the gameplay will not be valid (you will hit array out of bounds if
+			 * increasing size, you will not have all planets in game if decreasing) */
 		}
 		if (document.getElementById('ecsl').e.checked){
 			ship.DEV_set_e();
@@ -141,11 +147,27 @@ function Game() {
 		if (document.getElementById('ecsl').l.checked) {
 			ship.DEV_set_location(cm);
 		}
-		if (document.getElementById('ecsl').size.checked) {
-			cm.DEV_set_size();
+		if (document.getElementById('ecsl').sensor.checked){
+			ship.DEV_set_range(sensor);
 		}
 		update();
 		// alert('after change those.');
+	}
+
+	/**
+	 * FOR DEV MODE
+	 * set new game size
+	 */
+	this.DEV_set_size = function() {
+		var size = parseInt(prompt('new game size = '));
+		// need at least 4, or else won't be able to load all planets
+		if (size < 4 || size > 128) {
+			alert('Minimum size 4, maximum 128');
+			return ;
+		}
+		that.reset_game();
+		that.initDisplay(size);
+		that.render_map(true);
 	}
 
 	/**
@@ -247,7 +269,7 @@ function Game() {
 
 		var cpType = cm.celestialPoints[ship.x][ship.y].type;
 
-		// if we didn't hit empty space, wormhole, or Eniac
+		// if we didn't hit empty space, wormhole, or Eniac, we lose
 		if (cpType!=TypeEnum['EMPTY'] && cpType!=TypeEnum['WORMHOLE']
 			&& cpType!=TypeEnum['ENIAC'] &&!over) 
 		{
@@ -255,11 +277,12 @@ function Game() {
 			message += "Oh no. We hit a " + name + "!\n";
 			gameOver();
 		}
-		// if we hit a wormhole, warp and update location
+		// if we hit a wormhole, warp, update location, check for new collision
 		if (cpType==TypeEnum['WORMHOLE']) {
 			ship.move(0, cm.GetSize(), cm);
 			ship.energy += cm.GetSize() * ship.engine;
 			write_location();
+			write_collisions();
 		}
 	}
 

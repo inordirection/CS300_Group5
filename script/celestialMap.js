@@ -143,20 +143,6 @@ class CelestialMap
           }
      }
 
-     /**
-	 * FOR DEV MODE
-	 * set new game size.
-	 */
-	DEV_set_size() {
-		var size = parseInt(prompt('new game size = '));
-		if (size < 1 || size > 128) {
-			alert('The new size is wrong.');
-			return ;
-		}
-		this.size = size;
-		//alert(this.size);
-     }
-
      GetSize() {
           return this.size;
      }

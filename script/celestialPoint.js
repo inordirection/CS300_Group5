@@ -9,7 +9,7 @@ class CelestialPoint
 		//console.log(this.ToString());
 	}
 
-		ToString()
+	ToString()
 	{
 		return "Celestial Point: Type: " + TypeEnum.properties[this.type].name + 
 			 ", Visible: " + this.isVisible + ", Coordinate: " + this.coordinate.ToString();

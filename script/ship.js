@@ -101,7 +101,7 @@ function Ship(json) {
 
 	/**
 	 * FOR DEV MODE
-	 * set supplies, energy, and credits
+	 * set supplies, energy, credits, sensor
 	 */
 	this.DEV_set_s = function() {
 		supplies = parseInt(prompt('supplies = '));
@@ -110,7 +110,6 @@ function Ship(json) {
 			return ;
 		}
 		this.supplies = supplies;
-		// alert('already set supplies')
 	}
 
 	this.DEV_set_e = function() {
@@ -120,7 +119,6 @@ function Ship(json) {
 			return ;
 		}
 		this.energy = energy;
-		// alert('already set energy.')
 	}
 
 	this.DEV_set_c = function() {
@@ -130,6 +128,14 @@ function Ship(json) {
 			return ;
 		}
 		this.credits = credits;
-		// alert('already set credits.')
+	}
+	this.DEV_set_range = function(sensor) {
+		var range = parseInt(prompt('range = '));
+		if (range == NaN || range < 0) {
+			alert('the range is wrong');
+			return ;
+		}
+		this.range = range;
+		sensor.Update_range(range);
 	}
 }
