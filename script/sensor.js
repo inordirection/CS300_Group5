@@ -35,40 +35,12 @@ function Sensor() {
 
 		for (var tx = x-visible; tx <= x+visible; tx++) {
 			for (var ty = y-visible; ty <= y+visible; ty++) {
-				if (cm.Check_size(tx, ty) && Math.sqrt(Math.abs((tx-x)**2) + Math.abs((ty-y)**2))<= visible) {
+				if (cm.Check_size(tx, ty) && Math.sqrt((tx-x)**2 + (ty-y)**2)<= visible) {
 					// alert([tx, ty]);
 					sur.add(new Coordinate(tx, ty));
 					cm.ChangeVisible(tx, ty);
 				}
 			}
 		}
-		alert(sur.size);
-
-		// console.log("sensor 1:");
-		// for (i = 0; i < sur.length; i++)
-			// console.log(sur[i]);
-
-		// sur = new Array();
-		// var r = visible;
-		// // grab all coords within a square around x and y
-		// for (scanX = x-r; scanX <= x+r; scanX++) {
-		// 	for (scanY = y+r; scanY >= y-r; scanY--) {
-		// 		if (cm.Check_size(scanX, scanY))
-		// 			sur.push(new Coordinate(scanX, scanY));
-		// 	}
-		// }
-		// // reduce set to just points within circle
-		// sur = sur.filter(coord => Math.pow(x-coord.x,2) + Math.pow(y-coord.y,2) <= r*r);
-		// console.log("sensor 2:");
-		// for (i = 0; i < sur.length; i++) {
-		// 	// add to visisble
-		// 	// console.log(sur[i]);
-		// 	cm.ChangeVisible(sur[i].x, sur[i].y);
-		// 	// alert([sur[i].x, sur[i].y]);
-		// }
-		// alert(sur.length);
-		// for (var j = 0; i < sur.length; j ++) {
-		// 	alert(sur[j]);
-		// }
 	}
 }
