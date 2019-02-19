@@ -12,13 +12,6 @@
 
 		<title>SpaceHunt Game</title>
 
-		<script> 
-			function toggleHidden(dev) {
-				var v = document.getElementById(dev);
-				v.style.display = (v.style.display == 'none') ? 'block' : 'none';
-				if (dev == 'dev1') game.DEV_open();
-			}
-		</script>
 	</head>
 	<body>
 		<script> var game = new Game(); </script>
@@ -32,13 +25,17 @@
 			<label>Angle:&nbsp;</label>
 			<select name="angle">
 				<option> 0
-				<option> 45
+				<option> 30
+				<option> 60
 				<option> 90
-				<option> 135
+				<option> 120
+				<option> 150
 				<option> 180
-				<option> 225
+				<option> 210
+				<option> 240
 				<option> 270
-				<option> 315
+				<option> 300
+				<option> 330
 			</select>
 			<input type="submit" value="Move">
 		</form>
@@ -103,5 +100,12 @@
 			</form>
 		</div>
 		<script> game.initDisplay(); </script>
+		<script> 
+				function toggleHidden(dev) {
+					var v = document.getElementById(dev);
+					v.style.display = (v.style.display == 'none') ? 'block' : 'none';
+					if (dev == 'dev1') game.DEV_open();
+				}
+		</script>
 	</body>
 </html>

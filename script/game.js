@@ -21,7 +21,7 @@ function Game() {
 	 *   */
 
 	/* build the initial display */
-	this.initDisplay = function (size = 16) {
+	this.initDisplay = function (size = 128) {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
