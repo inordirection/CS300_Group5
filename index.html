@@ -1,23 +1,24 @@
 <html>
-	<head>
-		<script src="script/game.js"></script>
-		<script src="script/ship.js"></script>
-		<script src="script/sensor.js"></script>
-		<script src="script/celestialMap.js"></script>
-		<script src="script/celestialPoint.js"></script>
-		<script src="script/coordinate.js"></script>
-		<link rel="stylesheet" href="style/style.css">
-		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-		<link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
 
-		<title>SpaceHunt Game</title>
+<head>
+	<script src="script/game.js"></script>
+	<script src="script/ship.js"></script>
+	<script src="script/sensor.js"></script>
+	<script src="script/celestialMap.js"></script>
+	<script src="script/celestialPoint.js"></script>
+	<script src="script/coordinate.js"></script>
+	<link rel="stylesheet" href="style/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
 
-	</head>
-	<body>
-		<script> var game = new Game(); </script>
+	<title>SpaceHunt Game</title>
+</head>
 
-		<!-- User Input/Control Panel -->
+<body>
+	<script> var game = new Game(); </script>
 
+
+	<div class="controlPanel">
 		<h1>OldSpice Control Panel</h1>
 		<form name="movement" onSubmit="game.move(); return false;">
 			<label>Distance:&nbsp;</label>
@@ -25,29 +26,22 @@
 			<label>Angle:&nbsp;</label>
 			<select name="angle">
 				<option> 0
-				<option> 30
-				<option> 60
 				<option> 90
-				<option> 120
-				<option> 150
 				<option> 180
-				<option> 210
-				<option> 240
 				<option> 270
-				<option> 300
-				<option> 330
 			</select>
 			<input type="submit" value="Move">
 		</form>
 		<form name="deploy_sensor" onsubmit="game.deploy_sensor(); return false;">
-			<input type="submit" value="Deploy Sensor">
+			<input type="submit" value="Deploy Sensor" class="formButton">
 		</form>
 		<form name="togglemap">
 			<input type="submit" value="Open/Close Map" onclick="toggleHidden('map'); 
-			game.render_map(); return false;">
+			game.render_map(); return false;"
+			 class="formButton">
 		</form>
-		<form name="reset_game" onSubmit="game.reset_game(); return true;">
-			<input class="reset_game_button" type="submit" value="Reset Game">
+		<form name="reset_game" onsubmit="game.reset_game(); return true;">
+			<input type="submit" value="Reset Game" class="formButton">
 		</form>
 
 		<!-- Status Display -->
@@ -55,12 +49,12 @@
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here -->
 		<form name="display">
-			<label>Location:&nbsp;</label><input type="text" id="location"><br>
-			<label>Supplies:&nbsp;</label><input type="text" id="supplies"><br>
-			<label>Energy:&nbsp;</label><input type="text" id="energy"><br>
-			<label>Credits:&nbsp;</label><input type="text" id="credits"><br>
+			<label>Location:&nbsp;</label><input type="text" id="location" class="label"><br>
+			<label>Supplies:&nbsp;</label><input type="text" id="supplies" class="label"><br>
+			<label>Energy:&nbsp;</label><input type="text" id="energy" class="label"><br>
+			<label>Credits:&nbsp;</label><input type="text" id="credits" class="label"><br>
 			<label>Message:&nbsp;</label>
-			<textarea rows="3" id="message"></textarea><br>
+			<textarea rows="3" id="message" class="label"></textarea><br>
 		</form>
 		<div id="map" style="display:none">
 			<form name="shitmap" id="shitmap">
@@ -70,7 +64,7 @@
 
 		<!-- Those are used by developer mode -->
 
-		<div style="cursor:hand" onclick="toggleHidden('dev1')"><b>Developer Mode Control</b></div>
+		<div style="cursor:hand" onclick="toggleHidden('dev1')" class="devMode"><b>Developer Mode Control</b></div>
 		<div id="dev1" style="display:none">
 			<!-- For open or close the mode -->
 			<form name="open_dev_mode">
@@ -82,30 +76,30 @@
 				<input type="checkbox" id="c" name="c" value="Change Credits">Change Credits<br>
 				<input type="checkbox" id="s" name="c" value="Change Supplies">Change Supplies<br>
 				<input type="checkbox" id="l" name="l" value="Change Location">Change Location<br>
-				<input type="checkbox" id="sensor" name="sensor" value="Change Sensor Range">
-				Change Sensor Range<br>
-				<input type="checkbox" id="size" name="size" value="Change game size">
-				Change Game Size<br>
-				<input type="submit" value="Change"> 
+				<input type="checkbox" id="sensor" name="sensor" value="Change Sensor Range">Change Sensor Range<br>
+				<input type="checkbox" id="size" name="size" value="Change game size">Change Game Size<br>
+				<input type="submit" value="Change" class="formButton">
 			</form>
 			<!-- For select normal mode or never dies -->
 			<form name="fixed_wh" onsubmit="game.DEV_fixed_wh(); return false;">
 				<p id="whether_fixed">Use the fixed wormhole mode is false</p>
-				<input type="submit" value="Change">
+				<input type="submit" value="Change" class="formButton">
 			</form>
 			<!-- For select fixed wormhole behavior -->
-			<form name="never" onsubmit="game.DEV_never(); return false;">
+			<form name="never" onsubmit="game.DEV_never(); return false;" >
 				<p id="whether_never">Use never dies mode is false.</p>
-				<input type="submit" value="Change">
+				<input type="submit" value="Change" class="formButton">
 			</form>
 		</div>
 		<script> game.initDisplay(); </script>
-		<script> 
-				function toggleHidden(dev) {
-					var v = document.getElementById(dev);
-					v.style.display = (v.style.display == 'none') ? 'block' : 'none';
-					if (dev == 'dev1') game.DEV_open();
-				}
+		<script>
+			function toggleHidden(dev) {
+				var v = document.getElementById(dev);
+				v.style.display = (v.style.display == 'none') ? 'block' : 'none';
+				if (dev == 'dev1') game.DEV_open();
+			}
 		</script>
-	</body>
+	</div>
+</body>
+
 </html>
