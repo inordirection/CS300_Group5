@@ -17,7 +17,7 @@ function Game() {
 	 * Public (priviliged) methods:
      *   methods declared with this.methodname = function(params...) {}
      *   are publically accessible, but may access private variables
-     *   their internals are also private 
+     *   their internals are also private
 	 *   */
 
 	/* build the initial display */
@@ -89,7 +89,7 @@ function Game() {
 
 		/* update 'S' to reflect ship's current position
 		 * and rewrite the prior 'S' to its proper tile */
-		this.textMap[this.last.coordinate.y][this.last.coordinate.x] 
+		this.textMap[this.last.coordinate.y][this.last.coordinate.x]
 			= TypeEnum.properties[this.last.type].ch;
 		this.textMap[ship.y][ship.x] = 'S';
 		this.last = cm.GetPoint(ship.x, ship.y);
@@ -130,7 +130,7 @@ function Game() {
 			return ;
 		}
 		if (document.getElementById('ecsl').size.checked) {
-			that.DEV_set_size(); 
+			that.DEV_set_size();
 			/* moved to game- cannot change size of map without re-initializing,
 			 * or the gameplay will not be valid (you will hit array out of bounds if
 			 * increasing size, you will not have all planets in game if decreasing) */
@@ -179,7 +179,7 @@ function Game() {
 			return ;
 		}
 		ship.isFIXW = (ship.isFIXW == true) ? false : true;
-		document.getElementById('whether_fixed').innerHTML = 
+		document.getElementById('whether_fixed').innerHTML =
 			"Use the fixed wormhole mode is " + ship.isFIXW;
 	}
 
@@ -207,6 +207,7 @@ function Game() {
 	function update() {
 		// If game over, don't allow user to keep playing
 		if (isOver()) {
+			alert("You just died");
 			alert("You lost the game. Click \'Play Again?\' to continue.");
 			return;
 		}
@@ -231,7 +232,7 @@ function Game() {
 	 * 	write to forms of index.html to reflect changes at end of turn
 	 * 	write to all forms with update() function
 	 * 	append to message variable if necessary
-	 * 	call gameOver() if game should end 
+	 * 	call gameOver() if game should end
 	 * 	*/
 	function write_location() {
 		coords = "(" + ship.x + ", " + ship.y + ")";
@@ -270,7 +271,7 @@ function Game() {
 
 		// if we didn't hit empty space, wormhole, or Eniac, we lose
 		if (cpType!=TypeEnum['EMPTY'] && cpType!=TypeEnum['WORMHOLE']
-			&& cpType!=TypeEnum['ENIAC'] &&!over) 
+			&& cpType!=TypeEnum['ENIAC'] &&!over)
 		{
 			var name = TypeEnum.properties[cpType].name;
 			message += "Oh no. We hit a " + name + "!\n";
@@ -287,7 +288,7 @@ function Game() {
 
 	function write_message() {
 		document.getElementById('message').value = message;
-		message = ""; 
+		message = "";
 	}
 
 	function write_map()
@@ -303,7 +304,7 @@ function Game() {
 
 		// write a label to align with display fields
 		var label = document.createElement("label");
-		label.innerHTML="&zwnj;"; 
+		label.innerHTML="&zwnj;";
 		display.appendChild(label);
 
 		// write input form to display
@@ -317,7 +318,7 @@ function Game() {
 	/**
 	 * State functions:
 	 ** /
-	 
+
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
 	function save_state() {
