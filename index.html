@@ -7,6 +7,7 @@
 	<script src="script/celestialMap.js"></script>
 	<script src="script/celestialPoint.js"></script>
 	<script src="script/coordinate.js"></script>
+	<script src="script/configuration.js"></script>
 	<link rel="stylesheet" href="style/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
@@ -65,38 +66,87 @@
 		<!-- Those are used by developer mode -->
 
 		<div style="cursor:hand" onclick="toggleHidden('dev1')" class="devMode"><b>Developer Mode Control</b></div>
+
 		<div id="dev1" style="display:none">
+
 			<!-- For open or close the mode -->
 			<form name="open_dev_mode">
 				<p id="whether_open">Using game configuration: false</p>
 			</form>
+
+			<!-- For the customize game -->
+			<div style="cursor:hand" onclick="toggleHidden('dev_cus')" class="devCObj"><b>Customize game Initialization</b></div>
+
+			<!-- How to customize the game initialization -->
+			<div id="dev_cus" style="display:none">
+
+				<form name="open_selected_ini">
+					<p id="whether_open_ini">Use selected values to initial games: false.</p>
+				</form>
+
+			<form id="customize_game">
+				<p><button id="add_celestial" type="button" name="add_celestial">Add Celestial</button></p>
+				<div id="celestial_Container">
+
+					<div id="celestial_1">
+						<select id="celestial_1_type" name="celestial_1_type">
+							<option value="1">Asteroids</option>
+							<option value="2">Metor Storm</option>
+							<option value="4">Wormhole</option>
+							<option value="5">Pentium 1</option>
+							<option value="6">Pentium 2</option>
+							<option value="7">Pentium 3</option>
+							<option value="8">Pentium 4</option>
+							<option value="9">Pentium 5</option>
+							<option value="10">Pentium 6</option>
+							<option value="11">Pentium 7</option>
+							<option value="12">Celeron</option>
+							<option value="13">Xeon</option>
+							<option value="14">Ryzen</option>
+							<option value="15">Eniac</option>
+						</select>
+						<input type="text" id="celestial_1_coor" name="celestial_1_coor" placeholder="x,y" />
+						<a class="delete_celestial" id="celestial_1_delete"></a>
+						<br />
+					</div>
+
+				</div>
+				<p><button id="add_celestial" type="button" name="add_celestial" onclick="game.DEV_customize()">Add Celestial</button></p>
+			</form>
+			</div>
+
 			<!-- For change energy, credits, supplies, and location -->
+			<br />
 			<form id="ecsl" name="ecsl" onsubmit="game.DEV_ecsl(); return false;">
 				<input type="checkbox" id="e" name="e" value="Change Energy">Change Energy<br>
 				<input type="checkbox" id="c" name="c" value="Change Credits">Change Credits<br>
-				<input type="checkbox" id="s" name="c" value="Change Supplies">Change Supplies<br>
+				<input type="checkbox" id="s" name="s" value="Change Supplies">Change Supplies<br>
 				<input type="checkbox" id="l" name="l" value="Change Location">Change Location<br>
 				<input type="checkbox" id="sensor" name="sensor" value="Change Sensor Range">Change Sensor Range<br>
 				<input type="checkbox" id="size" name="size" value="Change game size">Change Game Size<br>
 				<input type="submit" value="Change" class="formButton">
 			</form>
+
 			<!-- For select normal mode or never dies -->
 			<form name="fixed_wh" onsubmit="game.DEV_fixed_wh(); return false;">
 				<p id="whether_fixed">Use the fixed wormhole mode is false</p>
 				<input type="submit" value="Change" class="formButton">
 			</form>
+
 			<!-- For select fixed wormhole behavior -->
 			<form name="never" onsubmit="game.DEV_never(); return false;" >
 				<p id="whether_never">Use never dies mode is false.</p>
 				<input type="submit" value="Change" class="formButton">
 			</form>
 		</div>
+		
 		<script> game.initDisplay(); </script>
 		<script>
 			function toggleHidden(dev) {
 				var v = document.getElementById(dev);
 				v.style.display = (v.style.display == 'none') ? 'block' : 'none';
 				if (dev == 'dev1') game.DEV_open();
+				if (dev == 'dev_cus') game.DEV_selected_ini_open();
 			}
 		</script>
 	</div>

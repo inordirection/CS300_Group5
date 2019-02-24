@@ -125,7 +125,21 @@ class CelestialMap
 
           this.visibleSet.add(this.celestialPoints[x][y]);
           this.celestialPoints[x][y].isVisible = true;
-     }
+	}
+	
+	/**
+	 * set a list of celestial points to the map
+	 *
+	 * @param   {Array}  list  list of celestial points
+	 */
+	SetCelestialPoint(list) {
+		var current = undefined;
+		for (var i = 0; i < list.length; i++) {
+			current = list[i];
+			this.celestialPoints[current.coordinate.x][current.coordinate.y] = current;
+			alert('success one in point for');
+		}
+	}
 
      /**
       * return whether the coordinate in the map

@@ -10,6 +10,7 @@ function Game() {
 	var message; // message to be displayed at end of turn
 	var sensor; // deployed to reveal celestial points
 	var that = this; // for accessing parent scope in helper funcs
+	var configuration = new Configuration();
 	var isDEV = false; // FOR DEV MODE whether the dev mode is open
 	var isNEVERDIES = false; // FOR DEV MODE whether the player never dies
 
@@ -115,8 +116,12 @@ function Game() {
 	 * whether the dev mode is open
 	 */
 	this.DEV_open = function() {
-		isDEV = !isDEV;
-		document.getElementById('whether_open').innerHTML = "Using game configuration: " + isDEV;
+		configuration.DEV_open();
+	}
+
+	// open customize game initial
+	this.DEV_selected_ini_open = function() {
+		configuration.DEV_selected_ini_open();
 	}
 
 	/**
@@ -125,76 +130,35 @@ function Game() {
 	 * energy, credits, supplies, location, sensor, and size
 	 */
 	this.DEV_ecsl = function() {
-		if (!isDEV) {
-			alert('the developer mode is not open');
-			return ;
-		}
-		if (document.getElementById('ecsl').size.checked) {
-			that.DEV_set_size(); 
-			/* moved to game- cannot change size of map without re-initializing,
-			 * or the gameplay will not be valid (you will hit array out of bounds if
-			 * increasing size, you will not have all planets in game if decreasing) */
-		}
-		if (document.getElementById('ecsl').e.checked){
-			ship.DEV_set_e();
-		}
-		if (document.getElementById('ecsl').c.checked) {
-			ship.DEV_set_c();
-		}
-		if (document.getElementById('ecsl').s.checked) {
-			ship.DEV_set_s();
-		}
-		if (document.getElementById('ecsl').l.checked) {
-			ship.DEV_set_location(cm);
-		}
-		if (document.getElementById('ecsl').sensor.checked){
-			ship.DEV_set_range(sensor);
-		}
+		configuration.DEV_set_size(that, false);
+		// if (document.getElementById('ecsl').size.checked) {
+		// 	configuration.DEV_set_size(size); 
+		// 	document.getElementById('ecsl').size.checked = false;
+		// 	/* moved to game- cannot change size of map without re-initializing,
+		// 	 * or the gameplay will not be valid (you will hit array out of bounds if
+		// 	 * increasing size, you will not have all planets in game if decreasing) */
+		// }
+		configuration.DEV_set_cesl(ship, cm);
 		update();
-		// alert('after change those.');
 	}
 
-	/**
-	 * FOR DEV MODE
-	 * set new game size
-	 */
-	this.DEV_set_size = function() {
-		var size = parseInt(prompt('new game size = '));
-		// need at least 4, or else won't be able to load all planets
-		if (size < 4 || size > 128) {
-			alert('Minimum size 4, maximum 128');
-			return ;
-		}
-		that.reset_game();
-		that.initDisplay(size);
-	}
-
-	/**
-	 * FOR DEV MODE
-	 * select fixed wormhole or normal wormhole behavior
-	 */
+	// select fixed wormhole or normal wormhole behavior
 	this.DEV_fixed_wh = function() {
-		if (!isDEV) {
-			alert('developer mode is close');
-			return ;
-		}
-		ship.isFIXW = (ship.isFIXW == true) ? false : true;
-		document.getElementById('whether_fixed').innerHTML = 
-			"Use the fixed wormhole mode is " + ship.isFIXW;
+		configuration.DEV_fixed_wh(ship);
 	}
 
-	/**
-	 * FOR DEV MODE
-	 * never dies
-	 */
+	// never dies
 	this.DEV_never = function() {
-		if (!isDEV) {
-			alert('developer mode is close');
-			return ;
-		}
-		isNEVERDIES = (isNEVERDIES == true) ? false : true;
-		document.getElementById('whether_never').innerHTML = "Use never dies mode is " + isNEVERDIES;
-		update();
+		configuration.DEV_never();
+	}
+
+	// initial game use state values, celestial object,
+	// and game parameters.
+	this.DEV_customize = function () {
+		alert('For the game customize, you can select state values, parameters, and celestial objects.\nState Values: energy, credits, supplies, locations, and game size.\nParameters: never dies, fixed wormhole.\nCelestial objects: decided how many, what kinds of and its locations.');
+		// Initial state values: energy, credits, supplies, game size.
+		configuration.DEV_set_size(that, true);
+		configuration.DEV_selected_initial(ship, cm);
 	}
 
 	/* Private methods
@@ -347,7 +311,7 @@ function Game() {
 	// If the dev mode and never dies mode both are open
 	// always return set to false and return direactly.
 	function gameOver() {
-		if (isDEV && isNEVERDIES) {
+		if (configuration.DEV_whether('dev') && configuration.DEV_whether('dies')) {
 			over = false;
 			return ;
 		}

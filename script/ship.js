@@ -18,7 +18,7 @@ function Ship(json) {
 		this.range = 2; // sensor initially has range 2
 		this.engine = 10; // basic engine consumes 10 energy per unit traveled
 		this.wormed = false; // indicates whether ship just passed through a wormhole
-		this.isFIXW = false; // is 'fixed wormhole'
+		this.isFIXEDWH = false; // is 'fixed wormhole'
 	}
 
 	/* public methods */
@@ -30,10 +30,10 @@ function Ship(json) {
 
 		// if going out of bounds, pass through wormhole
 		if (!cm.Check_size(this.x, this.y)) {
-			if (!this.isFIXW) {
+			if (!this.isFIXEDWH) {
 				this.wormhole(cm);
 			} else {
-				this.DEV_fixed_wormhole(cm);
+				this.fixed_wormhole(cm);
 			}
 		} else this.wormed = false;
 
@@ -68,7 +68,7 @@ function Ship(json) {
 	 * FOR DEV MODE
 	 * fixed wormhole, set the ship to a special position.
 	 */
-	this.DEV_fixed_wormhole = function(cm) {
+	this.fixed_wormhole = function(cm) {
 		var x = parseInt(prompt('new x = '));
 		var y = parseInt(prompt('new y = '));
 		if (!cm.Check_size(x, y)) {
@@ -85,17 +85,19 @@ function Ship(json) {
 	 * FOR DEV MODE
 	 * set ship to a special location
 	 */
-	this.DEV_set_location = function(cm) {
-		var x = parseInt(prompt('x = '));
-		var y = parseInt(prompt('y = '));
+	this.set_location = function(cm) {
+		var t = prompt('The Coordinate: x,y:')
+		var xy = t.match(/(\d+)/g);
 
-		if (!cm.Check_size(x, y)) {
+		if (xy.length != 2 ||!cm.Check_size(parseInt(xy[0]), parseInt(xy[1]))) {
 			alert('the location is wrong');
 			return ;
 		}
 
-		this.x = x;
-		this.y = y;
+		this.x = parseInt(xy[0]);
+		this.y = parseInt(xy[1]);
+		alert(xy[0] + ', ' + xy[1]);
+		cm.ChangeVisible(this.x, this.y);
 		// alert('already set location.')
 	}
 
@@ -103,7 +105,7 @@ function Ship(json) {
 	 * FOR DEV MODE
 	 * set supplies, energy, credits, sensor
 	 */
-	this.DEV_set_s = function() {
+	this.set_supplies = function() {
 		supplies = parseInt(prompt('supplies = '));
 		if (supplies == NaN || supplies < 0) {
 			alert('the supplies is wrong');
@@ -112,7 +114,7 @@ function Ship(json) {
 		this.supplies = supplies;
 	}
 
-	this.DEV_set_e = function() {
+	this.set_energy = function() {
 		var energy = parseInt(prompt('energy = '));
 		if (energy == NaN || energy < 0) {
 			alert('the energy is wrong');
@@ -121,7 +123,7 @@ function Ship(json) {
 		this.energy = energy;
 	}
 
-	this.DEV_set_c = function() {
+	this.set_credits = function() {
 		var credits = parseInt(prompt('credits = '));
 		if (credits == NaN || credits < 0) {
 			alert('the credit is wrong');
@@ -129,7 +131,7 @@ function Ship(json) {
 		}
 		this.credits = credits;
 	}
-	this.DEV_set_range = function(sensor) {
+	this.set_range = function(sensor) {
 		var range = parseInt(prompt('range = '));
 		if (range == NaN || range < 0) {
 			alert('the range is wrong');
