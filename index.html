@@ -17,7 +17,6 @@
 <body>
 	<script> var game = new Game(); </script>
 
-
 	<div class="controlPanel">
 		<h1>OldSpice Control Panel</h1>
 		<form name="movement" onSubmit="game.move(); return false;">
@@ -32,6 +31,19 @@
 			</select>
 			<input type="submit" value="Move">
 		</form>
+
+		<button class="button">Up</button>
+		<br>
+		<button class="button">Left</button>
+		<button class="button">Right</button>
+		<br>
+		<button class="button">Down</button>
+
+		<br>
+		<br>
+		<br>
+		
+		
 		<form name="deploy_sensor" onsubmit="game.deploy_sensor(); return false;">
 			<input type="submit" value="Deploy Sensor" class="formButton">
 		</form>

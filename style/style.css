@@ -67,3 +67,32 @@ input[type=text], #message {
     border: 10px;
     border-color: white;
 }
+
+
+
+.button {
+    background-image:url('arrow.png');
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: rgb(100, 100, 100);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px grey;
+  }
+  
+  .button:hover {
+      background-color: rgb(100, 100, 100);
+    }
+
+  .button:active {
+    background-color: rgb(100, 100, 100);
+    box-shadow: 0 5px grey;
+    transform: translateY(4px);
+  }
