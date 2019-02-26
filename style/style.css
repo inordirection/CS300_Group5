@@ -71,28 +71,59 @@ input[type=text], #message {
 
 
 .button {
-    background-image:url('arrow.png');
-    display: inline-block;
-    font-family: 'Roboto', sans-serif;
-    padding: 10px;
-    font-size: 13px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: rgb(100, 100, 100);
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px grey;
+
+
+  /*
+  background: #f0f0f0 url("arrow2.png");
+  background-position: 20px 15px;
+  background-repeat: no-repeat;
+  */
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+  padding: 30px;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: white;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 9px grey;
+
   }
   
   .button:hover {
-      background-color: rgb(100, 100, 100);
+      /*background-color: rgb(100, 100, 100); */
     }
 
   .button:active {
     background-color: rgb(100, 100, 100);
     box-shadow: 0 5px grey;
     transform: translateY(4px);
+  }
+
+  .buttonUp{
+    background: #f0f0f0 url("arrowUp.png");
+    background-position: 18px 15px;
+    background-repeat: no-repeat;
+  }
+
+  .buttonLeft{
+    background: #f0f0f0 url("arrowLeft.png");
+    background-position: 18px 15px;
+    background-repeat: no-repeat;
+  }
+
+  .buttonRight{
+    background: #f0f0f0 url("arrowRight.png");
+    background-position: 18px 15px;
+    background-repeat: no-repeat;
+  }
+
+  .buttonDown{
+    background: #f0f0f0 url("arrowDown.png");
+    background-position: 18px 15px;
+    background-repeat: no-repeat;
   }
