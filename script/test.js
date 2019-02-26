@@ -1,0 +1,1 @@
+var e = document.querySelectorAll('a.delete_celestial');

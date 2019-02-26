@@ -8,6 +8,7 @@
 	<script src="script/celestialPoint.js"></script>
 	<script src="script/coordinate.js"></script>
 	<script src="script/configuration.js"></script>
+	<script src="script/test.js"></script>
 	<link rel="stylesheet" href="style/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
@@ -106,12 +107,12 @@
 							<option value="15">Eniac</option>
 						</select>
 						<input type="text" id="celestial_1_coor" name="celestial_1_coor" placeholder="x,y" />
-						<a class="delete_celestial" id="celestial_1_delete"></a>
+						<button id="delete_1_celestial" type="button" name="delete_1_celestial" class="delete_celestial" onclick="delete_celetial()">Delete Celestial</button>
 						<br />
 					</div>
 
 				</div>
-				<p><button id="add_celestial" type="button" name="add_celestial" onclick="game.DEV_customize()">Add Celestial</button></p>
+				<p><button id="add_celestials" type="button" name="add_celestials" onclick="game.DEV_customize()">Initial Game</button></p>
 			</form>
 			</div>
 

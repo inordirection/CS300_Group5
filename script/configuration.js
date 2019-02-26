@@ -30,6 +30,7 @@ function Configuration () {
 	'</select>' + 
 	'<input type="text" id="celestial_CELENUMBER_coor" name="celestial_CELENUMBER_coor" placeholder="x,y" />' + 
 	'<a class="delete_celestial" id="celestial_CELENUMBER_delete"></a>' + 
+	'<button id="delete_CELENUMBER_celestial" type="button" name="delete_CELENUMBER_celestial" class="delete_celestial">Delete Celestial</button>' + 
 	'<br />' + 
 	'</div>';
 	
@@ -121,8 +122,13 @@ function Configuration () {
 	document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById("add_celestial").addEventListener('click',function ()
 		{
-		 var text = create_new_celestial_html();
+			var text = create_new_celestial_html();
 		document.getElementById('celestial_Container').innerHTML += text;
+		});
+
+		document.getElementById('customize_game').addEventListener('click', function (e) {
+			var n = e.target.id.split('_');
+			document.getElementById('celestial_' + n[1]).remove();
 		});
 	});
 
