@@ -32,23 +32,46 @@
 			<input type="submit" value="Move">
 		</form>
 
-		<button class="button">Up</button>
+		<table>
+			<tr>
+				<td>
+				</td>
+				<td>
+					<button class="button">Up</button>
+				</td>
+				<td>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button class="button">Left</button>
+				</td>
+				<td>
+				</td>
+				<td>
+					<button class="button">Right</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+					<button class="button">Down</button>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</table>
 		<br>
-		<button class="button">Left</button>
-		<button class="button">Right</button>
 		<br>
-		<button class="button">Down</button>
+		<br>
 
-		<br>
-		<br>
-		<br>
-		
-		
+
 		<form name="deploy_sensor" onsubmit="game.deploy_sensor(); return false;">
 			<input type="submit" value="Deploy Sensor" class="formButton">
 		</form>
 		<form name="togglemap">
-			<input type="submit" value="Open/Close Map" onclick="toggleHidden('map'); 
+			<input type="submit" value="Open/Close Map" onclick="toggleHidden('map');
 			game.render_map(); return false;"
 			 class="formButton">
 		</form>
