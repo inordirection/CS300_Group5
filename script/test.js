@@ -1,1 +1,2 @@
-var e = document.querySelectorAll('a.delete_celestial');
+var a = '1, 2; 3, 4; 5, a; 7, 8';
+

@@ -19,7 +19,15 @@ function Sensor() {
 	/**
 	 * update the range.
 	 */
-	this.Update_range = function(new_range) {
+	this.updateRange = function(new_range) {
+		console.log(new_range);
+		if (isNaN(new_range)) {
+			return;
+		}
+		if (new_range < 0) {
+			alert('The range is wrong');
+			return ;
+		}
 		visible = new_range;
 	}
 
@@ -33,9 +41,9 @@ function Sensor() {
 	function deploy(x, y, cm) {
 		sur = new Set();
 
-		for (var tx = x-visible; tx <= x+visible; tx++) {
-			for (var ty = y-visible; ty <= y+visible; ty++) {
-				if (cm.Check_size(tx, ty) && Math.sqrt((tx-x)**2 + (ty-y)**2)<= visible) {
+		for (let tx = x-visible; tx <= x+visible; tx++) {
+			for (let ty = y-visible; ty <= y+visible; ty++) {
+				if (cm.checkSize([tx, ty]) && Math.sqrt((tx-x)**2 + (ty-y)**2)<= visible) {
 					// alert([tx, ty]);
 					sur.add(new Coordinate(tx, ty));
 					cm.ChangeVisible(tx, ty);

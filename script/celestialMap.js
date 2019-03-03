@@ -27,7 +27,10 @@ class CelestialMap
 			this.size = size;
 			this.celestialPoints = this.InstantiateMap();
 
+			// set of visible space
 			this.visibleSet = new Set(); 
+			// set of planets
+			this.planetsSet = new Set();
 
 			//Needs to randomly set Artifacts and such.
 			this.FillMapWithEncounters();
@@ -91,6 +94,7 @@ class CelestialMap
 
 			var cPoint = new CelestialPoint(i, visible, c.x, c.y);
 			this.celestialPoints[c.x][c.y] = cPoint;
+			this.planetsSet.add(cPoint);
 			if (visible) this.visibleSet.add(cPoint);
 		}
 		 // set 0,0 to contain Eniac
@@ -119,42 +123,76 @@ class CelestialMap
       * @param   {int}  y  coord
       */
      ChangeVisible(x, y) {
-          if (!this.Check_size(x, y)) {
+          if (!this.checkSize([x,y])) {
                return ;
           }
 
           this.visibleSet.add(this.celestialPoints[x][y]);
           this.celestialPoints[x][y].isVisible = true;
 	}
+
+	/**
+	 * Just for test, change all of the points to visible mode.
+	 */
+	visibleAll() {
+     	for (let i = 0; i < this.size; i++) {
+     		for (let j = 0; j < this.size; j++) {
+				this.visibleSet.add(this.celestialPoints[i][j]);
+			}
+		}
+	}
 	
 	/**
 	 * set a list of celestial points to the map
+	 * if the point only can occur one time, just replace the old one.
+	 * if the new one is 12, 13, 14, change the visible setting.
 	 *
 	 * @param   {Array}  list  list of celestial points
 	 */
-	SetCelestialPoint(list) {
-		var current = undefined;
-		for (var i = 0; i < list.length; i++) {
+	setCelestialPoint(list) {
+		let current = undefined;
+		for (let i = 0; i < list.length; i++) {
 			current = list[i];
+
+			// if the current is a planet, 5 - 14, what is 15???
+			if (current.type <= 15 && current.type >= 5) {
+				// find the same current point in the map and store in original
+				let original = undefined;
+				for (let e of this.planetsSet) {
+					if (current.type === e.type) {
+						original = e;
+						break;
+					}
+				}
+
+				// create a new point obj and its type is empty. and replace the original one.
+				this.celestialPoints[original.coordinate.x][original.coordinate.y] = new CelestialPoint(0, false, original.coordinate.x, original.coordinate.y);
+				// add this planet
+				this.planetsSet.add(current);
+				this.planetsSet.delete(original);
+
+				// if is 12, 13, 14, 15 change visible.
+            if (current.type >= 12 && current.type <= 15) {
+					this.visibleSet.delete(original);
+					this.visibleSet.add(current);
+				}
+				// console.log('finish pre-treatment for planet');
+			}
+			// directly add if the new point not planet.
 			this.celestialPoints[current.coordinate.x][current.coordinate.y] = current;
-			alert('success one in point for');
+			// console.log('add one is not planet.');
 		}
 	}
 
      /**
       * return whether the coordinate in the map
       *
-      * @param   {int}  x  coord
-      * @param   {int}  y  coord
+      * @param   {Array}  xy  coord
       *
-      * @return  {bool}     whether the point in the map
+      * @return  {boolean}     whether the point in the map
       */
-     Check_size(x, y) {
-          if (x < 0 || y < 0 || x > this.size-1 || y > this.size-1 || x == NaN || y == NaN) {
-               return false;
-          } else {
-               return true;
-          }
+	 checkSize(xy) {
+          return !(xy[0] < 0 || xy[1] < 0 || xy[0] > this.size - 1 || xy[1] > this.size - 1 || isNaN(xy[0]) || isNaN(xy[1]));
      }
 
      GetSize() {
