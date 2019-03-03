@@ -10,8 +10,8 @@ function Game() {
 	var message; // message to be displayed at end of turn
 	var sensor; // deployed to reveal celestial points
 	var that = this; // for accessing parent scope in helper funcs
-	var isDEV = false; // FOR DEV MODE whether the dev mode is open
-	var isNEVERDIES = false; // FOR DEV MODE whether the player never dies
+	// var isDEV = false; // FOR DEV MODE whether the dev mode is open
+	// var isNEVERDIES = false; // FOR DEV MODE whether the player never dies
 
 	/*****************
 	 * Public (priviliged) methods:
@@ -28,7 +28,6 @@ function Game() {
 		cm = new CelestialMap(load('cm'), size);
 		ship = new Ship(load('ship'));
 		sensor = new Sensor();
-		sensor.Update_range(ship.range);
 
 		message = load('message');
 		if (message == null || message == "")
@@ -110,93 +109,6 @@ function Game() {
 		cm.ToString();
 	}
 
-	/**
-	 * FOR DEV MODE
-	 * whether the dev mode is open
-	 */
-	this.DEV_open = function() {
-		isDEV = !isDEV;
-		document.getElementById('whether_open').innerHTML = "Using game configuration: " + isDEV;
-	}
-
-	/**
-	 * FOR DEV MODE
-	 * change the selected value
-	 * energy, credits, supplies, location, sensor, and size
-	 */
-	this.DEV_ecsl = function() {
-		if (!isDEV) {
-			alert('the developer mode is not open');
-			return ;
-		}
-		if (document.getElementById('ecsl').size.checked) {
-			that.DEV_set_size();
-			/* moved to game- cannot change size of map without re-initializing,
-			 * or the gameplay will not be valid (you will hit array out of bounds if
-			 * increasing size, you will not have all planets in game if decreasing) */
-		}
-		if (document.getElementById('ecsl').e.checked){
-			ship.DEV_set_e();
-		}
-		if (document.getElementById('ecsl').c.checked) {
-			ship.DEV_set_c();
-		}
-		if (document.getElementById('ecsl').s.checked) {
-			ship.DEV_set_s();
-		}
-		if (document.getElementById('ecsl').l.checked) {
-			ship.DEV_set_location(cm);
-		}
-		if (document.getElementById('ecsl').sensor.checked){
-			ship.DEV_set_range(sensor);
-		}
-		update();
-		// alert('after change those.');
-	}
-
-	/**
-	 * FOR DEV MODE
-	 * set new game size
-	 */
-	this.DEV_set_size = function() {
-		var size = parseInt(prompt('new game size = '));
-		// need at least 4, or else won't be able to load all planets
-		if (size < 4 || size > 128) {
-			alert('Minimum size 4, maximum 128');
-			return ;
-		}
-		that.reset_game();
-		that.initDisplay(size);
-	}
-
-	/**
-	 * FOR DEV MODE
-	 * select fixed wormhole or normal wormhole behavior
-	 */
-	this.DEV_fixed_wh = function() {
-		if (!isDEV) {
-			alert('developer mode is close');
-			return ;
-		}
-		ship.isFIXW = (ship.isFIXW == true) ? false : true;
-		document.getElementById('whether_fixed').innerHTML =
-			"Use the fixed wormhole mode is " + ship.isFIXW;
-	}
-
-	/**
-	 * FOR DEV MODE
-	 * never dies
-	 */
-	this.DEV_never = function() {
-		if (!isDEV) {
-			alert('developer mode is close');
-			return ;
-		}
-		isNEVERDIES = (isNEVERDIES == true) ? false : true;
-		document.getElementById('whether_never').innerHTML = "Use never dies mode is " + isNEVERDIES;
-		update();
-	}
-
 	/* Private methods
 	 *   declaring method with 'function name(params) {}' makes that method private
 	 *   (it is equivalent to var name = function(params) {}) */
@@ -235,7 +147,7 @@ function Game() {
 	 * 	call gameOver() if game should end
 	 * 	*/
 	function write_location() {
-		coords = "(" + ship.x + ", " + ship.y + ")";
+		let coords = "(" + ship.x + ", " + ship.y + ")";
 		document.getElementById('location').value = coords;
 
 		if (ship.wormed) {
@@ -358,5 +270,293 @@ function Game() {
 
 		// write 'Play Again?' button to display
 		write_prompt("Play Again?", "game.initDisplay()");
+	}
+
+	// whether the dev mode open
+	var isDEV = false;
+
+	// whether the player never dies
+	var isNEVERDIES = false;
+
+	// whether use fixed wormhole
+	var isFIXEDWH = false;
+
+	// whether use selecting initial values
+	var isINI = false;
+
+	// This is the form of celestial object in html
+	const celestial_obj_form = '<div id="celestial_CELENUMBER">\n' +
+		'\t\t\t\t\t\t<select id="celestial_CELENUMBER_type" name="celestial_CELENUMBER_type">\n' +
+		'\t\t\t\t\t\t\t<option value="0">Empty Sapce</option>\n' +
+		'\t\t\t\t\t\t\t<option value="1">Asteroids</option>\n' +
+		'\t\t\t\t\t\t\t<option value="2">Metor Storm</option>\n' +
+		'\t\t\t\t\t\t\t<option value="4">Wormhole</option>\n' +
+		'\t\t\t\t\t\t\t<option value="5">Pentium 1</option>\n' +
+		'\t\t\t\t\t\t\t<option value="6">Pentium 2</option>\n' +
+		'\t\t\t\t\t\t\t<option value="7">Pentium 3</option>\n' +
+		'\t\t\t\t\t\t\t<option value="8">Pentium 4</option>\n' +
+		'\t\t\t\t\t\t\t<option value="9">Pentium 5</option>\n' +
+		'\t\t\t\t\t\t\t<option value="10">Pentium 6</option>\n' +
+		'\t\t\t\t\t\t\t<option value="11">Pentium 7</option>\n' +
+		'\t\t\t\t\t\t\t<option value="12">Celeron</option>\n' +
+		'\t\t\t\t\t\t\t<option value="13">Xeon</option>\n' +
+		'\t\t\t\t\t\t\t<option value="14">Ryzen</option>\n' +
+		'\t\t\t\t\t\t\t<option value="15">Eniac</option>\n' +
+		'\t\t\t\t\t\t</select>\n' +
+		'\t\t\t\t\t\t<input type="text" id="celestial_CELENUMBER_coor" name="celestial_CELENUMBER_coor" placeholder="x,y" />\n' +
+		'\t\t\t\t\t\t<button id="delete_CELENUMBER_celestial" type="button" name="delete_CELENUMBER_celestial" class="delete_celestial">Delete Celestial</button>\n' +
+		'\t\t\t\t\t\t<br />\n' +
+		'\t\t\t\t\t</div>'
+
+	// The number of celestial
+	var num_celestial = 1;
+
+	this.openGameConfiguration = function () {
+		isDEV = !isDEV;
+		document.getElementById('whether_open').innerHTML = "Using game configuration: " + isDEV;
+	}
+
+	// open the control of initial game
+	this.openSelectedInitial = function() {
+		if (!isDEV) {
+			alert('The game configuration is not open.');
+			return ;
+		}
+		isINI = !isINI;
+		document.getElementById('whether_open_ini').innerHTML = "Use selected values to initial games: " + isINI + '.';
+		// for the normal part
+		const ecsl = document.getElementById('ecsl');
+		ecsl.style.display = (ecsl.style.display === 'none') ? 'block' : 'none';
+		const fix = document.getElementById('fixed_wh');
+		fix.style.display = (fix.style.display === 'none') ? 'block' : 'none';
+		const never = document.getElementById('never');
+		never.style.display = (never.style.display === 'none') ? 'block' : 'none';
+	}
+
+	// change to never dies or not
+	function openNeverDies() {
+		if (!isDEV) {
+			alert('developer mode is close');
+			return ;
+		}
+
+		isNEVERDIES = !isNEVERDIES;
+		document.getElementById('whether_never').innerHTML = "Use never dies mode is " + isNEVERDIES;
+	}
+
+	// select fixed wormhole or normal wormhole behavior
+	function openFixedWormhole () {
+		if (!isDEV) {
+			alert('developer mode is close');
+			return ;
+		}
+
+		isFIXEDWH = !isFIXEDWH;
+		ship.isFIXEDWH = !ship.isFIXEDWH;
+		document.getElementById('whether_fixed').innerHTML =
+			"Use the fixed wormhole mode is " + isFIXEDWH;
+	}
+
+	/**
+	 * create a list of celestial objects that should be added to the new game.
+	 * helper function for selected initial.
+	 * @returns Array list of celestialPoint objects
+	 */
+	function getCelestialPointList() {
+		let celestial_point_list = new Array();
+		let t, xy, new_cp;
+		for (let i = 1; i <= num_celestial; i++) {
+			t = getCelestialType(i);
+			xy = getCoordinate(document.getElementById('celestial_' + i + '_coor').value);
+			if (xy === null) {
+				continue;
+			}
+			if (t >= 12 && t <= 15 && xy.length > 1) {
+				alert('This Planet is unique in the map. The last coordinate will be the final one.')
+			}
+			for (let j = 0; j < xy.length; j++) {
+				new_cp = new CelestialPoint(t, false, xy[j][0], xy[j][1]);
+				celestial_point_list.push(new_cp);
+			}
+		}
+		return celestial_point_list;
+	}
+
+	/**
+	 * find the coordinate of each location, use regular expression
+	 * used for set location.
+	 * @param str_location the string of location coordinate
+	 * @returns {Array} [[x, y], [x1, y1], ....] if the str_location is empty, return [[]]
+	 */
+	function getCoordinate(str_location) {
+		if (str_location === '') {
+			return null;
+		}
+		let xy = str_location.match(/(\d+)/g);
+		if (xy.length < 2) {
+			throw new Error('The location coordinates are wrong.');
+		}
+
+		let final_coordinates = [];
+		for (let i = 0; i <= xy.length/2; i += 2) {
+			final_coordinates.push([parseInt(xy[i]), parseInt(xy[i+1])]);
+		}
+
+		return final_coordinates;
+	}
+
+	/**
+	 * receive the index and get the value of text area
+	 * helper function for getCelestialPointList()
+	 * @param index
+	 * @returns {number}
+	 */
+	function getCelestialType(index) {
+		let e = document.getElementById('celestial_' + index + '_type');
+		let x = e.value;
+		return parseInt(x);
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+		/**
+		 * Dynamic add html when check customize.
+		 * When the add celestial button click, this function should be called. This will add a new celestial object area.
+		 */
+		document.getElementById("add_celestial").addEventListener('click',function ()
+		{
+			let text = createNewCelestialHtml();
+			document.getElementById('celestial_Container').innerHTML += text;
+		});
+
+		// delete a text area of adding celestial point.
+		document.getElementById('customizeGame').addEventListener('click', function (e) {
+			let n = e.target.id.split('_');
+			if (n[0] === 'delete') {
+				document.getElementById('celestial_' + n[1]).remove();
+				num_celestial--;
+			}
+		});
+
+		// when initial the game
+		document.getElementById('submit_ini').addEventListener('click', function (e) {
+			// first, change the game size and reset the game.
+			setGameSize();
+			// set the celestial point.
+			let newPointList = getCelestialPointList();
+			cm.setCelestialPoint(newPointList);
+			// set the values of credits, energy, supplies, sensor range, and location
+			initialECSL();
+			// set two behavior
+			if (document.getElementById('dev_ini_never_dies').checked === true) {
+				openNeverDies();
+			}
+			if (document.getElementById('dev_ini_fixed_wh').checked === true) {
+				openFixedWormhole();
+			}
+			update();
+		})
+
+		document.getElementById('change_fixed').addEventListener('click', function () {
+			openFixedWormhole();
+		})
+
+		document.getElementById('change_never').addEventListener('click', function () {
+			openNeverDies();
+		})
+
+		document.getElementById('change_ecsl').addEventListener('click', function () {
+			setGameSize();
+			changeEcsl();
+			document.getElementById('all').checked = false;
+			update();
+		})
+	});
+
+	// create new celestial text area in html file.
+	// helper function for addEventListener.
+	function createNewCelestialHtml() {
+		num_celestial++;
+		return celestial_obj_form.replace(/CELENUMBER/g, num_celestial);
+	}
+
+	// change the game size and initial the game
+	function setGameSize () {
+		let size;
+		if (!isDEV) {
+			alert('The game configuration is not open.');
+			return ;
+		}
+		let s = document.getElementById('size');
+		// check whether it is initial game.
+		if (s.checked) {
+			size = parseInt(prompt('new game size = '));
+			s.checked = false;
+		} else if (isINI) {
+			size = parseInt(document.getElementById('dev_ini_size').value);
+		} else {
+			return;
+		}
+
+		// if the size is NaN, that is default mode and the size is 128.
+		if (isNaN(size)) {
+			size = 128;
+		} else if (size < 9 || size > 255) {
+			alert('Wrong Game Size');
+			return ;
+		}
+
+		that.reset_game();
+		that.initDisplay(size);
+	}
+
+	function changeEcsl() {
+		if (!isDEV) {
+			alert('The game configuration mode not open.');
+			return ;
+		}
+		if (document.getElementById('e').checked){
+			ship.setEnergy(parseInt(prompt('The new Energy is: ')));
+			document.getElementById('e').checked = false;
+		}
+		if (document.getElementById('c').checked) {
+			ship.setCredits(parseInt(prompt('The new Credits is: ')));
+			document.getElementById('c').checked = false;
+		}
+		if (document.getElementById('s').checked) {
+			ship.setSupplies(parseInt(prompt('The new supplies is: ')));
+			document.getElementById('s').checked = false;
+		}
+		if (document.getElementById('l').checked) {
+			let coords = getCoordinate(prompt('The new location is: \n Ex. 1, 2'));
+			if (coords !== null) {
+				ship.setLocation(cm, coords[0]);
+			}
+			document.getElementById('l').checked = false;
+		}
+		if (document.getElementById('sensor').checked){
+			sensor.updateRange(parseInt(prompt('The new Range is: ')));
+			document.getElementById('sensor').checked = false;
+		}
+	}
+
+	function initialECSL() {
+		if (!isDEV && !isINI) {
+			alert('The game configuration mode for initial game is not open.');
+			return;
+		}
+
+		ship.setEnergy(getIntValue('dev_energy'));
+		ship.setCredits(getIntValue('dev_credits'));
+		ship.setSupplies(getIntValue('dev_supplies'));
+		let coords = getCoordinate(document.getElementById('dev_location').value);
+		if (coords !== null) {
+			ship.setLocation(cm, coords[0]);
+		}
+		sensor.updateRange(getIntValue('dev_sensor'));
+	}
+
+	// helper function for get the int value in a text area.
+	function getIntValue(id) {
+		return parseInt(document.getElementById(id).value);
 	}
 }

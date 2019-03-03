@@ -37,8 +37,9 @@ h1{
 label {
     display: inline-block;
     float: left;
-    width: 65px;
+    width: 161px;
     text-align: right;
+    vertical-align: middle;
 }
 
 input[type=text], #message {
