@@ -14,13 +14,12 @@ function Sensor() {
 	this.deploy_sensor = function(x, y, cm) {
 		sur = undefined;
 		deploy(x, y, cm);
-	}
+	};
 
 	/**
 	 * update the range.
 	 */
 	this.updateRange = function(new_range) {
-		console.log(new_range);
 		if (isNaN(new_range)) {
 			return;
 		}
@@ -29,7 +28,7 @@ function Sensor() {
 			return ;
 		}
 		visible = new_range;
-	}
+	};
 
 	/**
 	 * main function for deploy the sensor, should be called by wrapper function

@@ -29,16 +29,16 @@ function Game() {
 		 * json = [ship, cm, message]
 		 * ship = json[0]; cm = json[1]; message = json[2]
 		 */
-		let json = load();
-		cm = new CelestialMap(json[1], size);
-		ship = new Ship(json[0]);
-		sensor = new Sensor();
+		if (!load()) {
+			cm = new CelestialMap(null, size);
+			ship = new Ship(null);
+			message = null;
+			sensor = new Sensor();
+			over = false;
+		}
 
-		message = json[2];
 		if (message == null || message === "")
 			message = "Welcome to SpaceHunt!\n";
-
-		over = false;
 
 		update(); // update user display
 	}
@@ -106,8 +106,14 @@ function Game() {
 		}
 	}
 
+	/**
+	 * This behavior will remain all of the nameable archive.
+	 * if reset game or initial game, the game value will not as same as the last time.
+	 * the data of last game is stored by '__last__'.
+	 */
 	this.reset_game = function () {
-		localStorage.clear();
+		// localStorage.clear();
+		localStorage.setItem('__last__', null);
 	}
 
 	this.ToString = function () {
@@ -236,14 +242,19 @@ function Game() {
 	 * State functions:
 	 ** /
 
-	/* save_state: write the game state to localStorage
-	 *   called at end of any turn */
+	/**
+	 * write the current data to the localstorage.
+	 * [ship, cm, message, over, sensor] total five variables.
+	 * @param name the name of data, default is __last__ used to store the last game data.
+	 * this will be reset use function reset_game
+	 */
 	function save_state(name='__last__') {
 		// if user hit game over, clear localStorage for the next game
 		if (isOver())
 			localStorage.clear();
 		else {
-			save(name, [ship, cm, message]);
+			save(name, [ship, cm, message, over, sensor]);
+			save('__choose__', document.getElementById('choose_storage').innerHTML);
 		}
 	}
 	function save(key, value) {
@@ -252,7 +263,20 @@ function Game() {
 	}
 	function load(key='__last__') {
 		let json = localStorage.getItem(key);
-		return JSON.parse(json);
+		let current =  JSON.parse(json);
+		let choose = localStorage.getItem('__choose__');
+		if (choose !== null) {
+			choose = JSON.parse(choose);
+			document.getElementById('choose_storage').innerHTML = choose;
+		}
+		if (current !== null) {
+			ship = current[0];
+			cm = current[1];
+			message = current[2];
+			over = current[3];
+			sensor = current[4];
+			return true;
+		} else return false;
 	}
 	/* isOver(): returns whether the game is over */
 	function isOver() {
@@ -490,7 +514,14 @@ function Game() {
 		document.getElementById('load_storage').addEventListener('click', function () {
 			let name = document.getElementById('choose_storage').value;
 			load(name);
+			update();
 		});
+
+		// clear local storage, do not reset the game
+		document.getElementById('clear_local_storage').addEventListener('click', function () {
+			localStorage.clear();
+			document.getElementById('choose_storage').innerHTML = '';
+		})
 	});
 
 	// create new celestial text area in html file.
