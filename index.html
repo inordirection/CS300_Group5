@@ -97,6 +97,16 @@
 			</form>
 		</div>
 
+		<!-- nameable persistent state -->
+		<div id="nameable_storage">
+			<label class="label">Archive Name:</label><input type="text" id="storage_name" class="label"><br>
+			<button class="formButton" id="save_storage" type="button">Save</button><br>
+
+			<select id="choose_storage">
+			</select>
+			<button type="button" id="load_storage" class="formButton">Load</button>
+		</div>
+
 		<!-- Those are used by developer mode -->
 
 		<!-- In the normal mode, now is ok. When the selected values to initial the game, the user can choose one of state of never dies and fixed wormhole mode. Also, they can input the value for each things and if they not, the value will change to defaulf values. For the input celestial point, the user should input multiple points in one input line -->

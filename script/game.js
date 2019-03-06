@@ -25,12 +25,17 @@ function Game() {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
-		cm = new CelestialMap(load('cm'), size);
-		ship = new Ship(load('ship'));
+		/**
+		 * json = [ship, cm, message]
+		 * ship = json[0]; cm = json[1]; message = json[2]
+		 */
+		let json = load();
+		cm = new CelestialMap(json[1], size);
+		ship = new Ship(json[0]);
 		sensor = new Sensor();
 
-		message = load('message');
-		if (message == null || message == "")
+		message = json[2];
+		if (message == null || message === "")
 			message = "Welcome to SpaceHunt!\n";
 
 		over = false;
@@ -62,7 +67,7 @@ function Game() {
 		ship.useSupplies();
 		sensor.deploy_sensor(ship.x, ship.y, cm);
 		update();
-	}
+	};
 
 	this.render_map = function() {
 		var size = cm.GetSize();
@@ -233,22 +238,20 @@ function Game() {
 
 	/* save_state: write the game state to localStorage
 	 *   called at end of any turn */
-	function save_state() {
+	function save_state(name='__last__') {
 		// if user hit game over, clear localStorage for the next game
 		if (isOver())
 			localStorage.clear();
 		else {
-			save('ship', ship);
-			save('cm', cm);
-			save('message', message);
+			save(name, [ship, cm, message]);
 		}
 	}
 	function save(key, value) {
-		var json = JSON.stringify(value);
+		let json = JSON.stringify(value);
 		localStorage.setItem(key, json);
 	}
-	function load(key) {
-		var json = localStorage.getItem(key);
+	function load(key='__last__') {
+		let json = localStorage.getItem(key);
 		return JSON.parse(json);
 	}
 	/* isOver(): returns whether the game is over */
@@ -258,7 +261,7 @@ function Game() {
 
 	/* sets the game status to over */
 	// If the dev mode and never dies mode both are open
-	// always return set to false and return direactly.
+	// always return set to false and return directly.
 	function gameOver() {
 		if (isDEV && isNEVERDIES) {
 			over = false;
@@ -306,7 +309,7 @@ function Game() {
 		'\t\t\t\t\t\t<input type="text" id="celestial_CELENUMBER_coor" name="celestial_CELENUMBER_coor" placeholder="x,y" />\n' +
 		'\t\t\t\t\t\t<button id="delete_CELENUMBER_celestial" type="button" name="delete_CELENUMBER_celestial" class="delete_celestial">Delete Celestial</button>\n' +
 		'\t\t\t\t\t\t<br />\n' +
-		'\t\t\t\t\t</div>'
+		'\t\t\t\t\t</div>';
 
 	// The number of celestial
 	var num_celestial = 1;
@@ -314,7 +317,7 @@ function Game() {
 	this.openGameConfiguration = function () {
 		isDEV = !isDEV;
 		document.getElementById('whether_open').innerHTML = "Using game configuration: " + isDEV;
-	}
+	};
 
 	// open the control of initial game
 	this.openSelectedInitial = function() {
@@ -331,7 +334,7 @@ function Game() {
 		fix.style.display = (fix.style.display === 'none') ? 'block' : 'none';
 		const never = document.getElementById('never');
 		never.style.display = (never.style.display === 'none') ? 'block' : 'none';
-	}
+	};
 
 	// change to never dies or not
 	function openNeverDies() {
@@ -363,7 +366,7 @@ function Game() {
 	 * @returns Array list of celestialPoint objects
 	 */
 	function getCelestialPointList() {
-		let celestial_point_list = new Array();
+		let celestial_point_list = [];
 		let t, xy, new_cp;
 		for (let i = 1; i <= num_celestial; i++) {
 			t = getCelestialType(i);
@@ -437,8 +440,8 @@ function Game() {
 			}
 		});
 
-		// when initial the game
-		document.getElementById('submit_ini').addEventListener('click', function (e) {
+		// when initial the game use game configuration mode
+		document.getElementById('submit_ini').addEventListener('click', function () {
 			// first, change the game size and reset the game.
 			setGameSize();
 			// set the celestial point.
@@ -454,22 +457,40 @@ function Game() {
 				openFixedWormhole();
 			}
 			update();
-		})
+		});
 
+        // change the fixed wormhole behavior
 		document.getElementById('change_fixed').addEventListener('click', function () {
 			openFixedWormhole();
-		})
+		});
 
+		// change the never dies mode
 		document.getElementById('change_never').addEventListener('click', function () {
 			openNeverDies();
-		})
+		});
 
+		// normal game configuration
 		document.getElementById('change_ecsl').addEventListener('click', function () {
 			setGameSize();
 			changeEcsl();
 			document.getElementById('all').checked = false;
 			update();
-		})
+		});
+
+		// save to local storage
+		document.getElementById('save_storage').addEventListener('click', function () {
+			let name = document.getElementById('storage_name').value;
+			let option = '<option value="STORAGE_NAME">STORAGE_NAME</option>'.replace(/STORAGE_NAME/g, name);
+			document.getElementById('choose_storage').innerHTML += option;
+			save_state(name);
+		});
+
+		// load the game
+		// one problem is that I cannot delete the storage.
+		document.getElementById('load_storage').addEventListener('click', function () {
+			let name = document.getElementById('choose_storage').value;
+			load(name);
+		});
 	});
 
 	// create new celestial text area in html file.
