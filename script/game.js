@@ -33,7 +33,7 @@ function Game() {
 			cm = new CelestialMap(null, size);
 			ship = new Ship(null);
 			message = null;
-			sensor = new Sensor();
+			sensor = new Sensor(null);
 			over = false;
 		}
 
@@ -112,7 +112,6 @@ function Game() {
 	 * the data of last game is stored by '__last__'.
 	 */
 	this.reset_game = function () {
-		// localStorage.clear();
 		localStorage.setItem('__last__', null);
 	}
 
@@ -250,8 +249,10 @@ function Game() {
 	 */
 	function save_state(name='__last__') {
 		// if user hit game over, clear localStorage for the next game
-		if (isOver())
-			this.reset_game();
+		if (isOver()) {
+			// this.reset_game();
+			localStorage.setItem('__last__', null);
+		}
 		else {
 			save(name, [ship, cm, message, over, sensor]);
 			save('__choose__', document.getElementById('choose_storage').innerHTML);
@@ -270,11 +271,11 @@ function Game() {
 			document.getElementById('choose_storage').innerHTML = choose;
 		}
 		if (current !== null) {
-			ship = current[0];
-			cm = current[1];
+			ship = new Ship(current[0]);
+			cm = new CelestialMap(current[1]);
 			message = current[2];
 			over = current[3];
-			sensor = current[4];
+			sensor = new Sensor(current[4]);
 			return true;
 		} else return false;
 	}
