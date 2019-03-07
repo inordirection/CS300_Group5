@@ -251,7 +251,7 @@ function Game() {
 	function save_state(name='__last__') {
 		// if user hit game over, clear localStorage for the next game
 		if (isOver())
-			localStorage.clear();
+			this.reset_game();
 		else {
 			save(name, [ship, cm, message, over, sensor]);
 			save('__choose__', document.getElementById('choose_storage').innerHTML);
