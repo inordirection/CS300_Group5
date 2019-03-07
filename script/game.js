@@ -21,7 +21,7 @@ function Game() {
 	 *   */
 
 	/* build the initial display */
-	this.initDisplay = function (size = 128) {
+	this.initDisplay = function (size = 16) {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
@@ -250,8 +250,10 @@ function Game() {
 	 */
 	function save_state(name='__last__') {
 		// if user hit game over, clear localStorage for the next game
-		if (isOver())
+		if (isOver()) {
+			// shouldn't wipe all save states on game-over anymore
 			localStorage.clear();
+		}
 		else {
 			save(name, [ship, cm, message, over, sensor]);
 			save('__choose__', document.getElementById('choose_storage').innerHTML);
