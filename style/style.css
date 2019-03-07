@@ -90,11 +90,11 @@ input[type=text], #message {
   color: #fff;
   background-color: white;
   border: none;
-  border-radius: 50px;
+  border-radius: 40px;
   box-shadow: 0 9px grey;
 
   }
-  
+
   .button:hover {
       /*background-color: rgb(100, 100, 100); */
     }
