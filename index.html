@@ -23,9 +23,9 @@
 			<td class="screen">
 		<h1>OldSpice Control Panel</h1>
 		<form name="movement" onSubmit="game.move(); return false;">
-			<label class="label">Distance:&nbsp;</label>
+			<label>Distance:&nbsp;</label>
 			<input type="text" name="distance" id="distance"><br>
-			<label class="label">Angle:&nbsp;</label>
+			<label>Angle:&nbsp;</label>
 			<select name="angle">
 				<option> 0
 				<option> 90
@@ -90,11 +90,11 @@
 		<h1>Current Status</h1>
 		<!-- add forms to display ship status here -->
 		<form name="display">
-			<label class="label">Location:&nbsp;</label><input type="text" id="location" class="label"><br>
-			<label class="label">Supplies:&nbsp;</label><input type="text" id="supplies" class="label"><br>
-			<label class="label">Energy:&nbsp;</label><input type="text" id="energy" class="label"><br>
-			<label class="label">Credits:&nbsp;</label><input type="text" id="credits" class="label"><br>
-			<label class="label">Message:&nbsp;</label>
+			<label>Location:&nbsp;</label><input type="text" id="location" class="label"><br>
+			<label>Supplies:&nbsp;</label><input type="text" id="supplies" class="label"><br>
+			<label>Energy:&nbsp;</label><input type="text" id="energy" class="label"><br>
+			<label>Credits:&nbsp;</label><input type="text" id="credits" class="label"><br>
+			<label>Message:&nbsp;</label>
 			<textarea rows="3" id="message" class="label"></textarea><br>
 		</form>
 		<div id="map" style="display:none">
@@ -112,14 +112,13 @@
 
 		<!-- nameable persistent state -->
 		<div id="nameable_storage">
-			<label class="label">Archive Name:</label><input type="text" id="storage_name" class="label"><br>
-			<button class="formButton" id="save_storage" type="button">Save</button><br><br>
-
-			<select id="choose_storage">
-			</select>
-			<button type="button" id="load_storage" class="formButton">Load</button><br><br>
-
-			<button type="button" id="clear_local_storage" class="formButton">Clear Local Storage</button>
+			<label>Archive Name:&nbsp;</label>
+			<input type="text" id="storage_name" class="label"><br><br>
+			<button class="formButton" id="save_storage" type="button">Save</button>
+			<button type="button" id="load_storage" class="formButton">Load</button>
+			<select id="choose_storage"></select><br><br>
+			<button type="button" id="clear_local_storage" class="formButton">
+			Clear Local Storage</button>
 		</div>
 	</td>
 	<td class="screen">

@@ -8,16 +8,13 @@ function Sensor(json) {
 	} else {
 		// the range of the sensor, default is 2
 		this.visible = 2;
-		// Store the points that should be showed in this deployment.
-		this.sur;
 	}
 
 	/**
 	 * Just wrapper function, call `deploy` to deploy the sensor.
 	 */
 	this.deploy_sensor = function(x, y, cm) {
-		this.sur = undefined;
-		deploy(x, y, cm);
+		deploy(x, y, cm, this.visible);
 	};
 
 	/**
@@ -41,14 +38,10 @@ function Sensor(json) {
 	 * @param   {int}  y      y coord
 	 * @param   {object}  cm     the object of map class
 	 */
-	function deploy(x, y, cm) {
-		this.sur = new Set();
-
-		for (let tx = x-this.visible; tx <= x+this.visible; tx++) {
-			for (let ty = y-this.visible; ty <= y+this.visible; ty++) {
-				if (cm.checkSize([tx, ty]) && Math.sqrt((tx-x)**2 + (ty-y)**2)<= this.visible) {
-					// alert([tx, ty]);
-					this.sur.add(new Coordinate(tx, ty));
+	function deploy(x, y, cm, visible) {
+		for (let tx = x-visible; tx <= x+visible; tx++) {
+			for (let ty = y-visible; ty <= y+visible; ty++) {
+				if (cm.checkSize([tx, ty]) && Math.sqrt((tx-x)**2 + (ty-y)**2)<= visible) {
 					cm.ChangeVisible(tx, ty);
 				}
 			}

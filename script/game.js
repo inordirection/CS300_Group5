@@ -25,10 +25,6 @@ function Game() {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
-		/**
-		 * json = [ship, cm, message]
-		 * ship = json[0]; cm = json[1]; message = json[2]
-		 */
 		if (!load()) {
 			cm = new CelestialMap(null, size);
 			ship = new Ship(null);
