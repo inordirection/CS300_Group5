@@ -21,12 +21,9 @@ function Sensor(json) {
 	 * update the range.
 	 */
 	this.updateRange = function(new_range) {
-		if (isNaN(new_range)) {
-			return;
-		}
-		if (new_range < 0) {
+		if (isNaN(new_range || new_range < 0)) {
 			alert('The range is wrong');
-			return ;
+			return;
 		}
 		this.visible = new_range;
 	};
