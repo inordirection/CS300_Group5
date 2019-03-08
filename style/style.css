@@ -24,6 +24,13 @@
     cursor: pointer;
 }
 
+.screen {
+     margin: 20px;
+     padding: 20px;
+     border: solid 5px grey;
+     width: 20%;
+}
+
 body {
 	color: white;
     background-color: black;
