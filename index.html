@@ -17,7 +17,10 @@
 <body>
 	<script> var game = new Game(); </script>
 
-	<div class="controlPanel">
+	<!--<div class="controlPanel">-->
+	<table>
+		<tr>
+			<td class="screen">
 		<h1>OldSpice Control Panel</h1>
 		<form name="movement" onSubmit="game.move(); return false;">
 			<label class="label">Distance:&nbsp;</label>
@@ -79,6 +82,9 @@
 			<input type="submit" value="Reset Game" class="formButton">
 		</form>
 
+		</td>
+		<td class="screen">
+
 		<!-- Status Display -->
 
 		<h1>Current Status</h1>
@@ -97,6 +103,13 @@
 			</form>
 		</div>
 
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
 		<!-- nameable persistent state -->
 		<div id="nameable_storage">
 			<label class="label">Archive Name:</label><input type="text" id="storage_name" class="label"><br>
@@ -108,6 +121,12 @@
 
 			<button type="button" id="clear_local_storage" class="formButton">Clear Local Storage</button>
 		</div>
+	</td>
+	<td class="screen">
+		<h1>Gazeteer</h1>
+	</td>
+	</tr>
+	</table>
 
 		<!-- Those are used by developer mode -->
 
@@ -204,7 +223,7 @@
 		</div>
 
 		<script> game.initDisplay(); </script>
-	</div>
+	<!--</div>-->
 </body>
 
 	<script>
