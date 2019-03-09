@@ -299,33 +299,22 @@ function Game() {
 	// whether use selecting initial values
 	var isINI = false;
 
-	// This is the form of celestial object in html
-	const celestial_obj_form = '<div id="celestial_CELENUMBER">\n' +
-		'\t\t\t\t\t\t<select id="celestial_CELENUMBER_type" name="celestial_CELENUMBER_type">\n' +
-		'\t\t\t\t\t\t\t<option value="0">Empty Space</option>\n' +
-		'\t\t\t\t\t\t\t<option value="1">Asteroids</option>\n' +
-		'\t\t\t\t\t\t\t<option value="2">Metor Storm</option>\n' +
-		'\t\t\t\t\t\t\t<option value="3">BadMax</option>\n' +
-		'\t\t\t\t\t\t\t<option value="4">Wormhole</option>\n' +
-		'\t\t\t\t\t\t\t<option value="5">Pentium 1</option>\n' +
-		'\t\t\t\t\t\t\t<option value="6">Pentium 2</option>\n' +
-		'\t\t\t\t\t\t\t<option value="7">Pentium 3</option>\n' +
-		'\t\t\t\t\t\t\t<option value="8">Pentium 4</option>\n' +
-		'\t\t\t\t\t\t\t<option value="9">Pentium 5</option>\n' +
-		'\t\t\t\t\t\t\t<option value="10">Pentium 6</option>\n' +
-		'\t\t\t\t\t\t\t<option value="11">Pentium 7</option>\n' +
-		'\t\t\t\t\t\t\t<option value="12">Celeron</option>\n' +
-		'\t\t\t\t\t\t\t<option value="13">Xeon</option>\n' +
-		'\t\t\t\t\t\t\t<option value="14">Ryzen</option>\n' +
-		'\t\t\t\t\t\t\t<option value="15">Eniac</option>\n' +
-		'\t\t\t\t\t\t</select>\n' +
-		'\t\t\t\t\t\t<input type="text" id="celestial_CELENUMBER_coor" name="celestial_CELENUMBER_coor" placeholder="x,y" />\n' +
-		'\t\t\t\t\t\t<button id="delete_CELENUMBER_celestial" type="button" name="delete_CELENUMBER_celestial" class="delete_celestial">Delete Celestial</button>\n' +
-		'\t\t\t\t\t\t<br />\n' +
-		'\t\t\t\t\t</div>';
+	// This is the form of a celestial object html form
+	celestial_obj_form = '<div id="celestial_CELENUMBER">\n' +
+		'\t\t\t\t\t\t<select id="celestial_CELENUMBER_type" name="celestial_CELENUMBER_type">\n';
+	// dynamically populate based on current TypeEnum
+	for (i = 0; i <= TypeEnum['ENIAC']; i++) {
+		celestial_obj_form += 
+			`\t\t\t\t\t\t\t<option value="${i}">${TypeEnum['properties'][i].name}</option>`;
+	}
+	celestial_obj_form += '\t\t\t\t\t\t</select>\n' +
+	'\t\t\t\t\t\t<input type="text" id="celestial_CELENUMBER_coor" name="celestial_CELENUMBER_coor" placeholder="x,y" />\n' +
+	'\t\t\t\t\t\t<button id="delete_CELENUMBER_celestial" type="button" name="delete_CELENUMBER_celestial" class="delete_celestial">Delete Celestial</button>\n' +
+	'\t\t\t\t\t\t<br />\n' +
+	'\t\t\t\t\t</div>';
 
-	// The number of celestial
-	var num_celestial = 1;
+	// The number of celestial forms
+	var num_celestial = 0;
 
 	this.openGameConfiguration = function () {
 		isDEV = !isDEV;
@@ -438,6 +427,7 @@ function Game() {
 		 * Dynamic add html when check customize.
 		 * When the add celestial button click, this function should be called. This will add a new celestial object area.
 		 */
+		document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
 		document.getElementById("add_celestial").addEventListener('click',function ()
 		{
 			let text = createNewCelestialHtml();

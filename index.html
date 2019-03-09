@@ -95,7 +95,7 @@
 			<label>Energy:&nbsp;</label><input type="text" id="energy" class="label"><br>
 			<label>Credits:&nbsp;</label><input type="text" id="credits" class="label"><br>
 			<label>Message:&nbsp;</label>
-			<textarea rows="5" id="message" class="label"></textarea><br>
+			<textarea rows="6" id="message" class="label"></textarea><br>
 		</form>
 		<div id="map" style="display:none">
 			<form name="shitmap" id="shitmap">
@@ -151,35 +151,11 @@
 
 			<form id="customizeGame">
 				<!-- This is to change celestial point to the map-->
-				<p><button id="add_celestial" type="button" name="add_celestial" class="formButton">Add Celestial</button></p>
+				<p><button id="add_celestial" type="button" name="add_celestial" class="formButton">
+					Add Celestial</button></p>
 				<div id="celestial_Container">
-
-					<div id="celestial_1">
-						<select id="celestial_1_type" name="celestial_1_type">
-							<option value="0">Empty Space</option>
-							<option value="1">Asteroids</option>
-							<option value="2">Metor Storm</option>
-							<option value="3">BadMax</option>
-							<option value="4">Wormhole</option>
-							<option value="5">Pentium 1</option>
-							<option value="6">Pentium 2</option>
-							<option value="7">Pentium 3</option>
-							<option value="8">Pentium 4</option>
-							<option value="9">Pentium 5</option>
-							<option value="10">Pentium 6</option>
-							<option value="11">Pentium 7</option>
-							<option value="12">Celeron</option>
-							<option value="13">Xeon</option>
-							<option value="14">Ryzen</option>
-							<option value="15">Eniac</option>
-						</select>
-						<input type="text" id="celestial_1_coor" name="celestial_1_coor" placeholder="x,y" />
-						<button id="delete_1_celestial" type="button" name="delete_1_celestial" class="delete_celestial">Delete Celestial</button>
-						<br />
-					</div>
-
+					
 				</div>
-
 			</form>
 
 				<label>Game Size: &nbsp;</label>
@@ -194,11 +170,14 @@
 				<input type="text" id="dev_credits" placeholder="Default: 1000" class="label"><br>
 				<label>Sensor Range: &nbsp;</label>
 				<input type="text" id="dev_sensor" placeholder="Default: 2" class="label"><br>
-				<input type="checkbox" id="dev_ini_never_dies" value="Using Never Dies Mode">Use Never Dies Mode<br>
-				<input type="checkbox" id="dev_ini_fixed_wh" value="Use Fixed Wormhole Behavior">Use Fixed Wormhole Behavior<br>
+				<input type="checkbox" id="dev_ini_never_dies" value="Using Never Dies Mode">
+				Use Never Dies Mode<br>
+				<input type="checkbox" id="dev_ini_fixed_wh" value="Use Fixed Wormhole Behavior">
+				Use Fixed Wormhole Behavior<br>
 
 				<!-- submit button of the initial game -->
-				<button id="submit_ini" type="button" name="submit_ini" class="formButton">Initial Game</button>
+				<button id="submit_ini" type="button" name="submit_ini" class="formButton">
+					Initial Game</button>
 
 			</div>
 

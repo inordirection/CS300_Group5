@@ -36,6 +36,7 @@ class CelestialMap
 			this.FillMapWithEncounters();
 			this.FillMapWithPlanets();
 		}
+		//this.visibleAll();
 	}
 
 	InstantiateMap()
@@ -52,6 +53,7 @@ class CelestialMap
 
 	FillMapWithEncounters()
 	{
+		// number of (non-empty space) encounters
 		var NUM = TypeEnum['P_ONE'] - 1;
 		// 75% empty, 25% encounters?
 		var space_probability = 0.75;
@@ -65,7 +67,7 @@ class CelestialMap
 					//Get a random enocunter
 				   var type = 0; // default to empty space
 				   if (Math.random() > space_probability)
-					   type = Math.round(Math.random() * (NUM-1)) + 1; // type: 1-NUM
+					   type = Math.round(Math.random() * (NUM-1)) + 1; // type: [1-NUM]
 
 				this.celestialPoints[x][y] = new CelestialPoint(type, false, x, y);
 			}
@@ -75,9 +77,10 @@ class CelestialMap
 	FillMapWithPlanets()
 	{
 		var planets = TypeEnum['ENIAC'] - TypeEnum['P_ONE'] + 1;
-		var encounters = TypeEnum['P_ONE'] - 1;
+		var encounters = TypeEnum['P_ONE'];
 		var visible;
 
+		// add planets to random coords (besides Eniac, which must be 0,0)
 		for(var i = encounters; i < encounters + planets-1; i++)
 		{
 			visible = false;
@@ -88,7 +91,7 @@ class CelestialMap
 			do {
 				c = new Coordinate(Math.round(Math.random() * (this.size-1)),
 				Math.round(Math.random() * (this.size-1)));
-			} while (this.celestialPoints[c.x][c.y].type > encounters);
+			} while (this.celestialPoints[c.x][c.y].type >= encounters);
 
 			// clear anything that might already be in celestialPoints
 			delete this.celestialPoints[c.x][c.y];
@@ -98,10 +101,11 @@ class CelestialMap
 			this.planetsSet.add(cPoint);
 			if (visible) this.visibleSet.add(cPoint);
 		}
-		 // set 0,0 to contain Eniac
-		 var eniac = new CelestialPoint(planets+encounters, true, 0,0);
-		 this.celestialPoints[0][0] = eniac;
-		 this.visibleSet.add(eniac);
+		// set 0,0 to contain Eniac
+		var eniac = new CelestialPoint(planets+encounters-1, true, 0,0);
+		this.celestialPoints[0][0] = eniac;
+		this.planetsSet.add(eniac);
+		this.visibleSet.add(eniac);
      }
 
 	GetPoint(xCoord, yCoord)
@@ -152,7 +156,7 @@ class CelestialMap
 			let chance = Math.random();
 			//BadMax
 			if (cpType == TypeEnum['BADMAX']) {
-				msg += "Oh no. You've encountered BadMax's henchmen!\n";
+				msg += "You've encountered BadMax's henchmen!\n";
 				if (chance <= 0.5) {
 					msg += "Luckily, you fought them off.\n";
 				}
@@ -219,17 +223,20 @@ class CelestialMap
 	/**
 	 * set a list of celestial points to the map
 	 * if the point only can occur one time, just replace the old one.
-	 * if the new one is 12, 13, 14, change the visible setting.
+	 * if the new one is a special planet change the visible setting.
 	 *
 	 * @param   {Array}  list  list of celestial points
 	 */
 	setCelestialPoint(list) {
+		let planets = TypeEnum['P_ONE'];
+		let specials = TypeEnum['CELERON'];
+		let end = TypeEnum['ENIAC'];
 		let current = undefined;
 		for (let i = 0; i < list.length; i++) {
 			current = list[i];
 
-			// if the current is a planet, 5 - 14, what is 15???
-			if (current.type <= 15 && current.type >= 5) {
+			// if inserting a planet
+			if (current.type <= end && current.type >= planets) {
 				// find the same current point in the map and store in original
 				let original = undefined;
 				for (let e of this.planetsSet) {
@@ -240,13 +247,14 @@ class CelestialMap
 				}
 
 				// create a new point obj and its type is empty. and replace the original one.
-				this.celestialPoints[original.coordinate.x][original.coordinate.y] = new CelestialPoint(0, false, original.coordinate.x, original.coordinate.y);
+				this.celestialPoints[original.coordinate.x][original.coordinate.y] 
+					= new CelestialPoint(0, false, original.coordinate.x, original.coordinate.y);
 				// add this planet
 				this.planetsSet.add(current);
 				this.planetsSet.delete(original);
 
-				// if is 12, 13, 14, 15 change visible.
-            if (current.type >= 12 && current.type <= 15) {
+				// if is a special planet, change visible.
+            if (current.type >= specials && current.type <= eniac) {
 					this.visibleSet.delete(original);
 					this.visibleSet.add(current);
 				}
