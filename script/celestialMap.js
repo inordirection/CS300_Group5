@@ -126,7 +126,7 @@ class CelestialMap
 
 	/***
 	 * Back-end processing for collisions with Celestial Artifacts
-	 * 	returns: string to be displayed
+	 * 	returns: array with message, wormhole flag, gameover flag
 	 * 	*/
 	RunPoint(ship) {
 		let msg = ""
