@@ -38,6 +38,7 @@ function Ship(json) {
 				this.UsefixedWormhole(cm);
 			}
 		} 
+		// else, process normal movement
 		else {
 			// if passing over an asteroid, hit it
 			asteroid_t = TypeEnum['ASTEROID'];
@@ -71,6 +72,10 @@ function Ship(json) {
 	this.useSupplies = function() {
 		//this.supplies *= 0.98;
 		this.supplies -= 2;
+	}
+
+	this.damageEngine = function(factor) {
+		this.engine *= factor;
 	}
 
 	/* warp to a random location */

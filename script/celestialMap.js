@@ -52,6 +52,7 @@ class CelestialMap
 
 	FillMapWithEncounters()
 	{
+		var NUM = TypeEnum['P_ONE'] - 1;
 		// 75% empty, 25% encounters?
 		var space_probability = 0.75;
 		for(var y = 0; y < this.size; y++)
@@ -64,7 +65,7 @@ class CelestialMap
 					//Get a random enocunter
 				   var type = 0; // default to empty space
 				   if (Math.random() > space_probability)
-					   type = Math.round(Math.random() * 3) + 1; // type: 1-4
+					   type = Math.round(Math.random() * (NUM-1)) + 1; // type: 1-NUM
 
 				this.celestialPoints[x][y] = new CelestialPoint(type, false, x, y);
 			}
@@ -73,8 +74,8 @@ class CelestialMap
 
 	FillMapWithPlanets()
 	{
-		var planets = 11;
-		var encounters = 5;
+		var planets = TypeEnum['ENIAC'] - TypeEnum['P_ONE'] + 1;
+		var encounters = TypeEnum['P_ONE'] - 1;
 		var visible;
 
 		for(var i = encounters; i < encounters + planets-1; i++)
@@ -98,7 +99,7 @@ class CelestialMap
 			if (visible) this.visibleSet.add(cPoint);
 		}
 		 // set 0,0 to contain Eniac
-		 var eniac = new CelestialPoint(planets+encounters-1, true, 0,0);
+		 var eniac = new CelestialPoint(planets+encounters, true, 0,0);
 		 this.celestialPoints[0][0] = eniac;
 		 this.visibleSet.add(eniac);
      }
@@ -140,36 +141,52 @@ class CelestialMap
 			msg += TypeEnum['properties'][cpType].name + ".\n";
 		}
 		// if we hit a wormhole, warp, update location, check for new collision
-		else if (cpType==TypeEnum['WORMHOLE']) {
+		else if (cpType == TypeEnum['WORMHOLE']) {
 			ship.move(0, this.GetSize(), this);
+			ship.energy += this.GetSize() * ship.engine;
 			msg += "You passed through a wormhole!\n";
 			wormed = true;
 		}	
-		// if we hit BadMax, do BadMax shit
-		else if (cpType == TypeEnum['BADMAX']) {
-			msg += "Oh no. You've encountered BadMax's henchmen!\n";
+		// else, process random encounter
+		else {
 			let chance = Math.random();
-			if (chance <= 0.5) {
-				msg += "Luckily, you fought them off.\n";
+			//BadMax
+			if (cpType == TypeEnum['BADMAX']) {
+				msg += "Oh no. You've encountered BadMax's henchmen!\n";
+				if (chance <= 0.5) {
+					msg += "Luckily, you fought them off.\n";
+				}
+				else if (chance <= 0.8) {
+					msg += "They raided your ship of credits and supplies!\n";
+					ship.credits = 0;
+					ship.supplies /= 2;
+					if (ship.supplies < 1) over = true;
+				}
+				else {
+					msg += "THEY DESTROYED YOUR SHIP!\n"
+					over = true;
+				}
 			}
-			else if (chance <= 0.8) {
-				msg += "They raided your ship of credits and supplies!\n";
-				ship.credits = 0;
-				ship.supplies /= 2;
-				if (ship.supplies < 1) over = true;
+			// MeteorStorm
+			else if (cpType == TypeEnum['METEORSTORM']) {
+				msg += "You ran into a Meteor Storm!\n";
+				msg += "Your ship was damaged.\n";
+				ship.damageEngine(5);
 			}
-			else {
-				msg += "THEY DESTROYED YOUR SHIP!\n"
-				over = true;
+			// Asteroid
+			else if (cpType == TypeEnum['ASTEROID']) {
+				msg += "You hit an Asteroid!\n"
+				if (chance <= 0.9) {
+					msg += "Your ship was damaged.\n"
+				}
+				else {
+					msg += "YOUR SHIP WAS DESTROYED!\n"
+					over = true;
+				}
 			}
-			// remove BadMax from coordinate
+			// remove encounter from map
 			this.ClearPoint(ship.x, ship.y);
 		}
-		else if (cpType == TypeEnum['METEORSTORM']) {
-
-		}
-		
-
 		return [msg, wormed, over];
 	}
 

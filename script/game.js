@@ -183,6 +183,7 @@ function Game() {
 
 	function write_collisions() 
 	{
+		// don't lose the game twice
 		if (over) return;
 
 		let msgWormedOver = cm.RunPoint(ship);
