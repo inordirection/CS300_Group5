@@ -128,7 +128,7 @@ function Game() {
 	function update() {
 		// If game over, don't allow user to keep playing
 		if (isOver()) {
-			alert("You lost the game. Click \'Play Again?\' to continue.");
+			alert("You lost the game. Click \'Reset Game\' to continue.");
 			return;
 		}
 		// else, update the user display
@@ -138,11 +138,11 @@ function Game() {
 	}
 
 	function update_text() {
+		write_collisions();
 		write_location();
 		write_supplies();
 		write_energy();
 		write_credits();
-		write_collisions();
 		write_map();
 		write_message();
 	}
@@ -157,10 +157,6 @@ function Game() {
 	function write_location() {
 		let coords = "(" + ship.x + ", " + ship.y + ")";
 		document.getElementById('location').value = coords;
-
-		if (ship.wormed) {
-			message += "You passed through a wormhole!\n"
-		}
 	}
 
 	function write_energy() {
@@ -176,7 +172,7 @@ function Game() {
 		document.getElementById('supplies').value = ship.supplies;
 
 		if (ship.supplies < 1 && !over) {
-			message += "YOU RAN OUT OF SUPPLIEs.\n"
+			message += "YOU RAN OUT OF SUPPLIES.\n"
 			gameOver();
 		}
 	}
@@ -185,30 +181,21 @@ function Game() {
 		document.getElementById('credits').value = ship.credits;
 	}
 
-	function write_collisions() {
+	function write_collisions() 
+	{
+		if (over) return;
 
-		var cpType = cm.celestialPoints[ship.x][ship.y].type;
-
-		// if we didn't hit empty space, wormhole, or Eniac, we lose
-		if (cpType!=TypeEnum['EMPTY'] && cpType!=TypeEnum['WORMHOLE']
-			&& cpType!=TypeEnum['ENIAC'] &&!over)
-		{
-			var name = TypeEnum.properties[cpType].name;
-			message += "Oh no. We hit a " + name + "!\n";
-			gameOver();
-		}
-		// if we hit a wormhole, warp, update location, check for new collision
-		if (cpType==TypeEnum['WORMHOLE']) {
-			ship.move(0, cm.GetSize(), cm);
-			ship.energy += cm.GetSize() * ship.engine;
-			write_location();
-			write_collisions();
-		}
+		let msgWormedOver = cm.RunPoint(ship);
+		// append events to message
+		message += msgWormedOver[0];
+		// if we wormed, check for new collisions
+		if (msgWormedOver[1]) write_collisions();
+		// if we died, we died
+		if (msgWormedOver[2]) gameOver();
 	}
 
 	function write_message() {
 		document.getElementById('message').value = message;
-		message = "";
 	}
 
 	function write_map()
@@ -253,6 +240,7 @@ function Game() {
 		else {
 			save(name, [ship, cm, message, over, sensor]);
 			save('__choose__', document.getElementById('choose_storage').innerHTML);
+			message = "";
 		}
 	}
 	function save(key, value) {
@@ -292,10 +280,10 @@ function Game() {
 		}
 
 		over = true;
-		message+="Try again next time.";
+		message+="Click \'Reset Game\' to try again.";
 
 		// write 'Play Again?' button to display
-		write_prompt("Play Again?", "game.initDisplay()");
+		// write_prompt("Play Again?", "game.initDisplay()");
 	}
 
 	// whether the dev mode open
@@ -316,6 +304,7 @@ function Game() {
 		'\t\t\t\t\t\t\t<option value="0">Empty Space</option>\n' +
 		'\t\t\t\t\t\t\t<option value="1">Asteroids</option>\n' +
 		'\t\t\t\t\t\t\t<option value="2">Metor Storm</option>\n' +
+		'\t\t\t\t\t\t\t<option value="3">BadMax</option>\n' +
 		'\t\t\t\t\t\t\t<option value="4">Wormhole</option>\n' +
 		'\t\t\t\t\t\t\t<option value="5">Pentium 1</option>\n' +
 		'\t\t\t\t\t\t\t<option value="6">Pentium 2</option>\n' +

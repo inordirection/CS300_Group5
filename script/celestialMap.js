@@ -116,6 +116,63 @@ class CelestialMap
 
      }
 
+	/**
+	 * reset a coordinate to empty space
+	 * */
+	ClearPoint(x, y) {
+		this.celestialPoints[x][y].type = TypeEnum['EMPTY'];
+	}
+
+	/***
+	 * Back-end processing for collisions with Celestial Artifacts
+	 * 	returns: string to be displayed
+	 * 	*/
+	RunPoint(ship) {
+		let msg = ""
+		let wormed = false;
+		let over = false;
+
+		let cpType = this.celestialPoints[ship.x][ship.y].type;
+		let name = TypeEnum.properties[cpType].name;
+		// if encountering a planet:
+		if (cpType >= TypeEnum['P_ONE']) {
+			msg += "You discovered planet ";
+			msg += TypeEnum['properties'][cpType].name + ".\n";
+		}
+		// if we hit a wormhole, warp, update location, check for new collision
+		else if (cpType==TypeEnum['WORMHOLE']) {
+			ship.move(0, this.GetSize(), this);
+			msg += "You passed through a wormhole!\n";
+			wormed = true;
+		}	
+		// if we hit BadMax, do BadMax shit
+		else if (cpType == TypeEnum['BADMAX']) {
+			msg += "Oh no. You've encountered BadMax's henchmen!\n";
+			let chance = Math.random();
+			if (chance <= 0.5) {
+				msg += "Luckily, you fought them off.\n";
+			}
+			else if (chance <= 0.8) {
+				msg += "They raided your ship of credits and supplies!\n";
+				ship.credits = 0;
+				ship.supplies /= 2;
+				if (ship.supplies < 1) over = true;
+			}
+			else {
+				msg += "THEY DESTROYED YOUR SHIP!\n"
+				over = true;
+			}
+			// remove BadMax from coordinate
+			this.ClearPoint(ship.x, ship.y);
+		}
+		else if (cpType == TypeEnum['METEORSTORM']) {
+
+		}
+		
+
+		return [msg, wormed, over];
+	}
+
      /**
       * change this point x,y to visible
       *

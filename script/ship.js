@@ -17,13 +17,15 @@ function Ship(json) {
 		this.y = 0;
 		this.range = 2; // sensor initially has range 2
 		this.engine = 10; // basic engine consumes 10 energy per unit traveled
-		this.wormed = false; // indicates whether ship just passed through a wormhole
 		this.isFIXEDWH = false; // is 'fixed wormhole'
 	}
 
 	/* public methods */
 	/* move: update ship position, energy */
 	this.move = function(angle, distance, cm) {
+		// remember start position
+		let x0 = this.x;
+		let y0 = this.y;
 		// update to final position
 		this.x = Math.round(this.x + distance*Math.cos(angle * Math.PI/180));
 		this.y = Math.round(this.y + distance*Math.sin(angle * Math.PI/180));
@@ -35,8 +37,21 @@ function Ship(json) {
 			} else {
 				this.UsefixedWormhole(cm);
 			}
-		} else this.wormed = false;
-
+		} 
+		else {
+			// if passing over an asteroid, hit it
+			asteroid_t = TypeEnum['ASTEROID'];
+			for (k = 1; k < distance; k++) {
+				let x1 = x0 + Math.round(k*Math.cos(angle*Math.PI/180));
+				let y1 = y0 + Math.round(k*Math.sin(angle*Math.PI/180));
+				if (cm.GetPoint(x1, y1).type == asteroid_t) {
+					this.x = x1;
+					this.y = y1;
+					break;
+				}
+			}
+		}
+		// add newly visited coordinate to visible Set
 		cm.ChangeVisible(this.x, this.y);
 		// update energy
 		this.energy -= this.engine * distance;
@@ -62,7 +77,6 @@ function Ship(json) {
 	this.wormhole = function(cm) {
 		this.x = parseInt(Math.random() * cm.GetSize());
 		this.y = parseInt(Math.random() * cm.GetSize());
-		this.wormed = true;
 	}
 
 	/**
@@ -79,7 +93,6 @@ function Ship(json) {
 
 		this.x = x;
 		this.y = y;
-		this.wormed = true;
 	}
 
 	/**
@@ -97,7 +110,6 @@ function Ship(json) {
 		this.x = xy[0];
 		this.y = xy[1];
 		cm.ChangeVisible(this.x, this.y);
-		// alert('already set location.')
 	}
 
 	/**

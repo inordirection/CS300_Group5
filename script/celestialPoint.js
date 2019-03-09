@@ -21,13 +21,13 @@ class CelestialPoint
 TypeEnum =
 {
 	//0 to 4 are encounters, 5 to 15 are planets.
-	EMPTY: 0, ASTEROIDS: 1, METEORSTORM: 2, BADMAX: 3, WORMHOLE: 4, P_ONE: 5, P_TWO: 6, 
+	EMPTY: 0, ASTEROID: 1, METEORSTORM: 2, BADMAX: 3, WORMHOLE: 4, P_ONE: 5, P_TWO: 6, 
 	P_THREE: 7, P_FOUR: 8, P_FIVE: 9, P_SIX: 10, P_SEVEN: 11, CELERON: 12, XEON: 13, 
 	RYZEN: 14, ENIAC: 15,
 	properties:
 	{
 		0: {name: "Empty Space", ch: '0'},
-		1: {name: "Asteroids", ch: 'A'},
+		1: {name: "Asteroid", ch: 'A'},
 		2: {name: "Meteor Storm", ch: 'M'},
 		3: {name: "Bad Max", ch: 'B'},
 		4: {name: "Wormhole", ch: 'W'},
