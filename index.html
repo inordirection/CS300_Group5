@@ -112,7 +112,7 @@
 
 		<!-- nameable persistent state -->
 		<div id="nameable_storage">
-			<label>Archive Name:&nbsp;</label>
+			<label>Save Name:&nbsp;</label>
 			<input type="text" id="storage_name" class="label"><br><br>
 			<button class="formButton" id="save_storage" type="button">Save</button>
 			<button type="button" id="load_storage" class="formButton">Load</button>
@@ -156,7 +156,7 @@
 
 					<div id="celestial_1">
 						<select id="celestial_1_type" name="celestial_1_type">
-							<option value="0">Empty Sapce</option>
+							<option value="0">Empty Space</option>
 							<option value="1">Asteroids</option>
 							<option value="2">Metor Storm</option>
 							<option value="4">Wormhole</option>
@@ -181,12 +181,18 @@
 
 			</form>
 
-				<label>Initial Game Size: &nbsp;</label><input type="text" id="dev_ini_size" placeholder="Default: 128" class="label"><br>
-				<label>Initial Location: &nbsp;</label><input type="text" id="dev_location" placeholder="Default: 0, 0" class="label" /><br>
-				<label>Initial Energy: &nbsp;</label><input type="text" id="dev_energy" placeholder="Default: 1000" class="label"><br>
-				<label>Initial Supplies: &nbsp;</label><input type="text" id="dev_supplies" placeholder="Default: 100" class="label"><br>
-				<label>Initial Credits: &nbsp;</label><input type="text" id="dev_credits" placeholder="Default: 1000" class="label"><br>
-				<label>Initial Sensor Range: &nbsp;</label><input type="text" id="dev_sensor" placeholder="Default: 2" class="label"><br>
+				<label>Game Size: &nbsp;</label>
+				<input type="text" id="dev_ini_size" placeholder="Default: 128" class="label"><br>
+				<label>Start Location: &nbsp;</label>
+				<input type="text" id="dev_location" placeholder="Default: 0, 0" class="label" /><br>
+				<label>Energy: &nbsp;</label>
+				<input type="text" id="dev_energy" placeholder="Default: 1000" class="label"><br>
+				<label>Supplies: &nbsp;</label>
+				<input type="text" id="dev_supplies" placeholder="Default: 100" class="label"><br>
+				<label>Credits: &nbsp;</label>
+				<input type="text" id="dev_credits" placeholder="Default: 1000" class="label"><br>
+				<label>Sensor Range: &nbsp;</label>
+				<input type="text" id="dev_sensor" placeholder="Default: 2" class="label"><br>
 				<input type="checkbox" id="dev_ini_never_dies" value="Using Never Dies Mode">Use Never Dies Mode<br>
 				<input type="checkbox" id="dev_ini_fixed_wh" value="Use Fixed Wormhole Behavior">Use Fixed Wormhole Behavior<br>
 

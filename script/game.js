@@ -36,6 +36,7 @@ function Game() {
 		if (message == null || message === "")
 			message = "Welcome to SpaceHunt!\n";
 
+		that.render_map.init = true;
 		update(); // update user display
 	}
 
@@ -66,10 +67,11 @@ function Game() {
 	};
 
 	this.render_map = function() {
+		this.textMap;
 		var size = cm.GetSize();
 
 		// if first call, init to undiscovered
-		if (this.textMap == undefined || this.textMap.size != size) {
+		if (that.render_map.init) {
 			this.textMap = new Array(size);
 			this.last = cm.GetPoint(0,0);
 			for (i = 0; i < size; i++) {
@@ -77,13 +79,14 @@ function Game() {
 				for (j = 0; j < size; j++)
 					this.textMap[i][j] = '_';
 			}
+			that.render_map.init = false;
 		}
 
 		var visibleCPs = cm.visibleSet;
 		for (cp of visibleCPs) {
-			var type = cp.type;
-			var c = cp.coordinate;
-			var ch = TypeEnum.properties[type].ch;
+			let type = cp.type;
+			let c = cp.coordinate;
+			let ch = TypeEnum.properties[type].ch;
 			this.textMap[c.y][c.x] = ch;
 		}
 
@@ -108,7 +111,7 @@ function Game() {
 	 * the data of last game is stored by '__last__'.
 	 */
 	this.reset_game = function () {
-		localStorage.setItem('__last__', null);
+		localStorage.removeItem('__last__');
 	}
 
 	this.ToString = function () {
@@ -125,7 +128,6 @@ function Game() {
 	function update() {
 		// If game over, don't allow user to keep playing
 		if (isOver()) {
-			alert("You just died");
 			alert("You lost the game. Click \'Play Again?\' to continue.");
 			return;
 		}
@@ -165,7 +167,7 @@ function Game() {
 		document.getElementById('energy').value = ship.energy;
 
 		if (ship.energy < 1 && !over) {
-			message += "You ran out of energy.\n";
+			message += "YOU RAN OUT OF ENERGY.\n";
 			gameOver();
 		}
 	}
@@ -174,7 +176,7 @@ function Game() {
 		document.getElementById('supplies').value = ship.supplies;
 
 		if (ship.supplies < 1 && !over) {
-			message += "You ran out of supplies.\n"
+			message += "YOU RAN OUT OF SUPPLIEs.\n"
 			gameOver();
 		}
 	}
@@ -246,8 +248,7 @@ function Game() {
 	function save_state(name='__last__') {
 		// if user hit game over, clear localStorage for the next game
 		if (isOver()) {
-			// this.reset_game();
-			localStorage.setItem('__last__', null);
+			that.reset_game();
 		}
 		else {
 			save(name, [ship, cm, message, over, sensor]);
@@ -272,6 +273,7 @@ function Game() {
 			message = current[2];
 			over = current[3];
 			sensor = new Sensor(current[4]);
+			that.render_map.init = true;
 			return true;
 		} else return false;
 	}
@@ -286,7 +288,7 @@ function Game() {
 	function gameOver() {
 		if (isDEV && isNEVERDIES) {
 			over = false;
-			return ;
+			return;
 		}
 
 		over = true;
@@ -311,7 +313,7 @@ function Game() {
 	// This is the form of celestial object in html
 	const celestial_obj_form = '<div id="celestial_CELENUMBER">\n' +
 		'\t\t\t\t\t\t<select id="celestial_CELENUMBER_type" name="celestial_CELENUMBER_type">\n' +
-		'\t\t\t\t\t\t\t<option value="0">Empty Sapce</option>\n' +
+		'\t\t\t\t\t\t\t<option value="0">Empty Space</option>\n' +
 		'\t\t\t\t\t\t\t<option value="1">Asteroids</option>\n' +
 		'\t\t\t\t\t\t\t<option value="2">Metor Storm</option>\n' +
 		'\t\t\t\t\t\t\t<option value="4">Wormhole</option>\n' +

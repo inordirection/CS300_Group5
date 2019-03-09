@@ -54,6 +54,7 @@ function Ship(json) {
 
 	// use the standard 2% of supplies
 	this.useSupplies = function() {
+		//this.supplies *= 0.98;
 		this.supplies -= 2;
 	}
 
