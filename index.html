@@ -142,44 +142,43 @@
 			<!-- For the customize game -->
 			<div id="customize_game" style="cursor:hand" onclick="toggleHidden('dev_cus')" class="devCObj"><b>Customize game Initialization</b></div>
 
-			<!-- How to customize the game initialization -->
-			<div id="dev_cus" style="display:none">
+		<!-- How to customize the game initialization -->
+		<div id="dev_cus" style="display:none">
 
-				<form name="open_selected_ini">
-					<p id="whether_open_ini">Use selected values to initial games: false.</p>
-				</form>
+			<form name="open_selected_ini">
+				<p id="whether_open_ini">Use selected values to initial games: false.</p>
+			</form>
 
 			<form id="customizeGame">
 				<!-- This is to change celestial point to the map-->
 				<p><button id="add_celestial" type="button" name="add_celestial" class="formButton">
 					Add Celestial</button></p>
 				<div id="celestial_Container">
-					
+					<!-- Dynamically generated according to TypeEnum -->
 				</div>
 			</form>
 
-				<label>Game Size: &nbsp;</label>
-				<input type="text" id="dev_ini_size" placeholder="Default: 128" class="label"><br>
-				<label>Start Location: &nbsp;</label>
-				<input type="text" id="dev_location" placeholder="Default: 0, 0" class="label" /><br>
-				<label>Energy: &nbsp;</label>
-				<input type="text" id="dev_energy" placeholder="Default: 1000" class="label"><br>
-				<label>Supplies: &nbsp;</label>
-				<input type="text" id="dev_supplies" placeholder="Default: 100" class="label"><br>
-				<label>Credits: &nbsp;</label>
-				<input type="text" id="dev_credits" placeholder="Default: 1000" class="label"><br>
-				<label>Sensor Range: &nbsp;</label>
-				<input type="text" id="dev_sensor" placeholder="Default: 2" class="label"><br>
-				<input type="checkbox" id="dev_ini_never_dies" value="Using Never Dies Mode">
-				Use Never Dies Mode<br>
-				<input type="checkbox" id="dev_ini_fixed_wh" value="Use Fixed Wormhole Behavior">
-				Use Fixed Wormhole Behavior<br>
+			<label>Game Size: &nbsp;</label>
+			<input type="text" id="dev_ini_size" placeholder="Default: 128" class="label"><br>
+			<label>Start Location: &nbsp;</label>
+			<input type="text" id="dev_location" placeholder="Default: 0, 0" class="label" /><br>
+			<label>Energy: &nbsp;</label>
+			<input type="text" id="dev_energy" placeholder="Default: 1000" class="label"><br>
+			<label>Supplies: &nbsp;</label>
+			<input type="text" id="dev_supplies" placeholder="Default: 100" class="label"><br>
+			<label>Credits: &nbsp;</label>
+			<input type="text" id="dev_credits" placeholder="Default: 1000" class="label"><br>
+			<label>Sensor Range: &nbsp;</label>
+			<input type="text" id="dev_sensor" placeholder="Default: 2" class="label"><br>
+			<input type="checkbox" id="dev_ini_never_dies" value="Using Never Dies Mode">
+			Use Never Dies Mode<br>
+			<input type="checkbox" id="dev_ini_fixed_wh" value="Use Fixed Wormhole Behavior">
+			Use Fixed Wormhole Behavior<br>
 
-				<!-- submit button of the initial game -->
-				<button id="submit_ini" type="button" name="submit_ini" class="formButton">
+			<!-- submit button of the initial game -->
+			<button id="submit_ini" type="button" name="submit_ini" class="formButton">
 					Initial Game</button>
-
-			</div>
+		</div>
 
 			<!-- For change energy, credits, supplies, and location -->
 			<br />

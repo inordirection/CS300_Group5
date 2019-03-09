@@ -188,6 +188,12 @@ class CelestialMap
 					over = true;
 				}
 			}
+			else if (cpType == TypeEnum['FREIGHTER']) {
+				msg += "You encountered an Abandoned Freighter!\n"
+				msg += "You've replenished your supplies and energy.\n"
+				ship.setSupplies(100);
+				ship.setEnergy(1000);
+			}
 			// remove encounter from map
 			this.ClearPoint(ship.x, ship.y);
 		}
