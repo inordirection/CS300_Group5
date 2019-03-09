@@ -140,7 +140,7 @@ class CelestialMap
 			msg += "You discovered planet ";
 			msg += TypeEnum['properties'][cpType].name + ".\n";
 		}
-		// if we hit a wormhole, warp, update location, check for new collision
+		// if we hit a wormhole, warp
 		else if (cpType == TypeEnum['WORMHOLE']) {
 			ship.move(0, this.GetSize(), this);
 			ship.energy += this.GetSize() * ship.engine;
