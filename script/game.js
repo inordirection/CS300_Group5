@@ -28,16 +28,16 @@ function Game() {
 		if (!load()) {
 			cm = new CelestialMap(null, size);
 			ship = new Ship(null);
-			message = null;
+			message = "Welcome to SpaceHunt!\n";
+			message += "You must set out from the planet Eniac to retrive the " +
+				"secret KocaKola recipe.\n"
 			sensor = new Sensor(null);
 			over = false;
 		}
 
-		if (message == null || message === "")
-			message = "Welcome to SpaceHunt!\n";
-
+		// flags to handle proper display on startup
 		that.render_map.init = true;
-		update(); // update user display
+		update(false); // update user (without writing collisions)
 	}
 
 	/* moves ship, use supplies, visits whichever cp it lands on */
@@ -63,7 +63,7 @@ function Game() {
 	this.deploy_sensor = function () {
 		ship.useSupplies();
 		sensor.deploy_sensor(ship.x, ship.y, cm);
-		update();
+		update(false);
 	};
 
 	this.render_map = function() {
@@ -122,20 +122,21 @@ function Game() {
 	/* update: update the user display after each turn is taken
 	 * 	call at the end of any action that constitutes a 'turn',
 	 * 	after all internal data changes related to turn have been made */
-	function update() {
+	function update(collisions = true) {
 		// If game over, don't allow user to keep playing
 		if (isOver()) {
 			alert("You lost the game. Click \'Reset Game\' to continue.");
 			return;
 		}
-		// else, update the user display
+		// process current tile
+		if (collisions) write_collisions();
+		// update the user display
 		update_text();
 		// and save the state to local storage
 		save_state();
 	}
 
 	function update_text() {
-		write_collisions();
 		write_location();
 		write_supplies();
 		write_energy();

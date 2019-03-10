@@ -141,7 +141,7 @@ class CelestialMap
 		let name = TypeEnum.properties[cpType].name;
 		// if encountering a planet:
 		if (cpType >= TypeEnum['P_ONE']) {
-			msg += "You discovered planet ";
+			msg += "You've arrived at planet ";
 			msg += TypeEnum['properties'][cpType].name + ".\n";
 		}
 		// if we hit a wormhole, warp
