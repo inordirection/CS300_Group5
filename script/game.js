@@ -567,17 +567,42 @@ function Game() {
 			let option = 
 				'<option value="STORAGE_NAME">STORAGE_NAME</option>'.replace(/STORAGE_NAME/g, name);
 
-			if (localStorage.getItem(name) === null)
+			if (localStorage.getItem(name) === null) {
 				document.getElementById('choose_storage').innerHTML += option;
+			}
 			save_state(name);
 		});
 
 		// load the game
-		// one problem is that I cannot delete the storage.
 		document.getElementById('load_storage').addEventListener('click', function () {
 			let name = document.getElementById('choose_storage').value;
 			load(name);
 			update();
+		});
+
+		document.getElementById('delete_storage').addEventListener('click', function () {
+
+			let choose_storage = document.getElementById('choose_storage');
+			let name = choose_storage.value;
+			
+			// if there's something to remove:
+			if (name != null) {
+				localStorage.removeItem(name);
+				let option = 
+				'<option value="STORAGE_NAME">STORAGE_NAME</option>'.replace(/STORAGE_NAME/g, name);
+				let choose = localStorage.getItem('__choose__');
+
+				/* delete the option from localStorage: */
+				// replace " with \" to math value in localStorage
+				option = option.replace(/"/g, '\\"');
+				choose = choose.replace(option, "");
+				localStorage.setItem('__choose__', choose);
+
+				/* update the pull-down menu */
+				// return \" to "
+				choose = choose.replace(/\\"/g, '"');
+				choose_storage.innerHTML = choose;
+			}
 		});
 
 		// clear local storage, do not reset the game
