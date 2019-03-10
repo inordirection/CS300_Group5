@@ -141,6 +141,7 @@ input[type=text], #message {
   .slider {
     -webkit-appearance: none;
     height: 18px;
+    width: 180px;
     border-radius: 50px;
     background: #d3d3d3;
     outline: none;

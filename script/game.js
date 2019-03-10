@@ -41,13 +41,13 @@ function Game() {
 	}
 
 	/* moves ship, use supplies, visits whichever cp it lands on */
-	this.move = function () {
+	this.move = function (angle) {
 		/* get user input from forms */
-		angle = document.forms['movement']['angle'].value;
+
+		//angle = document.forms['movement']['angle'].value;
 		dist = document.forms['movement']['distance'].value;
 
-		slider = document.getElementById("shipDistance");
-		sliderDist = slider.value;
+		sliderDist = document.getElementById("shipDistance").value;
 
 		if (isNaN(dist) || dist < 1) {
 			//alert("You must enter a distance of at least 1.");
