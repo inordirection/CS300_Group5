@@ -7,11 +7,16 @@ function Game() {
 	var cm; // Celestial Map
 	var ship; // Ship object
 	var over; // track whether the game has ended
+	var orbit; // track if ship is orbiting a planet
+	var landed; // track if ship is landed
 	var message; // message to be displayed at end of turn
 	var sensor; // deployed to reveal celestial points
 	var that = this; // for accessing parent scope in helper funcs
 	// var isDEV = false; // FOR DEV MODE whether the dev mode is open
 	// var isNEVERDIES = false; // FOR DEV MODE whether the player never dies
+	const message0 = 
+		"Welcome to SpaceHunt!\nSet out from the planet Eniac " +
+		"to retrive the secret KocaKola recipe.\n";
 
 	/*****************
 	 * Public (priviliged) methods:
@@ -20,7 +25,7 @@ function Game() {
      *   their internals are also private
 	 *   */
 
-	/* build the initial display */
+		/* build the initial display */
 	this.initDisplay = function (size = 16) {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
@@ -28,16 +33,16 @@ function Game() {
 		if (!load()) {
 			cm = new CelestialMap(null, size);
 			ship = new Ship(null);
-			message = "Welcome to SpaceHunt!\n";
-			message += "You must set out from the planet Eniac to retrive the " +
-				"secret KocaKola recipe.\n"
+			message = message0;
 			sensor = new Sensor(null);
 			over = false;
+			orbit = false;
+			landed = true; // start game "docked on moon of Eniac"
 		}
 
-		// flags to handle proper display on startup
+		// flag to handle proper display on startup
 		that.render_map.init = true;
-		update(false); // update user (without writing collisions)
+		update(false); // update user display (without writing collisions)
 	}
 
 	/* moves ship, use supplies, visits whichever cp it lands on */
@@ -46,14 +51,18 @@ function Game() {
 		angle = document.forms['movement']['angle'].value;
 		dist = document.forms['movement']['distance'].value;
 
+		if (orbit || landed) {
+			alert("You can't move the ship while landed or in orbit");
+			return;
+		}
 		if (isNaN(dist) || dist < 1) {
 			alert("You must enter a distance of at least 1.");
+			return;
 		}
-		else {
-			ship.move(angle, dist, cm);
-			ship.useSupplies();
-			update();
-		}
+
+		ship.move(angle, dist, cm);
+		ship.useSupplies();
+		update();
 	}
 
 	/**
@@ -63,17 +72,17 @@ function Game() {
 	this.deploy_sensor = function () {
 		ship.useSupplies();
 		sensor.deploy_sensor(ship.x, ship.y, cm);
-		update(false);
+		update();
 	};
 
 	this.render_map = function() {
 		this.textMap;
 		var size = cm.GetSize();
 
-		// if first call, init to undiscovered
+		// if first call, init all to undiscovered
 		if (that.render_map.init) {
 			this.textMap = new Array(size);
-			this.last = cm.GetPoint(0,0);
+			this.last = cm.GetPoint(ship.x, ship.y);
 			for (i = 0; i < size; i++) {
 				this.textMap[i] = new Array(size);
 				for (j = 0; j < size; j++)
@@ -90,16 +99,16 @@ function Game() {
 			this.textMap[c.y][c.x] = ch;
 		}
 
-		/* update 'O' to reflect ship's current position
-		 * and rewrite the prior 'O' to its proper tile */
+		/* update 'S' to reflect ship's current position
+		 * and rewrite the prior 'S' to its proper tile */
 		this.textMap[this.last.coordinate.y][this.last.coordinate.x]
 			= TypeEnum.properties[this.last.type].ch;
 		this.textMap[ship.y][ship.x] = 'S';
 		this.last = cm.GetPoint(ship.x, ship.y);
 
-		var m = document.forms['shitmap'];
+		var htmlMap = document.forms['shitmap'];
 		var display = this.textMap.slice().reverse()
-		m.innerText = display.join('\n');
+		htmlMap.innerText = display.join('\n');
 	}
 
 	/**
@@ -143,6 +152,7 @@ function Game() {
 		write_credits();
 		write_map();
 		write_message();
+		write_prompts();
 	}
 
 	/**
@@ -184,7 +194,7 @@ function Game() {
 		// don't lose the game twice
 		if (over) return;
 
-		let msgWormedOver = cm.RunPoint(ship);
+		let msgWormedOver = cm.RunPoint(ship, orbit, landed);
 		// append events to message
 		message += msgWormedOver[0];
 		// if we wormed, check for new collisions
@@ -203,23 +213,91 @@ function Game() {
 		if (style != 'none') that.render_map();
 	}
 
-	/* write a prompt to the user display */
-	function write_prompt(text, formFunc) {
+	/* write a prompts to the user display */
+	function write_prompts()
+	{
+		clear_prompts(); // clear whatever may have been written previously
+		var cpType = cm.GetType(ship.x, ship.y);
+		// if we are in empty space, do nothing
+		if (cpType == TypeEnum['EMPTY']) return;
 
-		var display = document.forms['display'];
-
-		// write a label to align with display fields
+		var prompts = document.getElementById('prompts');
 		var label = document.createElement("label");
-		label.innerHTML="&zwnj;";
-		display.appendChild(label);
+		label.innerHTML="&zwnj;"; // zero-width non-joiner (to force alignment)
+		prompts.appendChild(label);
 
-		// write input form to display
-		var e = document.createElement("input");
-		e.setAttribute('type', "submit");
-		e.setAttribute('value', text);
-		e.setAttribute('onSubmit', formFunc);
-		display.appendChild(e);
+		// write input buttons to display
+		if (orbit && !landed) {
+			prompts.appendChild(makeButton("Land", land));
+			prompts.appendChild(makeButton("Leave Orbit", leaveOrbit));
+		}
+		else if (landed) {
+			prompts.appendChild(makeButton("Blast Off!", blastOff));
+		}
+		else if (cpType >= TypeEnum['P_ONE']) {
+			prompts.appendChild(makeButton("Enter Orbit", enterOrbit));
+		}	
+		if (cpType == TypeEnum['STATION']) {
+			if (landed)
+				prompts.appendChild(makeButton("Make a wager.", casino));
+			else
+				prompts.appendChild(makeButton("Land", land));
+		}
 	}
+	/**
+	 * write_prompts() helpers:
+	 * */
+	function makeButton(text, func) {
+		var b = document.createElement("input");
+		b.setAttribute('class', "formButton");
+		b.setAttribute('value', text);
+		b.setAttribute('type', "button");
+		b.setAttribute('id', text);
+		b.addEventListener('click', func, false);
+		return b;
+	}
+	function clear_prompts() {
+		document.getElementById('prompts').innerHTML = "";
+	}
+	
+	function enterOrbit() {
+		ship.useSupplies();
+		orbit = true;
+		update();
+	}
+	function land() {
+		ship.useSupplies();
+		if (cm.GetType(ship.x, ship.y) == TypeEnum['STATION'])
+			ship.useCredits(10);
+		landed = true;
+		update();
+	}
+	function leaveOrbit() {
+		ship.useSupplies();
+		orbit = false;
+		update();
+	}
+	function blastOff() {
+		ship.useSupplies();
+		landed = false;
+		update();
+	}
+	function casino() {
+		let wager = prompt("How much would you like to wager?");
+		if (wager > ship.credits) {
+			alert("You only have " + ship.credits + " to wager.");
+			return;
+		}
+		ship.useCredits(wager);
+		let chance = Math.random();
+		if (chance > 0.5) {
+			ship.useCredits(-2*wager);
+			message += "You won " + 2*wager + "!\n"
+		}
+		else message += "Chance was not on your side.\n"
+		update();
+	}
+
 
 	/**
 	 * State functions:
@@ -237,9 +315,10 @@ function Game() {
 			that.reset_game();
 		}
 		else {
-			save(name, [ship, cm, message, over, sensor]);
+			save(name, [ship, cm, message, over, sensor, orbit, landed]);
+			// store the save names
 			save('__choose__', document.getElementById('choose_storage').innerHTML);
-			message = "";
+			message = ""; // clear message for next turn
 		}
 	}
 	function save(key, value) {
@@ -260,7 +339,8 @@ function Game() {
 			message = current[2];
 			over = current[3];
 			sensor = new Sensor(current[4]);
-			that.render_map.init = true;
+			orbit = current[5];
+			landed = current[6];
 			return true;
 		} else return false;
 	}
@@ -301,7 +381,7 @@ function Game() {
 	celestial_obj_form = '<div id="celestial_CELENUMBER">\n' +
 		'\t\t\t\t\t\t<select id="celestial_CELENUMBER_type" name="celestial_CELENUMBER_type">\n';
 	// dynamically populate based on current TypeEnum
-	for (i = 0; i <= TypeEnum['ENIAC']; i++) {
+	for (i = 0; i < TypeEnum['ENIAC']; i++) {
 		celestial_obj_form += 
 			`\t\t\t\t\t\t\t<option value="${i}">${TypeEnum['properties'][i].name}</option>`;
 	}
@@ -374,7 +454,7 @@ function Game() {
 			if (xy === null) {
 				continue;
 			}
-			if (t >= 12 && t <= 15 && xy.length > 1) {
+			if (t >= TypeEnum['CELERON'] && t <= TypeEnum['ENIAC'] && xy.length > 1) {
 				alert('This Planet is unique in the map. The last coordinate will be the final one.')
 			}
 			for (let j = 0; j < xy.length; j++) {
@@ -445,11 +525,16 @@ function Game() {
 		document.getElementById('submit_ini').addEventListener('click', function () {
 			// first, change the game size and reset the game.
 			setGameSize();
+			// set the values of credits, energy, supplies, sensor range, and location
+			let xy = initialECSL();
 			// set the celestial point.
 			let newPointList = getCelestialPointList();
+			// if user changed start location, change Eniac position
+			if (xy !== null) {
+				let Eniac = new CelestialPoint(TypeEnum['ENIAC'], true, xy[0][0], xy[0][1]);
+				newPointList.push(Eniac);
+			}
 			cm.setCelestialPoint(newPointList);
-			// set the values of credits, energy, supplies, sensor range, and location
-			initialECSL();
 			// set two behavior
 			if (document.getElementById('dev_ini_never_dies').checked === true) {
 				openNeverDies();
@@ -457,7 +542,9 @@ function Game() {
 			if (document.getElementById('dev_ini_fixed_wh').checked === true) {
 				openFixedWormhole();
 			}
-			update();
+			message = message0;
+			that.render_map.init = true;
+			update(false);
 		});
 
         // change the fixed wormhole behavior
@@ -582,6 +669,7 @@ function Game() {
 			ship.setLocation(cm, coords[0]);
 		}
 		sensor.updateRange(getIntValue('dev_sensor'));
+		return coords; // to place eniac at start location
 	}
 
 	// helper function for get the int value in a text area.

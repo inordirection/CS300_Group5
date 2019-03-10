@@ -114,6 +114,10 @@ class CelestialMap
 		return this.celestialPoints[xCoord][yCoord];
 	}
 
+	GetType(xCoord, yCoord) {
+		return this.GetPoint(xCoord, yCoord).type;
+	}
+
 	GetRandomPoint()
 	{
 		return this.celestialPoints[Math.floor(Math.random() * this.size)]
@@ -132,7 +136,7 @@ class CelestialMap
 	 * Back-end processing for collisions with Celestial Artifacts
 	 * 	returns: array with message, wormhole flag, gameover flag
 	 * 	*/
-	RunPoint(ship) {
+	RunPoint(ship, orbit, landed) {
 		let msg = ""
 		let wormed = false;
 		let over = false;
@@ -141,7 +145,15 @@ class CelestialMap
 		let name = TypeEnum.properties[cpType].name;
 		// if encountering a planet:
 		if (cpType >= TypeEnum['P_ONE']) {
-			msg += "You've arrived at planet ";
+			if (!orbit && !landed) {
+				msg += "You've arrived at planet ";
+			}
+			else if (landed) {
+				msg += "You're docked at planet ";
+			}	
+			else if (orbit) {
+				msg += "You're orbiting planet ";
+			}
 			msg += TypeEnum['properties'][cpType].name + ".\n";
 		}
 		// if we hit a wormhole, warp
@@ -151,7 +163,16 @@ class CelestialMap
 			msg += "You passed through a wormhole!\n";
 			wormed = true;
 		}	
-		// else, process random encounter
+		else if (cpType == TypeEnum['STATION']) {
+			if (!landed) {
+				msg += "You've come across a space station\n";
+				msg += "Land at the station casino for 10 credits?\n";
+			}
+			else {
+				msg += "A Casinian has challenged you to a game of chance.\n";
+			}
+		}
+		// else, process random, one-time encounter
 		else {
 			let chance = Math.random();
 			//BadMax
@@ -260,7 +281,7 @@ class CelestialMap
 				this.planetsSet.delete(original);
 
 				// if is a special planet, change visible.
-            if (current.type >= specials && current.type <= eniac) {
+				if (current.type >= specials && current.type <= end) {
 					this.visibleSet.delete(original);
 					this.visibleSet.add(current);
 				}
