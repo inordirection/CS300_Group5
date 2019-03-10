@@ -400,7 +400,8 @@ function Game() {
 			return ;
 		}
 		isINI = !isINI;
-		document.getElementById('whether_open_ini').innerHTML = "Use selected values to initial games: " + isINI + '.';
+		document.getElementById('whether_open_ini').innerHTML = 
+			"Use selected values to initialize game: " + isINI + '.';
 		// for the normal part
 		const ecsl = document.getElementById('ecsl');
 		ecsl.style.display = (ecsl.style.display === 'none') ? 'block' : 'none';
