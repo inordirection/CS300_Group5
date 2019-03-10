@@ -1,56 +1,57 @@
-.formButton{
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  cursor: pointer;
-  border-radius: 8px;
+.formButton {
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 8px;
 }
 
-.display{
-    background-color: red;
-    border: none;
-    color: black;
-    padding: 7px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    margin: 4px 2px;
-    cursor: pointer;
+.display {
+	background-color: red;
+	border: none;
+	color: black;
+	padding: 7px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	margin: 4px 2px;
+	cursor: pointer;
 }
 
 .screen {
-     margin: 20px;
-     padding: 20px;
-     border: solid 5px grey;
-     width: 20%;
-	 vertical-align: top;
+	margin: 20px;
+	padding: 20px;
+	border: solid 5px grey;
+	width: 20%;
+	vertical-align: top;
 }
 
 body {
 	color: white;
-    background-color: black;
+	background-color: black;
 }
 
-h1{
-    font-family: 'Roboto', sans-serif;
+h1 {
+	font-family: 'Roboto', sans-serif;
 	color: white;
 }
 
 label {
-    display: inline-block;
-    float: left;
-    width: 121px;
-    text-align: right;
-    vertical-align: middle;
+	display: inline-block;
+	float: left;
+	width: 121px;
+	text-align: right;
+	vertical-align: middle;
 }
 
-input[type=text], #message {
+input[type=text],
+#message {
 	width: 170px;
 }
 
@@ -64,74 +65,91 @@ input[type=text], #message {
 	font-family: courier-new, monospace;
 }
 
-.label{
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
+.label {
+	font-family: 'Roboto', sans-serif;
+	font-size: 15px;
 }
 
-.devMode{
-    font-family: 'Roboto', sans-serif;
-    font-size: 25px;
-    padding: 10px;
-    border: 10px;
-    border-color: white;
+.devMode {
+	font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+	padding: 10px;
+	width: fit-content;
+	border: 3px;
+	border-radius: 50px;
+	border-color: #4CAF50;
+	border-style: solid;
 }
-
-
 
 .button {
+	display: inline-block;
+	font-family: 'Roboto', sans-serif;
+	padding: 30px;
+	font-size: 13px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: white;
+	border: none;
+	border-radius: 40px;
+	box-shadow: 0 9px grey;
+}
 
-  /*
-  background: #f0f0f0 url("arrow2.png");
-  background-position: 20px 15px;
-  background-repeat: no-repeat;
-  */
-  display: inline-block;
-  font-family: 'Roboto', sans-serif;
-  padding: 30px;
-  font-size: 13px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  background-color: white;
-  border: none;
-  border-radius: 40px;
-  box-shadow: 0 9px grey;
+.button:active {
+	background-color: rgb(100, 100, 100);
+	box-shadow: 0 5px grey;
+	transform: translateY(4px);
+}
 
-  }
+.buttonUp {
+	background: #f0f0f0 url("arrowUp.png");
+	background-position: 18px 15px;
+	background-repeat: no-repeat;
+}
 
-  .button:hover {
-      /*background-color: rgb(100, 100, 100); */
-    }
+.buttonLeft {
+	background: #f0f0f0 url("arrowLeft.png");
+	background-position: 18px 15px;
+	background-repeat: no-repeat;
+}
 
-  .button:active {
-    background-color: rgb(100, 100, 100);
-    box-shadow: 0 5px grey;
-    transform: translateY(4px);
-  }
+.buttonRight {
+	background: #f0f0f0 url("arrowRight.png");
+	background-position: 18px 15px;
+	background-repeat: no-repeat;
+}
 
-  .buttonUp{
-    background: #f0f0f0 url("arrowUp.png");
-    background-position: 18px 15px;
-    background-repeat: no-repeat;
-  }
+.buttonDown {
+	background: #f0f0f0 url("arrowDown.png");
+	background-position: 18px 15px;
+	background-repeat: no-repeat;
+}
 
-  .buttonLeft{
-    background: #f0f0f0 url("arrowLeft.png");
-    background-position: 18px 15px;
-    background-repeat: no-repeat;
-  }
+.slider {
+	-webkit-appearance: none;
+	height: 18px;
+	width: 180px;
+	border-radius: 50px;
+	background: #d3d3d3;
+	outline: none;
+}
 
-  .buttonRight{
-    background: #f0f0f0 url("arrowRight.png");
-    background-position: 18px 15px;
-    background-repeat: no-repeat;
-  }
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #4CAF50;
+	cursor: pointer;
+}
 
-  .buttonDown{
-    background: #f0f0f0 url("arrowDown.png");
-    background-position: 18px 15px;
-    background-repeat: no-repeat;
-  }
+.slider::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #4CAF50;
+	cursor: pointer;
+}

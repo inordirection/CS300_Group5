@@ -46,21 +46,15 @@ function Game() {
 	}
 
 	/* moves ship, use supplies, visits whichever cp it lands on */
-	this.move = function () {
+	this.move = function (angle) {
 		/* get user input from forms */
-		angle = document.forms['movement']['angle'].value;
-		dist = document.forms['movement']['distance'].value;
+		sliderDist = document.getElementById("shipDistance").value;
 
 		if (orbit || landed) {
 			alert("You can't move the ship while landed or in orbit");
 			return;
 		}
-		if (isNaN(dist) || dist < 1) {
-			alert("You must enter a distance of at least 1.");
-			return;
-		}
-
-		ship.move(angle, dist, cm);
+		ship.move(angle, sliderDist, cm);
 		ship.useSupplies();
 		update();
 	}

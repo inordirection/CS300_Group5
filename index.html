@@ -21,108 +21,98 @@
 	<table>
 		<tr>
 			<td class="screen">
-		<h1>OldSpice Control Panel</h1>
-		<form name="movement" onSubmit="game.move(); return false;">
-			<label>Distance:&nbsp;</label>
-			<input type="text" name="distance" id="distance"><br>
-			<label>Angle:&nbsp;</label>
-			<select name="angle">
-				<option> 0
-				<option> 90
-				<option> 180
-				<option> 270
-			</select>
-			<input type="submit" value="Move">
-			<br>
-			<input type="range" min="1" max="20" value="1" class="slider" id="shipDistance">
-			<p class="label">Distance: <span id="shipDisanceValue"></span></p>
+				<h1>OldSpice Control Panel</h1>
 
-			<table>
-				<tr>
-					<td>
-					</td>
-					<td>
-						<button class="button buttonUp"></button>
-					</td>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<button class="button buttonLeft"></button>
-					</td>
-					<td>
-					</td>
-					<td>
-						<button class="button buttonRight"></button>
-					</td>
-				</tr>
-				<tr>
-					<td>
-					</td>
-					<td>
-						<button class="button buttonDown"></button>
-					</td>
-					<td>
-					</td>
-				</tr>
-			</table>
-		</form>
-		<br>
-		<br>
+				<input type="range" min="1" max="20" value="1" class="slider" id="shipDistance">
+				<p class="label">Distance: <span id="shipDisanceValue"></span></p>
 
+				<table>
+					<tr>
+						<td>
+						</td>
+						<td>
+							<button class="button buttonUp" value="90" 
+								onclick="game.move(90)"></button>
+						</td>
+						<td>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button class="button buttonLeft" value="180" 
+								onclick="game.move(180)"></button>
+						</td>
+						<td>
+						</td>
+						<td>
+							<button class="button buttonRight" value="0" 
+								onclick="game.move(0)"></button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						</td>
+						<td>
+							<button class="button buttonDown" value="270" 
+								onclick="game.move(270)"></button>
+						</td>
+						<td>
+						</td>
+					</tr>
+				</table>
 
-		<form name="deploy_sensor" onsubmit="game.deploy_sensor(); return false;">
-			<input type="submit" value="Deploy Sensor" class="formButton">
-		</form>
-		<form name="togglemap">
-			<input type="submit" value="Open/Close Map" onclick="toggleHidden('map');
-			game.render_map(); return false;"
-			 class="formButton">
-		</form>
-		<form name="reset_game" onsubmit="game.reset_game(); return true;">
-			<input type="submit" value="Reset Game" class="formButton">
-		</form>
+				<br>
+				<br>
 
-		</td>
-		<td class="screen">
+				<form name="deploy_sensor" onsubmit="game.deploy_sensor(); return false;">
+					<input type="submit" value="Deploy Sensor" class="formButton">
+				</form>
+				<form name="togglemap">
+					<input type="submit" value="Open/Close Map" onclick="toggleHidden('map');
+			game.render_map(); return false;" class="formButton">
+				</form>
+				<form name="reset_game" onsubmit="game.reset_game(); return true;">
+					<input type="submit" value="Reset Game" class="formButton">
+				</form>
 
-		<!-- Status Display -->
+			</td>
+			<td class="screen">
 
-		<h1>Current Status</h1>
-		<!-- add forms to display ship status here -->
-		<form name="display">
-			<label>Location:&nbsp;</label><input type="text" id="location" class="label"><br>
-			<label>Supplies:&nbsp;</label><input type="text" id="supplies" class="label"><br>
-			<label>Energy:&nbsp;</label><input type="text" id="energy" class="label"><br>
-			<label>Credits:&nbsp;</label><input type="text" id="credits" class="label"><br>
-			<label>Message:&nbsp;</label>
-			<textarea rows="6" id="message" class="label"></textarea><br>
-		</form>
+				<!-- Status Display -->
 
-		<div id="prompts">
+				<h1>Current Status</h1>
+				<!-- add forms to display ship status here -->
+				<form name="display">
+					<label>Location:&nbsp;</label><input type="text" id="location" class="label"><br>
+					<label>Supplies:&nbsp;</label><input type="text" id="supplies" class="label"><br>
+					<label>Energy:&nbsp;</label><input type="text" id="energy" class="label"><br>
+					<label>Credits:&nbsp;</label><input type="text" id="credits" class="label"><br>
+					<label>Message:&nbsp;</label>
+					<textarea rows="6" id="message" class="label"></textarea><br>
+				</form>
 
-		</div>
-		
-		<br>
-		<br>
-		<br>
+				<div id="prompts">
 
-		<!-- nameable persistent state -->
-		<div id="nameable_storage">
-			<label>Save Name:&nbsp;</label>
-			<input type="text" id="storage_name" class="label"><br><br>
-			<button class="formButton" id="save_storage" type="button">Save</button>
-			<button type="button" id="load_storage" class="formButton">Load</button>
-			<select id="choose_storage"></select><br><br>
-			<button type="button" id="clear_local_storage" class="formButton">
-			Clear Local Storage</button>
-		</div>
-	</td>
-	<td class="screen">
-		<h1>Gazeteer</h1>
-	</td>
-	</tr>
+				</div>
+				<br>
+				<br>
+				<br>
+
+				<!-- nameable persistent state -->
+				<div id="nameable_storage">
+					<label class="label">Save Name:&nbsp;</label>
+					<input type="text" id="storage_name" class="label"><br><br>
+					<button class="formButton" id="save_storage" type="button">Save</button>
+					<button type="button" id="load_storage" class="formButton">Load</button>
+					<select id="choose_storage"></select><br><br>
+					<button type="button" id="clear_local_storage" class="formButton">
+						Clear Local Storage</button>
+				</div>
+			</td>
+			<td class="screen">
+				<h1>Celestial Gazetteer</h1>
+			</td>
+		</tr>
 	</table>
 
 	<!-- map div -->
@@ -133,20 +123,21 @@
 	</div>
 
 
-		<!-- Those are used by developer mode -->
+	<!-- Those are used by developer mode -->
 
-		<!-- In the normal mode, now is ok. When the selected values to initial the game, the user can choose one of state of never dies and fixed wormhole mode. Also, they can input the value for each things and if they not, the value will change to defaulf values. For the input celestial point, the user should input multiple points in one input line -->
-		<div style="cursor:hand" onclick="toggleHidden('dev1')" class="devMode"><b>Developer Mode Control</b></div>
+	<!-- In the normal mode, now is ok. When the selected values to initial the game, the user can choose one of state of never dies and fixed wormhole mode. Also, they can input the value for each things and if they not, the value will change to defaulf values. For the input celestial point, the user should input multiple points in one input line -->
+	<div style="cursor:hand" onclick="toggleHidden('dev1')" class="devMode"><b>Developer Mode Control</b></div>
 
-		<div id="dev1" style="display:none">
+	<div id="dev1" style="display:none">
 
-			<!-- For open or close the mode -->
-			<form name="open_dev_mode">
-				<p id="whether_open" class="label">Using game configuration: false</p>
-			</form>
+		<!-- For open or close the mode -->
+		<form name="open_dev_mode">
+			<p id="whether_open" class="label">Using game configuration: false</p>
+		</form>
 
-			<!-- For the customize game -->
-			<div id="customize_game" style="cursor:hand" onclick="toggleHidden('dev_cus')" class="devCObj"><b>Customize game Initialization</b></div>
+		<!-- For the customize game -->
+		<div id="customize_game" style="cursor:hand" onclick="toggleHidden('dev_cus')" class="devCObj devMode"><b>Customize game
+				Initialization</b></div>
 
 		<!-- How to customize the game initialization -->
 		<div id="dev_cus" style="display:none">
@@ -158,7 +149,7 @@
 			<form id="customizeGame">
 				<!-- This is to change celestial point to the map-->
 				<p><button id="add_celestial" type="button" name="add_celestial" class="formButton">
-					Add Celestial</button></p>
+						Add Celestial</button></p>
 				<div id="celestial_Container">
 					<!-- Dynamically generated according to TypeEnum -->
 				</div>
@@ -183,68 +174,65 @@
 
 			<!-- submit button of the initial game -->
 			<button id="submit_ini" type="button" name="submit_ini" class="formButton">
-					Initialize Game</button>
+				Initialize Game</button>
 		</div>
 
-			<!-- For change energy, credits, supplies, and location -->
-			<br />
-			<div id="ecsl" name="ecsl">
-				<input type="checkbox" id="all" onchange="changeAll()">Change All<br>
-				<input type="checkbox" id="e" name="c" value="Change Energy">Change Energy<br>
-				<input type="checkbox" id="c" name="c" value="Change Credits">Change Credits<br>
-				<input type="checkbox" id="s" name="c" value="Change Supplies">Change Supplies<br>
-				<input type="checkbox" id="l" name="c" value="Change Location">Change Location<br>
-				<input type="checkbox" id="sensor" name="c" value="Change Sensor Range">Change Sensor Range<br>
-				<input type="checkbox" id="size" name="c" value="Change game size">Change Game Size<br>
-				<button type="button" id="change_ecsl" class="formButton">Change</button>
-			</div>
-
-			<!-- For select normal mode or never dies -->
-			<div id="fixed_wh">
-				<p id="whether_fixed">Use the fixed wormhole mode is false</p>
-				<button id="change_fixed" type="button" class="formButton">Change</button>
-			</div>
-
-			<!-- For select fixed wormhole behavior -->
-			<div id="never">
-				<p id="whether_never">Use never dies mode is false.</p>
-				<button id="change_never" type="button" class="formButton">Change</button>
-			</div>
+		<!-- For change energy, credits, supplies, and location -->
+		<br />
+		<div id="ecsl" name="ecsl">
+			<input type="checkbox" id="all" onchange="changeAll()" class="label">Change All<br>
+			<input type="checkbox" id="e" name="c" value="Change Energy" class="label">Change Energy<br>
+			<input type="checkbox" id="c" name="c" value="Change Credits">Change Credits<br>
+			<input type="checkbox" id="s" name="c" value="Change Supplies">Change Supplies<br>
+			<input type="checkbox" id="l" name="c" value="Change Location">Change Location<br>
+			<input type="checkbox" id="sensor" name="c" value="Change Sensor Range">Change Sensor Range<br>
+			<input type="checkbox" id="size" name="c" value="Change game size">Change Game Size<br>
+			<button type="button" id="change_ecsl" class="formButton">Change</button>
 		</div>
 
-		<script> game.initDisplay(); </script>
+		<!-- For select normal mode or never dies -->
+		<div id="fixed_wh">
+			<p id="whether_fixed" class="label">Use the fixed wormhole mode is false</p>
+			<button id="change_fixed" type="button" class="formButton">Change</button>
+		</div>
+
+		<!-- For select fixed wormhole behavior -->
+		<div id="never">
+			<p id="whether_never" class="label">Use never dies mode is false.</p>
+			<button id="change_never" type="button" class="formButton">Change</button>
+		</div>
+	</div>
+
+	<script> game.initDisplay(); </script>
 	<!--</div>-->
 </body>
 
-	<script>
-		function toggleHidden(dev) {
-			var v = document.getElementById(dev);
-			v.style.display = (v.style.display === 'none') ? 'block' : 'none';
-			if (dev === 'dev1') game.openGameConfiguration();
-			if (dev === 'dev_cus') {
-				game.openSelectedInitial();
-			}
+<script>
+	function toggleHidden(dev) {
+		var v = document.getElementById(dev);
+		v.style.display = (v.style.display === 'none') ? 'block' : 'none';
+		if (dev === 'dev1') game.openGameConfiguration();
+		if (dev === 'dev_cus') {
+			game.openSelectedInitial();
 		}
+	}
 
-		function changeAll () {
-			let f = document.getElementById('all');
-			let n = document.getElementsByName('c');
-			for (let i = 0; i < n.length; i++) {
-				n[i].checked = f.checked;
-			}
+	function changeAll() {
+		let f = document.getElementById('all');
+		let n = document.getElementsByName('c');
+		for (let i = 0; i < n.length; i++) {
+			n[i].checked = f.checked;
 		}
+	}
 
-		var slider = document.getElementById("shipDistance");
-		var output = document.getElementById("shipDisanceValue");
-		output.innerHTML = slider.value;
+	var slider = document.getElementById("shipDistance");
+	var output = document.getElementById("shipDisanceValue");
+	output.innerHTML = slider.value;
 
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
+	slider.oninput = function () {
+		output.innerHTML = this.value;
+	}
 
-
-
-		
-	</script>
+</script>
 
 </html>
