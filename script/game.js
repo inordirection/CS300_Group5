@@ -278,6 +278,10 @@ function Game() {
 	}
 	function casino() {
 		let wager = prompt("How much would you like to wager?");
+		if (isNaN(wager)) {
+			alert("You can't wager a " + wager + ".");
+			return;
+		}
 		if (wager > ship.credits) {
 			alert("You only have " + ship.credits + " to wager.");
 			return;
