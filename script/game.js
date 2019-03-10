@@ -419,7 +419,8 @@ function Game() {
 		}
 
 		isNEVERDIES = !isNEVERDIES;
-		document.getElementById('whether_never').innerHTML = "Use never dies mode is " + isNEVERDIES;
+		document.getElementById('whether_never').innerHTML = "Use never dies mode is: " 
+			+ isNEVERDIES;
 	}
 
 	// select fixed wormhole or normal wormhole behavior
@@ -432,7 +433,7 @@ function Game() {
 		isFIXEDWH = !isFIXEDWH;
 		ship.isFIXEDWH = !ship.isFIXEDWH;
 		document.getElementById('whether_fixed').innerHTML =
-			"Use the fixed wormhole mode is " + isFIXEDWH;
+			"Use fixed wormhole mode is: " + isFIXEDWH;
 	}
 
 	/**
