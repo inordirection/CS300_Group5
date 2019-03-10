@@ -98,8 +98,8 @@ function Game() {
 		this.last = cm.GetPoint(ship.x, ship.y);
 
 		var m = document.forms['shitmap'];
-		this.textMap.reverse();
-		m.innerText = this.textMap.join('\n');
+		var display = this.textMap.slice().reverse()
+		m.innerText = display.join('\n');
 	}
 
 	/**
