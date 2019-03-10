@@ -30,6 +30,18 @@ function Ship(json) {
 		this.x = Math.round(this.x + distance*Math.cos(angle * Math.PI/180));
 		this.y = Math.round(this.y + distance*Math.sin(angle * Math.PI/180));
 
+		// if passing over an asteroid, hit it
+		asteroid_t = TypeEnum['ASTEROID'];
+		for (k = 1; k < distance; k++) {
+			let x1 = x0 + Math.round(k*Math.cos(angle*Math.PI/180));
+			let y1 = y0 + Math.round(k*Math.sin(angle*Math.PI/180));
+			if (!cm.checkSize([x1, y1]) ||
+				cm.GetPoint(x1, y1).type == asteroid_t) {
+				this.x = x1;
+				this.y = y1;
+				break;
+			}
+		}
 		// if going out of bounds, pass through wormhole
 		if (!cm.checkSize([this.x, this.y])) {
 			if (!this.isFIXEDWH) {
@@ -38,20 +50,6 @@ function Ship(json) {
 				this.UsefixedWormhole(cm);
 			}
 		} 
-		// else, process normal movement
-		else {
-			// if passing over an asteroid, hit it
-			asteroid_t = TypeEnum['ASTEROID'];
-			for (k = 1; k < distance; k++) {
-				let x1 = x0 + Math.round(k*Math.cos(angle*Math.PI/180));
-				let y1 = y0 + Math.round(k*Math.sin(angle*Math.PI/180));
-				if (cm.GetPoint(x1, y1).type == asteroid_t) {
-					this.x = x1;
-					this.y = y1;
-					break;
-				}
-			}
-		}
 		// add newly visited coordinate to visible Set
 		cm.ChangeVisible(this.x, this.y);
 		// update energy

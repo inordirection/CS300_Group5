@@ -50,8 +50,7 @@ label {
 	vertical-align: middle;
 }
 
-input[type=text],
-#message {
+input[type=text], #message {
 	width: 170px;
 }
 
