@@ -92,11 +92,11 @@
 				<h1>Current Status</h1>
 				<!-- add forms to display ship status here -->
 				<form name="display">
-					<label>Location:&nbsp;</label><input type="text" id="location" class="label"><br>
-					<label>Supplies:&nbsp;</label><input type="text" id="supplies" class="label"><br>
-					<label>Energy:&nbsp;</label><input type="text" id="energy" class="label"><br>
-					<label>Credits:&nbsp;</label><input type="text" id="credits" class="label"><br>
-					<label>Message:&nbsp;</label>
+					<label class="label">Location:&nbsp;</label><input type="text" id="location" class="label"><br>
+					<label class="label">Supplies:&nbsp;</label><input type="text" id="supplies" class="label"><br>
+					<label class="label">Energy:&nbsp;</label><input type="text" id="energy" class="label"><br>
+					<label class="label">Credits:&nbsp;</label><input type="text" id="credits" class="label"><br>
+					<label class="label">Message:&nbsp;</label>
 					<textarea rows="6" id="message" class="label"></textarea><br>
 				</form>
 
@@ -106,7 +106,7 @@
 
 				<!-- nameable persistent state -->
 				<div id="nameable_storage">
-					<label>Save Name:&nbsp;</label>
+					<label class="label">Save Name:&nbsp;</label>
 					<input type="text" id="storage_name" class="label"><br><br>
 					<button class="formButton" id="save_storage" type="button">Save</button>
 					<button type="button" id="load_storage" class="formButton">Load</button>
@@ -142,7 +142,7 @@
 		</form>
 
 		<!-- For the customize game -->
-		<div id="customize_game" style="cursor:hand" onclick="toggleHidden('dev_cus')" class="devCObj"><b>Customize game
+		<div id="customize_game" style="cursor:hand" onclick="toggleHidden('dev_cus')" class="devCObj devMode"><b>Customize game
 				Initialization</b></div>
 
 		<!-- How to customize the game initialization -->
@@ -186,8 +186,8 @@
 		<!-- For change energy, credits, supplies, and location -->
 		<br />
 		<div id="ecsl" name="ecsl">
-			<input type="checkbox" id="all" onchange="changeAll()">Change All<br>
-			<input type="checkbox" id="e" name="c" value="Change Energy">Change Energy<br>
+			<input type="checkbox" id="all" onchange="changeAll()" class="label">Change All<br>
+			<input type="checkbox" id="e" name="c" value="Change Energy" class="label">Change Energy<br>
 			<input type="checkbox" id="c" name="c" value="Change Credits">Change Credits<br>
 			<input type="checkbox" id="s" name="c" value="Change Supplies">Change Supplies<br>
 			<input type="checkbox" id="l" name="c" value="Change Location">Change Location<br>
@@ -198,13 +198,13 @@
 
 		<!-- For select normal mode or never dies -->
 		<div id="fixed_wh">
-			<p id="whether_fixed">Use the fixed wormhole mode is false</p>
+			<p id="whether_fixed" class="label">Use the fixed wormhole mode is false</p>
 			<button id="change_fixed" type="button" class="formButton">Change</button>
 		</div>
 
 		<!-- For select fixed wormhole behavior -->
 		<div id="never">
-			<p id="whether_never">Use never dies mode is false.</p>
+			<p id="whether_never" class="label">Use never dies mode is false.</p>
 			<button id="change_never" type="button" class="formButton">Change</button>
 		</div>
 	</div>
