@@ -253,7 +253,6 @@ function Game() {
 	function clear_prompts() {
 		document.getElementById('prompts').innerHTML = "";
 	}
-	
 	function enterOrbit() {
 		ship.useSupplies();
 		orbit = true;
@@ -286,6 +285,7 @@ function Game() {
 			alert("You only have " + ship.credits + " to wager.");
 			return;
 		}
+
 		ship.useCredits(wager);
 		let chance = Math.random();
 		if (chance > 0.5) {
@@ -339,6 +339,7 @@ function Game() {
 			sensor = new Sensor(current[4]);
 			orbit = current[5];
 			landed = current[6];
+			that.render_map.init = true;
 			return true;
 		} else return false;
 	}
@@ -603,7 +604,7 @@ function Game() {
 				choose = choose.replace(option, "");
 				localStorage.setItem('__choose__', choose);
 
-				/* update the pull-down menu */
+				/* update the pull-down menu: */
 				// return \" to "
 				choose = choose.replace(/\\"/g, '"');
 				choose_storage.innerHTML = choose;
