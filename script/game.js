@@ -567,6 +567,7 @@ function Game() {
 			let option = 
 				'<option value="STORAGE_NAME">STORAGE_NAME</option>'.replace(/STORAGE_NAME/g, name);
 
+			// don't duplicate names in save-list
 			if (localStorage.getItem(name) === null) {
 				document.getElementById('choose_storage').innerHTML += option;
 			}
