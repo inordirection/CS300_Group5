@@ -31,7 +31,7 @@ TypeEnum =
 		2: {name: "Meteor Storm", ch: 'M'},
 		3: {name: "Bad Max", ch: 'B'},
 		4: {name: "Abandoned Freighter", ch: 'F'},
-		5: {name: "Space Station", ch: 'C'}, // C for casino?
+		5: {name: "Space Station", ch: '$'}, 
 		6: {name: "Wormhole", ch: 'W'},
 		7: {name: "Pentium 1", ch: '1'},
 		8: {name: "Pentium 2", ch: '2'},

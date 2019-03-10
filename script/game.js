@@ -90,8 +90,8 @@ function Game() {
 			this.textMap[c.y][c.x] = ch;
 		}
 
-		/* update 'S' to reflect ship's current position
-		 * and rewrite the prior 'S' to its proper tile */
+		/* update 'O' to reflect ship's current position
+		 * and rewrite the prior 'O' to its proper tile */
 		this.textMap[this.last.coordinate.y][this.last.coordinate.x]
 			= TypeEnum.properties[this.last.type].ch;
 		this.textMap[ship.y][ship.x] = 'S';
