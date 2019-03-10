@@ -15,8 +15,8 @@ function Game() {
 	// var isDEV = false; // FOR DEV MODE whether the dev mode is open
 	// var isNEVERDIES = false; // FOR DEV MODE whether the player never dies
 	const message0 = 
-		"Welcome to SpaceHunt!\nSet out from the planet Eniac " +
-		"to retrive the secret KocaKola recipe.\n";
+		"Welcome to SpaceHunt!\nYou are docked on the moon of planet Eniac. " +
+		"Return with the secret KocaKola recipe to win the game!";
 
 	/*****************
 	 * Public (priviliged) methods:
