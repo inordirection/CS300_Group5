@@ -46,9 +46,15 @@ function Game() {
 		angle = document.forms['movement']['angle'].value;
 		dist = document.forms['movement']['distance'].value;
 
+		slider = document.getElementById("shipDistance");
+		sliderDist = slider.value;
+
 		if (isNaN(dist) || dist < 1) {
-			alert("You must enter a distance of at least 1.");
-		}
+			//alert("You must enter a distance of at least 1.");
+			ship.move(angle, sliderDist, cm);
+			ship.useSupplies();
+			update();			
+		}	
 		else {
 			ship.move(angle, dist, cm);
 			ship.useSupplies();
