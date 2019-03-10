@@ -135,3 +135,36 @@ input[type=text], #message {
     background-position: 18px 15px;
     background-repeat: no-repeat;
   }
+
+
+
+  .slider {
+    -webkit-appearance: none;
+    height: 18px;
+    border-radius: 50px;
+    background: #d3d3d3;
+    outline: none;
+  }
+  
+ 
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+  }
+
+
+
