@@ -381,7 +381,7 @@ function Game() {
 	}
 	celestial_obj_form += '\t\t\t\t\t\t</select>\n' +
 	'\t\t\t\t\t\t<input type="text" id="celestial_CELENUMBER_coor" name="celestial_CELENUMBER_coor" placeholder="x,y" />\n' +
-	'\t\t\t\t\t\t<button id="delete_CELENUMBER_celestial" type="button" name="delete_CELENUMBER_celestial" class="delete_celestial">Delete Celestial</button>\n' +
+	'\t\t\t\t\t\t<button id="delete_CELENUMBER_celestial" type="button" name="delete_CELENUMBER_celestial" class="delete_celestial">Delete Celestial Menu</button>\n' +
 	'\t\t\t\t\t\t<br />\n' +
 	'\t\t\t\t\t</div>';
 
@@ -564,8 +564,11 @@ function Game() {
 		// save to local storage
 		document.getElementById('save_storage').addEventListener('click', function () {
 			let name = document.getElementById('storage_name').value;
-			let option = '<option value="STORAGE_NAME">STORAGE_NAME</option>'.replace(/STORAGE_NAME/g, name);
-			document.getElementById('choose_storage').innerHTML += option;
+			let option = 
+				'<option value="STORAGE_NAME">STORAGE_NAME</option>'.replace(/STORAGE_NAME/g, name);
+
+			if (localStorage.getItem(name) === null)
+				document.getElementById('choose_storage').innerHTML += option;
 			save_state(name);
 		});
 
