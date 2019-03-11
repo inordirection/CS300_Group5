@@ -101,7 +101,7 @@ label {
 }
 
 input[type=text], #message {
-	width: 250px;
+	width: 300px;
 	padding: 5px;
 	box-sizing: border-box;
 	/*border: none;
@@ -130,8 +130,6 @@ input[type=text], #message {
 	font-size: 25px;
 	padding: 10px;
 	width: fit-content;
-
-
 	
 	border: 3px;
 	border-radius: 50px;
