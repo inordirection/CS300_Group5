@@ -109,8 +109,14 @@ function Game() {
 			//Create Gazetteer
 
 			var row = table.insertRow(table.rows.length);
-			createCell(row.insertCell(0), cp.type, 'type');
-			createCell(row.insertCell(1), cp.coordinate, 'coordinate');
+			var c1 = row.insertCell(0);
+			var c2 = row.insertCell(1);
+
+			c1.innerHTML = TypeEnum.properties[type].name;
+			c1.classList.add("gazetteerCell");
+
+			c2.innerHTML = "(" + c.x + ", " + c.y + ")";
+			c2.classList.add("gazetteerCell");
 		}
 
 		/* update 'S' to reflect ship's current position
@@ -726,7 +732,7 @@ function Game() {
 	// helper function for get the int value in a text area.
 	function getIntValue(id) {
 		return parseInt(document.getElementById(id).value);
-	}	
+	}
 	function getFloatValue(id) {
 		return parseFloat(document.getElementById(id).value);
 	}
