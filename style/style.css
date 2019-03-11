@@ -46,6 +46,14 @@
 	background-color: black;
 }
 
+.scrollTableDiv {
+	overflow: scroll auto;
+	overflow-x: visible;
+
+	height: 100%;
+	width: 50%;
+}
+
 .screen {
 	margin: 20px;
 	padding: 20px;
@@ -56,7 +64,6 @@
 
 .gazetteer {
 	background-color: black;
-	border: dotted 3px white;
 }
 
 .gazetteerCell {
