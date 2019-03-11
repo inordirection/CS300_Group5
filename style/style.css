@@ -94,6 +94,9 @@ label {
 	width: 151px;
 	text-align: right;
 	vertical-align: middle;
+
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
 }
 
 .devLabel {
@@ -104,10 +107,13 @@ input[type=text], #message {
 	width: 250px;
 	padding: 5px;
 	box-sizing: border-box;
-	/*border: none;
 	background-color: black;
-	color: white;*/
+	color: white;
 	font-size: 18px;
+
+	border: ridge 5px #4CAF50;
+	border-radius: 8px;
+
 }
 
 #distance {
@@ -132,12 +138,12 @@ input[type=text], #message {
 	width: fit-content;
 
 
-	
+
 	border: 3px;
 	border-radius: 50px;
 	border-color: #4CAF50;
 	border-style: solid;
-	
+
 }
 
 .button {
