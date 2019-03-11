@@ -10,14 +10,19 @@
 	<script src="script/coordinate.js"></script>
 	<link href="style/style.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
 	<link href="images/favicon.png" rel="shortcut icon" type="image/png">
 	<title>SpaceHunt Game</title>
 </head>
 
 <body>
 	<script>
-	var game = new Game();
-	</script> <!--<div class="controlPanel">-->
+		var game = new Game();
+	</script>
+	<!--<div class="controlPanel">-->
+	<div class="spaceHuntDiv">
+		SpaceHunt
+	</div>
 	<div class="controlPanelDiv">
 		<h1>OldSpice Control Panel</h1><input class="slider" id="shipDistance" max="20" min="1" type="range" value="1">
 		<p class="label">Distance: <span id="shipDisanceValue"></span></p>
@@ -43,7 +48,8 @@
 			<input class="formButton" type="submit" value="Deploy Sensor">
 		</form>
 		<form id="togglemap" name="togglemap">
-			<input class="formButton" onclick="toggleHidden('map'); game.render_map(); return false;" type="submit" value="Open/Close Map">
+			<input class="formButton" onclick="toggleHidden('map'); game.render_map(); return false;" type="submit"
+				value="Open/Close Map">
 		</form>
 		<form id="reset_game" name="reset_game" onsubmit="game.reset_game(); return true;">
 			<input class="formButton" type="submit" value="Reset Game">
@@ -66,8 +72,11 @@
 		<div id="nameable_storage" class="label">
 			Save Name:&nbsp; <input class="label" id="storage_name" type="text"><br>
 			<br>
-			<button class="formButton" id="save_storage" type="button">Save</button> <button class="formButton" id="load_storage" type="button">Load</button> <button class="formButton" id="delete_storage" type="button">Delete</button> <select id="choose_storage" class="dropDownSelect">
-			</select><br>
+			<button class="formButton" id="save_storage" type="button">Save</button>
+			<button class="formButton" id="load_storage" type="button">Load</button>
+			<button class="formButton" id="delete_storage" type="button">Delete</button>
+			<select id="choose_storage" class="dropDownSelect"></select>
+			<br>
 			<br>
 			<button class="formButton" id="clear_local_storage" type="button">Clear Local Storage</button>
 		</div>
@@ -75,25 +84,25 @@
 	<div class="celestialGazetteerDiv">
 		<h1>Celestial Gazetteer</h1>
 		<div class="scrollTableDiv">
-		<table id="gazetteerTable" class="gazetteer">
-			<tr>
-				<td class="gazetteerCell">Celestial Objects:</td>
-				<td class="gazetteerCell">Coordinates:</td>
-			</tr>
-			<tr>
-				<td class="gazetteerCell">Object</td>
-				<td class="gazetteerCell">(0, 1)</td>
-			</tr>
-			<tr>
-				<td class="gazetteerCell">Object</td>
-				<td class="gazetteerCell">(0, 2)</td>
-			</tr>
-			<tr>
-				<td class="gazetteerCell">Object</td>
-				<td class="gazetteerCell">(0, 3)</td>
-			</tr>
-		</table>
-	</div>
+			<table id="gazetteerTable" class="gazetteer">
+				<tr>
+					<td class="gazetteerCell">Celestial Objects:</td>
+					<td class="gazetteerCell">Coordinates:</td>
+				</tr>
+				<tr>
+					<td class="gazetteerCell">Object</td>
+					<td class="gazetteerCell">(0, 1)</td>
+				</tr>
+				<tr>
+					<td class="gazetteerCell">Object</td>
+					<td class="gazetteerCell">(0, 2)</td>
+				</tr>
+				<tr>
+					<td class="gazetteerCell">Object</td>
+					<td class="gazetteerCell">(0, 3)</td>
+				</tr>
+			</table>
+		</div>
 	</div><!-- map div -->
 	<div id="map" style="display:none">
 		<form id="shitmap" name="shitmap">
@@ -104,9 +113,9 @@
 	<br>
 
 	<div class="devModeDiv">
-	<!-- In the normal mode, now is ok. When the selected values to initial the game, the user can choose one of state of never dies and fixed wormhole mode. Also, they can input the value for each things and if they not, the value will change to defaulf values. For the input celestial point, the user should input multiple points in one input line -->
+		<!-- In the normal mode, now is ok. When the selected values to initial the game, the user can choose one of state of never dies and fixed wormhole mode. Also, they can input the value for each things and if they not, the value will change to defaulf values. For the input celestial point, the user should input multiple points in one input line -->
 		<div class="devMode" onclick="toggleHidden('dev1')" style="cursor:hand">
-		<b>Developer Mode Control</b>
+			<b class="devLabel">Developer Mode Control</b>
 		</div>
 	</div>
 
@@ -117,7 +126,7 @@
 			<p class="label" id="whether_open">Using game configuration: false</p>
 		</form><!-- For the customize game -->
 		<div class="devCObj devMode" id="customize_game" onclick="toggleHidden('dev_cus')" style="cursor:hand">
-			<b>Toggle Initialization Menu</b>
+			<b class="devLabel">Toggle Initialization Menu</b>
 		</div><!-- How to customize the game initialization -->
 		<div id="dev_cus" style="display:none">
 			<form id="open_selected_ini" name="open_selected_ini">
@@ -125,22 +134,32 @@
 			</form>
 			<form id="customizeGame" name="customizeGame">
 				<!-- This is to change celestial point to the map-->
-				<p><button class="formButton" id="add_celestial" name="add_celestial" type="button">Add Celestial Menu</button></p>
+				<p><button class="formButton" id="add_celestial" name="add_celestial" type="button">Add Celestial
+						Menu</button></p>
 				<div id="celestial_Container">
 					<!-- Dynamically generated according to TypeEnum -->
 				</div> <br>
-			</form><label>Game Size: &nbsp;</label> <input class="label" id="dev_ini_size" placeholder="Default: 128" type="text"><br>
-			<label>Start Location: &nbsp;</label> <input class="label" id="dev_location" placeholder="Default: 0, 0" type="text"><br>
-			<label>Energy: &nbsp;</label> <input class="label" id="dev_energy" placeholder="Default: 1000" type="text"><br>
-			<label>Supplies: &nbsp;</label> <input class="label" id="dev_supplies" placeholder="Default: 100" type="text"><br>
-			<label>Credits: &nbsp;</label> <input class="label" id="dev_credits" placeholder="Default: 1000" type="text"><br>
-			<label>Sensor Range: &nbsp;</label> <input class="label" id="dev_sensor" placeholder="Default: 2" type="text"><br>
-			<label>BadMax Chance: &nbsp;</label> <input class="label" id="dev_badmax" placeholder="Default: 0.05" type="text"><br>
-			<label>Recipe Location: &nbsp;</label> <input class="label" id="dev_recipe" placeholder="Default: random in [1,7]" type="text"><br>
-<input id="dev_ini_never_dies" type="checkbox" value="Using Never Dies Mode"> Use Never Dies Mode<br>
-			<input id="dev_ini_fixed_wh" type="checkbox" value="Use Fixed Wormhole Behavior"> Use Fixed Wormhole Behavior<br>
+			</form><label>Game Size: &nbsp;</label> <input class="label" id="dev_ini_size" placeholder="Default: 128"
+				type="text"><br>
+			<label>Start Location: &nbsp;</label> <input class="label" id="dev_location" placeholder="Default: 0, 0"
+				type="text"><br>
+			<label>Energy: &nbsp;</label> <input class="label" id="dev_energy" placeholder="Default: 1000"
+				type="text"><br>
+			<label>Supplies: &nbsp;</label> <input class="label" id="dev_supplies" placeholder="Default: 100"
+				type="text"><br>
+			<label>Credits: &nbsp;</label> <input class="label" id="dev_credits" placeholder="Default: 1000"
+				type="text"><br>
+			<label>Sensor Range: &nbsp;</label> <input class="label" id="dev_sensor" placeholder="Default: 2"
+				type="text"><br>
+			<label>BadMax Chance: &nbsp;</label> <input class="label" id="dev_badmax" placeholder="Default: 0.05"
+				type="text"><br>
+			<label>Recipe Location: &nbsp;</label> <input class="label" id="dev_recipe"
+				placeholder="Default: random in [1,7]" type="text"><br>
+			<input id="dev_ini_never_dies" type="checkbox" value="Using Never Dies Mode"> Use Never Dies Mode<br>
+			<input id="dev_ini_fixed_wh" type="checkbox" value="Use Fixed Wormhole Behavior"> Use Fixed Wormhole
+			Behavior<br>
 			<!-- submit button of the initial game -->
-			 <button class="formButton" id="submit_ini" name="submit_ini" type="button">Initialize Game</button>
+			<button class="formButton" id="submit_ini" name="submit_ini" type="button">Initialize Game</button>
 		</div><!-- For change energy, credits, supplies, and location -->
 		<br>
 		<div id="ecsl">
@@ -155,14 +174,16 @@
 			<button class="formButton" id="change_ecsl" type="button">Change</button>
 		</div><!-- For select normal mode or never dies -->
 		<div id="fixed_wh">
-			<p class="label" id="whether_fixed" style="margin-bottom:0">Use fixed wormhole mode is: false</p><button class="formButton" id="change_fixed" type="button">Change</button>
+			<p class="label" id="whether_fixed" style="margin-bottom:0">Use fixed wormhole mode is: false</p><button
+				class="formButton" id="change_fixed" type="button">Change</button>
 		</div><!-- For select fixed wormhole behavior -->
 		<div id="never">
-			<p class="label" id="whether_never" style="margin-bottom:0">Use never dies mode is: false</p><button class="formButton" id="change_never" type="button">Change</button>
+			<p class="label" id="whether_never" style="margin-bottom:0">Use never dies mode is: false</p><button
+				class="formButton" id="change_never" type="button">Change</button>
 		</div>
 	</div>
 	<script>
-	game.initDisplay();
+		game.initDisplay();
 	</script> <!--</div>-->
 
 	<audio id="hoverAudio">
@@ -194,22 +215,23 @@
 	       }
 	   }
 
-	   function changeAll() {
-	       let f = document.getElementById('all');
-	       let n = document.getElementsByName('c');
-	       for (let i = 0; i < n.length; i++) {
-	           n[i].checked = f.checked;
-	       }
-	   }
+		function changeAll() {
+			let f = document.getElementById('all');
+			let n = document.getElementsByName('c');
+			for (let i = 0; i < n.length; i++) {
+				n[i].checked = f.checked;
+			}
+		}
 
-	   var slider = document.getElementById("shipDistance");
-	   var output = document.getElementById("shipDisanceValue");
-	   output.innerHTML = slider.value;
+		var slider = document.getElementById("shipDistance");
+		var output = document.getElementById("shipDisanceValue");
+		output.innerHTML = slider.value;
 
-	   slider.oninput = function () {
-	       output.innerHTML = this.value;
-	   }
+		slider.oninput = function () {
+			output.innerHTML = this.value;
+		}
 
 	</script>
 </body>
+
 </html>
