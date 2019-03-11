@@ -240,8 +240,6 @@ class CelestialMap
 
           this.visibleSet.add(this.celestialPoints[x][y]);
           this.celestialPoints[x][y].isVisible = true;
-
-		//this.AppendRow()
 	}
 
 	/**

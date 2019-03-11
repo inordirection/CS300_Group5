@@ -14,7 +14,7 @@ function Game() {
 	var that = this; // for accessing parent scope in helper funcs
 	// var isDEV = false; // FOR DEV MODE whether the dev mode is open
 	// var isNEVERDIES = false; // FOR DEV MODE whether the player never dies
-	const message0 = 
+	const message0 =
 		"Welcome to SpaceHunt!\nYou are docked on the moon of planet Eniac. " +
 		"Return with the secret KocaKola recipe to win the game!";
 
@@ -85,12 +85,28 @@ function Game() {
 			that.render_map.init = false;
 		}
 
+		//Clear Gazetteer
+
+		var table = document.getElementById('gazetteerTable');
+		var lastRow = table.rows.length - 1;
+
+		for(i = lastRow; i > 0; i--)
+		{
+			table.deleteRow(i);
+		}
+
 		var visibleCPs = cm.visibleSet;
 		for (cp of visibleCPs) {
 			let type = cp.type;
 			let c = cp.coordinate;
 			let ch = TypeEnum.properties[type].ch;
 			this.textMap[c.y][c.x] = ch;
+
+			//Create Gazetteer
+
+			var row = table.insertRow(table.rows.length);
+			createCell(row.insertCell(0), cp.type, 'type');
+			createCell(row.insertCell(1), cp.coordinate, 'coordinate');
 		}
 
 		/* update 'S' to reflect ship's current position
@@ -183,7 +199,7 @@ function Game() {
 		document.getElementById('credits').value = ship.credits;
 	}
 
-	function write_collisions() 
+	function write_collisions()
 	{
 		// don't lose the game twice
 		if (over) return;
@@ -230,7 +246,7 @@ function Game() {
 		}
 		else if (cpType >= TypeEnum['P_ONE']) {
 			prompts.appendChild(makeButton("Enter Orbit", enterOrbit));
-		}	
+		}
 		if (cpType == TypeEnum['STATION']) {
 			if (landed)
 				prompts.appendChild(makeButton("Make a wager.", casino));
@@ -377,7 +393,7 @@ function Game() {
 		'\t\t\t\t\t\t<select id="celestial_CELENUMBER_type" name="celestial_CELENUMBER_type">\n';
 	// dynamically populate based on current TypeEnum
 	for (i = 0; i < TypeEnum['ENIAC']; i++) {
-		celestial_obj_form += 
+		celestial_obj_form +=
 			`\t\t\t\t\t\t\t<option value="${i}">${TypeEnum['properties'][i].name}</option>`;
 	}
 	celestial_obj_form += '\t\t\t\t\t\t</select>\n' +
@@ -401,7 +417,7 @@ function Game() {
 			return ;
 		}
 		isINI = !isINI;
-		document.getElementById('whether_open_ini').innerHTML = 
+		document.getElementById('whether_open_ini').innerHTML =
 			"Use selected values to initialize game: " + isINI + '.';
 		// for the normal part
 		const ecsl = document.getElementById('ecsl');
@@ -420,7 +436,7 @@ function Game() {
 		}
 
 		isNEVERDIES = !isNEVERDIES;
-		document.getElementById('whether_never').innerHTML = "Use never dies mode is: " 
+		document.getElementById('whether_never').innerHTML = "Use never dies mode is: "
 			+ isNEVERDIES;
 	}
 
@@ -565,7 +581,7 @@ function Game() {
 		// save to local storage
 		document.getElementById('save_storage').addEventListener('click', function () {
 			let name = document.getElementById('storage_name').value;
-			let option = 
+			let option =
 				'<option value="STORAGE_NAME">STORAGE_NAME</option>'.replace(/STORAGE_NAME/g, name);
 
 			// don't duplicate names in save-list
@@ -586,11 +602,11 @@ function Game() {
 
 			let choose_storage = document.getElementById('choose_storage');
 			let name = choose_storage.value;
-			
+
 			// if there's something to remove:
 			if (name != null) {
 				localStorage.removeItem(name);
-				let option = 
+				let option =
 				'<option value="STORAGE_NAME">STORAGE_NAME</option>'.replace(/STORAGE_NAME/g, name);
 				let choose = localStorage.getItem('__choose__');
 
