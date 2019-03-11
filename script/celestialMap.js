@@ -25,6 +25,7 @@ class CelestialMap
 		}
 		else {
 			this.size = size;
+			this.BadMaxChance = 0.05;
 			this.celestialPoints = this.InstantiateMap();
 
 			// set of visible space
@@ -143,8 +144,27 @@ class CelestialMap
 
 		let cpType = this.celestialPoints[ship.x][ship.y].type;
 		let name = TypeEnum.properties[cpType].name;
+
+		//BadMax randomly attacks when in empty space
+		if (cpType == TypeEnum['EMPTY'] && Math.random() <= this.BadMaxChance) {
+			let chance = Math.random();
+			msg += "You've encountered BadMax's henchmen!\n";
+			if (chance <= 0.5) {
+				msg += "Luckily, you fought them off.\n";
+			}
+			else if (chance <= 0.8) {
+				msg += "They raided your ship of credits and supplies!\n";
+				ship.credits = 0;
+				ship.supplies /= 2;
+				if (ship.supplies < 1) over = true;
+			}
+			else {
+				msg += "THEY DESTROYED YOUR SHIP!\n"
+				over = true;
+			}
+		}
 		// if encountering a planet:
-		if (cpType >= TypeEnum['P_ONE']) {
+		else if (cpType >= TypeEnum['P_ONE']) {
 			if (!orbit && !landed) {
 				msg += "You've arrived at planet ";
 			}
@@ -163,6 +183,7 @@ class CelestialMap
 			msg += "You passed through a wormhole!\n";
 			wormed = true;
 		}
+		// if we are at a space station:
 		else if (cpType == TypeEnum['STATION']) {
 			if (!landed) {
 				msg += "You've come across a space station\n";
@@ -175,25 +196,8 @@ class CelestialMap
 		// else, process random, one-time encounter
 		else {
 			let chance = Math.random();
-			//BadMax
-			if (cpType == TypeEnum['BADMAX']) {
-				msg += "You've encountered BadMax's henchmen!\n";
-				if (chance <= 0.5) {
-					msg += "Luckily, you fought them off.\n";
-				}
-				else if (chance <= 0.8) {
-					msg += "They raided your ship of credits and supplies!\n";
-					ship.credits = 0;
-					ship.supplies /= 2;
-					if (ship.supplies < 1) over = true;
-				}
-				else {
-					msg += "THEY DESTROYED YOUR SHIP!\n"
-					over = true;
-				}
-			}
 			// MeteorStorm
-			else if (cpType == TypeEnum['METEORSTORM']) {
+			if (cpType == TypeEnum['METEORSTORM']) {
 				msg += "You ran into a Meteor Storm!\n";
 				msg += "Your ship was damaged.\n";
 				ship.damageEngine(5);
@@ -203,12 +207,14 @@ class CelestialMap
 				msg += "You hit an Asteroid!\n"
 				if (chance <= 0.9) {
 					msg += "Your ship was damaged.\n"
+					ship.damageEngine(5);
 				}
 				else {
 					msg += "YOUR SHIP WAS DESTROYED!\n"
 					over = true;
 				}
 			}
+			// Abandoned Freighter
 			else if (cpType == TypeEnum['FREIGHTER']) {
 				msg += "You encountered an Abandoned Freighter!\n"
 				msg += "You've replenished your supplies and energy.\n"
