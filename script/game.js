@@ -717,9 +717,8 @@ function Game() {
 		if (document.getElementById('bm').checked){
 			cm.setBadMax(parseFloat(prompt('The new Chance is: ')));
 			document.getElementById('bm').checked = false;
-			console.log("BadMaxChance: ");
-			console.log(cm.BadMaxChance);
-		}}
+		}
+	}
 
 	function initialECSL() {
 		if (!isDEV && !isINI) {
@@ -736,7 +735,16 @@ function Game() {
 		}
 		sensor.updateRange(getIntValue('dev_sensor'));
 		cm.setBadMax(getFloatValue('dev_badmax'));
+		setRecipe(getIntValue('dev_recipe'));
 		return coords; // to place eniac at start location
+	}
+	// set recipe to pentium number (pNum)
+	function setRecipe(pNum) {
+		if (isNaN(pNum) || pNum < 1 || pNum > 7) {
+			alert("Recipe should be an integer between 1 and 7");
+			return ;
+		}
+		recipe = TypeEnum['P_ONE'] + pNum - 1;
 	}
 
 	// helper function for get the int value in a text area.

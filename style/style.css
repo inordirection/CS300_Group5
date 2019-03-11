@@ -90,13 +90,17 @@ label {
 	vertical-align: middle;
 }
 
+.devLabel {
+	width = 180px;
+}
+
 input[type=text], #message {
 	width: 300px;
 	padding: 5px;
 	box-sizing: border-box;
-	border: none;
+	/*border: none;
 	background-color: black;
-	color: white;
+	color: white;*/
 	font-size: 18px;
 }
 

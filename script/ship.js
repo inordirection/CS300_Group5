@@ -72,7 +72,7 @@ function Ship(json) {
 		/* decrease by 2% (to 2 decimal precision)
 		this.supplies = Math.round(this.supplies * 98);
 		this.supplies /= 100; */
-		// decrease by two percent (use at least 1 supply per turn
+		// decrease by two percent (use at least 1 supply per turn)
 		this.supplies = Math.floor(this.supplies * .98);
 	}
 
