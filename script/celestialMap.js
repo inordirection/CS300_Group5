@@ -206,20 +206,26 @@ class CelestialMap
 			else if (cpType == TypeEnum['ASTEROID']) {
 				msg += "You hit an Asteroid!\n"
 				if (chance <= 0.9) {
-					msg += "Your ship was damaged.\n"
+					msg += "Your ship was damaged.\n";
 					ship.damageEngine(5);
 				}
 				else {
-					msg += "YOUR SHIP WAS DESTROYED!\n"
+					msg += "YOUR SHIP WAS DESTROYED!\n";
 					over = true;
 				}
 			}
 			// Abandoned Freighter
 			else if (cpType == TypeEnum['FREIGHTER']) {
-				msg += "You encountered an Abandoned Freighter!\n"
-				msg += "You've replenished your supplies and energy.\n"
+				msg += "You encountered an Abandoned Freighter!\n";
+				msg += "You've replenished your supplies and energy";
 				ship.setSupplies(100);
 				ship.setEnergy(1000);
+
+				if (ship.engine > 10) {
+					ship.setEngine(10);
+					msg += ", and fixed your damaged engine";
+				}
+				msg += ".\n";
 			}
 			// remove encounter from map
 			this.ClearPoint(ship.x, ship.y);
