@@ -55,15 +55,14 @@
 }
 
 .gazetteer {
-	background-color: white;
-	border: solid 3px grey;
+	background-color: black;
+	border: dotted 3px white;
 }
 
 .gazetteerCell {
-	color: black;
+	color: white;
 	padding: 5px;
 	margin: 5px;
-	border: solid #f0f0f0 3px;
 }
 
 body {
