@@ -51,7 +51,7 @@ function Game() {
 		sliderDist = document.getElementById("shipDistance").value;
 
 		if (orbit || landed) {
-			alert("You can't move the ship while landed or in orbit");
+			alert("You can't move the ship while landed or in orbit.");
 			return;
 		}
 		ship.move(angle, sliderDist, cm);
@@ -356,12 +356,8 @@ function Game() {
 			over = false;
 			return;
 		}
-
 		over = true;
-		message+="Click \'Reset Game\' to try again.";
-
-		// write 'Play Again?' button to display
-		// write_prompt("Play Again?", "game.initDisplay()");
+		message += "Click \'Reset Game\' to try again.";
 	}
 
 	// whether the dev mode open
