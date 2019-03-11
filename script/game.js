@@ -109,7 +109,7 @@ function Game() {
 			this.textMap[c.y][c.x] = ch;
 
 			//Create Gazetteer
-
+			if (type == TypeEnum['EMPTY']) continue;
 			var row = table.insertRow(table.rows.length);
 			var c1 = row.insertCell(0);
 			var c2 = row.insertCell(1);
