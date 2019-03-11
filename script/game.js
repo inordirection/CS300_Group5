@@ -409,7 +409,7 @@ function Game() {
 
 	// This is the form of a celestial object html form
 	celestial_obj_form = '<div id="celestial_CELENUMBER">\n' +
-		'\t\t\t\t\t\t<select id="celestial_CELENUMBER_type" name="celestial_CELENUMBER_type">\n';
+		'\t\t\t\t\t\t<select id="celestial_CELENUMBER_type" name="celestial_CELENUMBER_type" class="dropDownSelect">\n';
 	// dynamically populate based on current TypeEnum
 	for (i = 0; i < TypeEnum['ENIAC']; i++) {
 		celestial_obj_form +=
