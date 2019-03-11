@@ -8,6 +8,7 @@
 	<script src="script/celestialMap.js"></script>
 	<script src="script/celestialPoint.js"></script>
 	<script src="script/coordinate.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link href="style/style.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
@@ -24,66 +25,66 @@
 		SpaceHunt
 	</div>
 	<div class="controlPanelDiv">
-		<h1>OldSpice Control Panel</h1><input class="slider" id="shipDistance" max="20" min="1" type="range" value="1">
+		<h1>OldSpice Control Panel</h1><input class="slider" id="shipDistance" max="20" min="1" type="range" value="1" >
 		<p class="label">Distance: <span id="shipDisanceValue"></span></p>
 		<table>
 			<tr>
 				<td></td>
-				<td><button class="button buttonUp" onclick="game.move(90); playOnClick();" onmouseenter="playOnHover();"></button></td>
+				<td><button class="button buttonUp" onclick="game.move(90);"></button></td>
 				<td></td>
 			</tr>
 			<tr>
-				<td><button class="button buttonLeft" onclick="game.move(180); playOnClick();" onmouseenter="playOnHover();"></button></td>
+				<td><button class="button buttonLeft" onclick="game.move(180);"></button></td>
 				<td></td>
-				<td><button class="button buttonRight" onclick="game.move(0); playOnClick();" onmouseenter="playOnHover();"></button></td>
+				<td><button class="button buttonRight" onclick="game.move(0);"></button></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><button class="button buttonDown" onclick="game.move(270); playOnClick();" onmouseenter="playOnHover();" value="270"></button></td>
+				<td><button class="button buttonDown" onclick="game.move(270);" value="270"></button></td>
 				<td></td>
 			</tr>
 		</table><br>
 		<br>
-		<form id="deploy_sensor" onclick="playOnClick();" onmouseenter="playOnHover();" name="deploy_sensor" onsubmit="game.deploy_sensor(); return false;">
-			<input class="formButton" type="submit" value="Deploy Sensor">
+		<form id="deploy_sensor" name="deploy_sensor" onsubmit="game.deploy_sensor(); return false;">
+			<input class="formButton" type="submit" value="Deploy Sensor" >
 		</form>
-		<form id="togglemap" onclick="playOnClick();" onmouseenter="playOnHover();" name="togglemap">
+		<form id="togglemap"  name="togglemap">
 			<input class="formButton" onclick="toggleHidden('map'); game.render_map(); return false;" type="submit"
 				value="Open/Close Map">
 		</form>
-		<form id="reset_game" onclick="playOnClick();" onmouseenter="playOnHover();" name="reset_game" onsubmit="game.reset_game(); return true;">
+		<form id="reset_game"  name="reset_game" onsubmit="game.reset_game(); return true;">
 			<input class="formButton" type="submit" value="Reset Game">
 		</form>
 	</div><!-- Status Display -->
 	<div class="currentStatusDiv">
 		<h1>Current Status</h1><!-- add forms to display ship status here -->
 		<form id="display" name="display">
-			<label>Location:&nbsp;</label><input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="location" type="text"><br>
-			<label>Supplies:&nbsp;</label><input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="supplies" type="text"><br>
-			<label>Energy:&nbsp;</label><input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="energy" type="text"><br>
-			<label>Credits:&nbsp;</label><input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="credits" type="text"><br>
+			<label>Location:&nbsp;</label><input class="label" gc id="location" type="text"><br>
+			<label>Supplies:&nbsp;</label><input class="label" gc id="supplies" type="text"><br>
+			<label>Energy:&nbsp;</label><input class="label" gc id="energy" type="text"><br>
+			<label>Credits:&nbsp;</label><input class="label" gc id="credits" type="text"><br>
 			<label>Message:&nbsp;</label>
-			<textarea class="label messageLabel" onclick="playOnClick();" onmouseenter="playOnHover();" id="message" rows="6"></textarea><br>
+			<textarea class="label messageLabel" gc id="message" rows="6"></textarea><br>
 		</form>
 		<div id="prompts"></div><br>
 		<br>
 		<br>
 		<!-- nameable persistent state -->
 		<div id="nameable_storage" class="label">
-			Save Name:&nbsp; <input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="storage_name" type="text"><br>
+			Save Name:&nbsp; <input class="label" "" id="storage_name" type="text"><br>
 			<br>
-			<button class="formButton" onclick="playOnClick();" onmouseenter="playOnHover();" id="save_storage" type="button">Save</button>
-			<button class="formButton" onclick="playOnClick();" onmouseenter="playOnHover();" id="load_storage" type="button">Load</button>
-			<button class="formButton" onclick="playOnClick();" onmouseenter="playOnHover();" id="delete_storage" type="button">Delete</button>
-			<select id="choose_storage" onclick="playOnClick();" onmouseenter="playOnHover();" class="dropDownSelect"></select>
+			<button class="formButton" "" id="save_storage" type="button">Save</button>
+			<button class="formButton" "" id="load_storage" type="button">Load</button>
+			<button class="formButton" "" id="delete_storage" type="button">Delete</button>
+			<select id="choose_storage" "" class="dropDownSelect"></select>
 			<br>
 			<br>
-			<button class="formButton" onclick="playOnClick();" onmouseenter="playOnHover();" id="clear_local_storage" type="button">Clear Local Storage</button>
+			<button class="formButton" "" id="clear_local_storage" type="button">Clear Local Storage</button>
 		</div>
 	</div>
 	<div class="celestialGazetteerDiv">
 		<h1>Celestial Gazetteer</h1>
-		<div class="scrollTableDiv" onclick="playOnClick();" onmouseenter="playOnHover();">
+		<div class="scrollTableDiv" "">
 			<table id="gazetteerTable" class="gazetteer">
 				<tr>
 					<td class="gazetteerCell">Celestial Objects:</td>
@@ -117,7 +118,7 @@
 	<div class="devModeDiv">
 		<!-- In the normal mode, now is ok. When the selected values to initial the game, the user can choose one of state of never dies and fixed wormhole mode. Also, they can input the value for each things and if they not, the value will change to defaulf values. For the input celestial point, the user should input multiple points in one input line -->
 		<div class="devMode" onclick="toggleHidden('dev1')" style="cursor:hand">
-			<b class="devLabel" onclick="playOnClick();" onmouseenter="playOnHover();">Developer Mode Control</b>
+			<b class="devLabel" >Developer Mode Control</b>
 		</div>
 	</div>
 
@@ -128,7 +129,7 @@
 			<p class="label" id="whether_open">Using game configuration: false</p>
 		</form><!-- For the customize game -->
 		<div class="devCObj devMode" id="customize_game" onclick="toggleHidden('dev_cus')" style="cursor:hand">
-			<b class="devLabel" onclick="playOnClick();" onmouseenter="playOnHover();">Toggle Initialization Menu</b>
+			<b class="devLabel" >Toggle Initialization Menu</b>
 		</div><!-- How to customize the game initialization -->
 		<div id="dev_cus" style="display:none">
 			<form id="open_selected_ini" name="open_selected_ini">
@@ -136,104 +137,112 @@
 			</form>
 			<form id="customizeGame" name="customizeGame">
 				<!-- This is to change celestial point to the map-->
-				<p><button class="formButton" onclick="playOnClick();" onmouseenter="playOnHover();" id="add_celestial" name="add_celestial" type="button">Add Celestial
+				<p><button class="formButton" "" id="add_celestial" name="add_celestial" type="button">Add Celestial
 						Menu</button></p>
 				<div id="celestial_Container">
 					<!-- Dynamically generated according to TypeEnum -->
 				</div> <br>
-			</form><label>Game Size: &nbsp;</label> <input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="dev_ini_size" placeholder="Default: 128"
+			</form><label>Game Size: &nbsp;</label> <input class="label" "" id="dev_ini_size" placeholder="Default: 128"
 				type="text"><br>
-			<label>Start Location: &nbsp;</label> <input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="dev_location" placeholder="Default: 0, 0"
+			<label>Start Location: &nbsp;</label> <input class="label" "" id="dev_location" placeholder="Default: 0, 0"
 				type="text"><br>
-			<label>Energy: &nbsp;</label> <input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="dev_energy" placeholder="Default: 1000"
+			<label>Energy: &nbsp;</label> <input class="label" "" id="dev_energy" placeholder="Default: 1000"
 				type="text"><br>
-			<label>Supplies: &nbsp;</label> <input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="dev_supplies" placeholder="Default: 100"
+			<label>Supplies: &nbsp;</label> <input class="label" "" id="dev_supplies" placeholder="Default: 100"
 				type="text"><br>
-			<label>Credits: &nbsp;</label> <input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="dev_credits" placeholder="Default: 1000"
+			<label>Credits: &nbsp;</label> <input class="label" "" id="dev_credits" placeholder="Default: 1000"
 				type="text"><br>
-			<label>Sensor Range: &nbsp;</label> <input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="dev_sensor" placeholder="Default: 2"
+			<label>Sensor Range: &nbsp;</label> <input class="label" "" id="dev_sensor" placeholder="Default: 2"
 				type="text"><br>
-			<label>BadMax Chance: &nbsp;</label> <input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="dev_badmax" placeholder="Default: 0.05"
+			<label>BadMax Chance: &nbsp;</label> <input class="label" "" id="dev_badmax" placeholder="Default: 0.05"
 				type="text"><br>
-			<label>Recipe Location: &nbsp;</label> <input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="dev_recipe"
+			<label>Recipe Location: &nbsp;</label> <input class="label" "" id="dev_recipe"
 				placeholder="Default: random in [1,7]" type="text"><br>
 			<input id="dev_ini_never_dies" type="checkbox" value="Using Never Dies Mode"> Use Never Dies Mode<br>
 			<input id="dev_ini_fixed_wh" type="checkbox" value="Use Fixed Wormhole Behavior"> Use Fixed Wormhole
 			Behavior<br>
 			<!-- submit button of the initial game -->
-			<button class="formButton" onclick="playOnClick();" onmouseenter="playOnHover();" id="submit_ini" name="submit_ini" type="button">Initialize Game</button>
+			<button class="formButton" "" id="submit_ini" name="submit_ini" type="button">Initialize Game</button>
 		</div><!-- For change energy, credits, supplies, and location -->
 		<br>
 		<div id="ecsl">
-			<input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="all" onchange="changeAll()" type="checkbox">Change All<br>
-			<input class="label" onclick="playOnClick();" onmouseenter="playOnHover();" id="e" name="c" type="checkbox" value="Change Energy">Change Energy<br>
-			<input id="c" onclick="playOnClick();" onmouseenter="playOnHover();" name="c" type="checkbox" value="Change Credits">Change Credits<br>
-			<input id="s" onclick="playOnClick();" onmouseenter="playOnHover();" name="c" type="checkbox" value="Change Supplies">Change Supplies<br>
-			<input id="l" onclick="playOnClick();" onmouseenter="playOnHover();" name="c" type="checkbox" value="Change Location">Change Location<br>
-			<input id="sensor" onclick="playOnClick();" onmouseenter="playOnHover();" name="c" type="checkbox" value="Change Sensor Range">Change Sensor Range<br>
-			<input id="bm" onclick="playOnClick();" onmouseenter="playOnHover();" name="c" type="checkbox">Change BadMax Chance<br>
-			<input id="size" onclick="playOnClick();" onmouseenter="playOnHover();" name="c" type="checkbox" value="Change game size">Change Game Size<br>
-			<button class="formButton" onclick="playOnClick();" onmouseenter="playOnHover();" id="change_ecsl" type="button">Change</button>
+			<input class="label" "" id="all" onchange="changeAll()" type="checkbox">Change All<br>
+			<input class="label" "" id="e" name="c" type="checkbox" value="Change Energy">Change Energy<br>
+			<input id="c" "" name="c" type="checkbox" value="Change Credits">Change Credits<br>
+			<input id="s" "" name="c" type="checkbox" value="Change Supplies">Change Supplies<br>
+			<input id="l" "" name="c" type="checkbox" value="Change Location">Change Location<br>
+			<input id="sensor" "" name="c" type="checkbox" value="Change Sensor Range">Change Sensor Range<br>
+			<input id="bm" "" name="c" type="checkbox">Change BadMax Chance<br>
+			<input id="size" "" name="c" type="checkbox" value="Change game size">Change Game Size<br>
+			<button class="formButton" "" id="change_ecsl" type="button">Change</button>
 		</div><!-- For select normal mode or never dies -->
 		<div id="fixed_wh">
 			<p class="label" id="whether_fixed" style="margin-bottom:0">Use fixed wormhole mode is: false</p><button
-				class="formButton" onclick="playOnClick();" onmouseenter="playOnHover();" id="change_fixed" type="button">Change</button>
+				class="formButton" "" id="change_fixed" type="button">Change</button>
 		</div><!-- For select fixed wormhole behavior -->
 		<div id="never">
 			<p class="label" id="whether_never" style="margin-bottom:0">Use never dies mode is: false</p><button
-				class="formButton" onclick="playOnClick();" onmouseenter="playOnHover();" id="change_never" type="button">Change</button>
+				class="formButton" "" id="change_never" type="button">Change</button>
 		</div>
 	</div>
-	<script>
-		game.initDisplay();
-	</script> <!--</div>-->
-
-	<audio id="hoverAudio">
-		<source src="audio/click1.wav" type="audio/wav">
-	</audio>
-	<audio id="clickAudio">
-		<source src="audio/click2.wav" type="audio/wav">
-	</audio>
-	<script>
-		var hoverAudio = document.getElementById('hoverAudio');
-		var clickAudio = document.getElementById('clickAudio');
-
-		function playOnHover()
-		{
-			hoverAudio.play();
-		}
-
-		function playOnClick()
-		{
-			clickAudio.play();
-		}
-
-	   function toggleHidden(dev) {
-	       var v = document.getElementById(dev);
-	       v.style.display = (v.style.display === 'none') ? 'block' : 'none';
-	       if (dev === 'dev1') game.openGameConfiguration();
-	       if (dev === 'dev_cus') {
-	           game.openSelectedInitial();
-	       }
-	   }
-
-		function changeAll() {
-			let f = document.getElementById('all');
-			let n = document.getElementsByName('c');
-			for (let i = 0; i < n.length; i++) {
-				n[i].checked = f.checked;
-			}
-		}
-
-		var slider = document.getElementById("shipDistance");
-		var output = document.getElementById("shipDisanceValue");
-		output.innerHTML = slider.value;
-
-		slider.oninput = function () {
-			output.innerHTML = this.value;
-		}
-
-	</script>
 </body>
+
+<script> game.initDisplay(); </script> 
+
+<audio id="hoverAudio">
+	<source src="audio/flit.wav" type="audio/wav">
+</audio>
+<audio id="clickAudio">
+	<source src="audio/click2.wav" type="audio/wav">
+</audio>
+
+<script>
+	var hoverAudio = document.getElementById('hoverAudio');
+	var clickAudio = document.getElementById('clickAudio');
+
+	function playOnHover()
+	{
+		hoverAudio.play();
+	}
+
+	function playOnClick()
+	{
+		clickAudio.play();
+	}
+
+	/* jQuery to select html/css, add functions */
+	$('.button, .formButton, .slider, .devLabel, .dropDownSelect').mouseenter(function(){
+		playOnHover();
+	});
+
+	$('.button, .formButton, .devLabel').mousedown(function(){
+		playOnClick();
+	});
+
+   function toggleHidden(dev) {
+	   var v = document.getElementById(dev);
+	   v.style.display = (v.style.display === 'none') ? 'block' : 'none';
+	   if (dev === 'dev1') game.openGameConfiguration();
+	   if (dev === 'dev_cus') {
+		   game.openSelectedInitial();
+	   }
+   }
+
+	function changeAll() {
+		let f = document.getElementById('all');
+		let n = document.getElementsByName('c');
+		for (let i = 0; i < n.length; i++) {
+			n[i].checked = f.checked;
+		}
+	}
+
+	var slider = document.getElementById("shipDistance");
+	var output = document.getElementById("shipDisanceValue");
+	output.innerHTML = slider.value;
+
+	slider.oninput = function () {
+		output.innerHTML = this.value;
+	}
+</script>
 
 </html>
