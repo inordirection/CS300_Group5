@@ -58,12 +58,23 @@
 	width: 50%;
 }
 
+.gazetteerScroll::webkit-scrollbar {
+	width: 10px;
+}
+
 .screen {
 	margin: 20px;
 	padding: 20px;
 	border: solid 5px grey;
 	width: 20%;
 	vertical-align: top;
+}
+
+.dropDownSelect {
+	background-color: black;
+	color: white;
+	border-radius: 8px;
+	border: solid 3px #4CAF50;
 }
 
 .gazetteer {
