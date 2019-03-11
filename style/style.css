@@ -32,6 +32,18 @@
 	vertical-align: top;
 }
 
+.gazetteer {
+	background-color: white;
+	border: solid 3px grey;
+}
+
+.gazetteerCell {
+	color: black;
+	padding: 5px;
+	margin: 5px;
+	border: solid #f0f0f0 3px;
+}
+
 body {
 	color: white;
 	background-color: black;
