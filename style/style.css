@@ -85,7 +85,7 @@ h1 {
 label {
 	display: inline-block;
 	float: left;
-	width: 121px;
+	width: 151px;
 	text-align: right;
 	vertical-align: middle;
 }
@@ -95,7 +95,7 @@ label {
 }
 
 input[type=text], #message {
-	width: 300px;
+	width: 250px;
 	padding: 5px;
 	box-sizing: border-box;
 	/*border: none;
