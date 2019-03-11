@@ -10,7 +10,7 @@ class CelestialMap
 			 * set of objects will not load correctly:
 			 * save() called on a set of CP just writes to local storage
 			 * {CelestialPoint, CelestialPoint, CelestialPoint...},
-			 * which of course doesn't really preserve any data for load(), 
+			 * which of course doesn't really preserve any data for load(),
 			 * thus we have to repopulate the visibleSet on every load.
 			 *
 			 * not a big problem, but maybe we can find a way to actually save it.
@@ -23,12 +23,12 @@ class CelestialMap
 				}
 			}
 		}
-		else { 
+		else {
 			this.size = size;
 			this.celestialPoints = this.InstantiateMap();
 
 			// set of visible space
-			this.visibleSet = new Set(); 
+			this.visibleSet = new Set();
 			// set of planets
 			this.planetsSet = new Set();
 
@@ -86,7 +86,7 @@ class CelestialMap
 			visible = false;
 			if (i > TypeEnum['P_SEVEN']) // set special planets visible
 				visible = true;
-			
+
 			var c; // check to make sure planets do not overwrite themselves
 			do {
 				c = new Coordinate(Math.round(Math.random() * (this.size-1)),
@@ -150,7 +150,7 @@ class CelestialMap
 			}
 			else if (landed) {
 				msg += "You're docked at planet ";
-			}	
+			}
 			else if (orbit) {
 				msg += "You're orbiting planet ";
 			}
@@ -162,7 +162,7 @@ class CelestialMap
 			ship.energy += this.GetSize() * ship.engine;
 			msg += "You passed through a wormhole!\n";
 			wormed = true;
-		}	
+		}
 		else if (cpType == TypeEnum['STATION']) {
 			if (!landed) {
 				msg += "You've come across a space station\n";
@@ -234,6 +234,8 @@ class CelestialMap
 
           this.visibleSet.add(this.celestialPoints[x][y]);
           this.celestialPoints[x][y].isVisible = true;
+
+		//this.AppendRow()
 	}
 
 	/**
@@ -243,10 +245,11 @@ class CelestialMap
      	for (let i = 0; i < this.size; i++) {
      		for (let j = 0; j < this.size; j++) {
 				this.visibleSet.add(this.celestialPoints[i][j]);
+				this.celestialPoint[i][j].isVisible = true;
 			}
 		}
 	}
-	
+
 	/**
 	 * set a list of celestial points to the map
 	 * if the point only can occur one time, just replace the old one.
@@ -274,7 +277,7 @@ class CelestialMap
 				}
 
 				// create a new point obj and its type is empty. and replace the original one.
-				this.celestialPoints[original.coordinate.x][original.coordinate.y] 
+				this.celestialPoints[original.coordinate.x][original.coordinate.y]
 					= new CelestialPoint(0, false, original.coordinate.x, original.coordinate.y);
 				// add this planet
 				this.planetsSet.add(current);
