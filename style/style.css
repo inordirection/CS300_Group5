@@ -25,6 +25,10 @@
 	cursor: pointer;
 }
 
+.devModeDiv{
+	margin-top: 600px;
+}
+
 .controlPanelDiv{
 	width: 33%;
 	height: 600px;
@@ -70,6 +74,8 @@
 	color: white;
 	padding: 5px;
 	margin: 5px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
 }
 
 body {
@@ -91,7 +97,7 @@ label {
 }
 
 .devLabel {
-	width = 180px;
+	width: 180px;
 }
 
 input[type=text], #message {
@@ -126,12 +132,12 @@ input[type=text], #message {
 	width: fit-content;
 
 
-	/*
+	
 	border: 3px;
 	border-radius: 50px;
 	border-color: #4CAF50;
 	border-style: solid;
-	*/
+	
 }
 
 .button {
