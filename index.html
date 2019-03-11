@@ -71,15 +71,15 @@
 		<br>
 		<!-- nameable persistent state -->
 		<div id="nameable_storage" class="label">
-			Save Name:&nbsp; <input class="label" "" id="storage_name" type="text"><br>
+			Save Name:&nbsp; <input class="label"  id="storage_name" type="text"><br>
 			<br>
-			<button class="formButton" "" id="save_storage" type="button">Save</button>
-			<button class="formButton" "" id="load_storage" type="button">Load</button>
-			<button class="formButton" "" id="delete_storage" type="button">Delete</button>
-			<select id="choose_storage" "" class="dropDownSelect"></select>
+			<button class="formButton"  id="save_storage" type="button">Save</button>
+			<button class="formButton" id="load_storage" type="button">Load</button>
+			<button class="formButton" id="delete_storage" type="button">Delete</button>
+			<select id="choose_storage" class="dropDownSelect"></select>
 			<br>
 			<br>
-			<button class="formButton" "" id="clear_local_storage" type="button">Clear Local Storage</button>
+			<button class="formButton" id="clear_local_storage" type="button">Clear Local Storage</button>
 		</div>
 	</div>
 	<div class="celestialGazetteerDiv">
@@ -137,112 +137,126 @@
 			</form>
 			<form id="customizeGame" name="customizeGame">
 				<!-- This is to change celestial point to the map-->
-				<p><button class="formButton" "" id="add_celestial" name="add_celestial" type="button">Add Celestial
+				<p><button class="formButton" id="add_celestial" name="add_celestial" type="button">Add Celestial
 						Menu</button></p>
 				<div id="celestial_Container">
 					<!-- Dynamically generated according to TypeEnum -->
 				</div> <br>
-			</form><label>Game Size: &nbsp;</label> <input class="label" "" id="dev_ini_size" placeholder="Default: 128"
+			</form><label>Game Size: &nbsp;</label> <input class="label" id="dev_ini_size" placeholder="Default: 128"
 				type="text"><br>
-			<label>Start Location: &nbsp;</label> <input class="label" "" id="dev_location" placeholder="Default: 0, 0"
+			<label>Start Location: &nbsp;</label> <input class="label" id="dev_location" placeholder="Default: 0, 0"
 				type="text"><br>
-			<label>Energy: &nbsp;</label> <input class="label" "" id="dev_energy" placeholder="Default: 1000"
+			<label>Energy: &nbsp;</label> <input class="label" id="dev_energy" placeholder="Default: 1000"
 				type="text"><br>
-			<label>Supplies: &nbsp;</label> <input class="label" "" id="dev_supplies" placeholder="Default: 100"
+			<label>Supplies: &nbsp;</label> <input class="label" id="dev_supplies" placeholder="Default: 100"
 				type="text"><br>
-			<label>Credits: &nbsp;</label> <input class="label" "" id="dev_credits" placeholder="Default: 1000"
+			<label>Credits: &nbsp;</label> <input class="label" id="dev_credits" placeholder="Default: 1000"
 				type="text"><br>
-			<label>Sensor Range: &nbsp;</label> <input class="label" "" id="dev_sensor" placeholder="Default: 2"
+			<label>Sensor Range: &nbsp;</label> <input class="label" id="dev_sensor" placeholder="Default: 2"
 				type="text"><br>
-			<label>BadMax Chance: &nbsp;</label> <input class="label" "" id="dev_badmax" placeholder="Default: 0.05"
+			<label>BadMax Chance: &nbsp;</label> <input class="label" id="dev_badmax" placeholder="Default: 0.05"
 				type="text"><br>
-			<label>Recipe Location: &nbsp;</label> <input class="label" "" id="dev_recipe"
+			<label>Recipe Location: &nbsp;</label> <input class="label" id="dev_recipe"
 				placeholder="Default: random in [1,7]" type="text"><br>
 			<input id="dev_ini_never_dies" type="checkbox" value="Using Never Dies Mode"> Use Never Dies Mode<br>
 			<input id="dev_ini_fixed_wh" type="checkbox" value="Use Fixed Wormhole Behavior"> Use Fixed Wormhole
 			Behavior<br>
 			<!-- submit button of the initial game -->
-			<button class="formButton" "" id="submit_ini" name="submit_ini" type="button">Initialize Game</button>
+			<button class="formButton" id="submit_ini" name="submit_ini" type="button">Initialize Game</button>
 		</div><!-- For change energy, credits, supplies, and location -->
 		<br>
 		<div id="ecsl">
-			<input class="label" "" id="all" onchange="changeAll()" type="checkbox">Change All<br>
-			<input class="label" "" id="e" name="c" type="checkbox" value="Change Energy">Change Energy<br>
-			<input id="c" "" name="c" type="checkbox" value="Change Credits">Change Credits<br>
-			<input id="s" "" name="c" type="checkbox" value="Change Supplies">Change Supplies<br>
-			<input id="l" "" name="c" type="checkbox" value="Change Location">Change Location<br>
-			<input id="sensor" "" name="c" type="checkbox" value="Change Sensor Range">Change Sensor Range<br>
-			<input id="bm" "" name="c" type="checkbox">Change BadMax Chance<br>
-			<input id="size" "" name="c" type="checkbox" value="Change game size">Change Game Size<br>
-			<button class="formButton" "" id="change_ecsl" type="button">Change</button>
+			<input class="label" id="all" onchange="changeAll()" type="checkbox">Change All<br>
+			<input class="label" id="e" name="c" type="checkbox" value="Change Energy">Change Energy<br>
+			<input id="c" name="c" type="checkbox" value="Change Credits">Change Credits<br>
+			<input id="s" name="c" type="checkbox" value="Change Supplies">Change Supplies<br>
+			<input id="l" name="c" type="checkbox" value="Change Location">Change Location<br>
+			<input id="sensor" name="c" type="checkbox" value="Change Sensor Range">Change Sensor Range<br>
+			<input id="bm" name="c" type="checkbox">Change BadMax Chance<br>
+			<input id="size" name="c" type="checkbox" value="Change game size">Change Game Size<br>
+			<button class="formButton" id="change_ecsl" type="button">Change</button>
 		</div><!-- For select normal mode or never dies -->
 		<div id="fixed_wh">
 			<p class="label" id="whether_fixed" style="margin-bottom:0">Use fixed wormhole mode is: false</p><button
-				class="formButton" "" id="change_fixed" type="button">Change</button>
+				class="formButton" id="change_fixed" type="button">Change</button>
 		</div><!-- For select fixed wormhole behavior -->
 		<div id="never">
 			<p class="label" id="whether_never" style="margin-bottom:0">Use never dies mode is: false</p><button
-				class="formButton" "" id="change_never" type="button">Change</button>
+				class="formButton" id="change_never" type="button">Change</button>
 		</div>
 	</div>
-</body>
 
-<script> game.initDisplay(); </script> 
+	<audio id="hoverAudio">
+		<source src="audio/flit.wav" type="audio/wav">
+	</audio>
+	<audio id="clickAudio">
+		<source src="audio/click2.wav" type="audio/wav">
+	</audio>
 
-<audio id="hoverAudio">
-	<source src="audio/flit.wav" type="audio/wav">
-</audio>
-<audio id="clickAudio">
-	<source src="audio/click2.wav" type="audio/wav">
-</audio>
+	<script> 
+		game.initDisplay(); 
+	</script> 
 
-<script>
-	var hoverAudio = document.getElementById('hoverAudio');
-	var clickAudio = document.getElementById('clickAudio');
 
-	function playOnHover()
-	{
-		hoverAudio.play();
-	}
+	<script>
+		var hoverAudio = document.getElementById('hoverAudio');
+		var clickAudio = document.getElementById('clickAudio');
 
-	function playOnClick()
-	{
-		clickAudio.play();
-	}
-
-	/* jQuery to select html/css, add functions */
-	$('.button, .formButton, .slider, .devLabel, .dropDownSelect').mouseenter(function(){
-		playOnHover();
-	});
-
-	$('.button, .formButton, .devLabel').mousedown(function(){
-		playOnClick();
-	});
-
-   function toggleHidden(dev) {
-	   var v = document.getElementById(dev);
-	   v.style.display = (v.style.display === 'none') ? 'block' : 'none';
-	   if (dev === 'dev1') game.openGameConfiguration();
-	   if (dev === 'dev_cus') {
-		   game.openSelectedInitial();
-	   }
-   }
-
-	function changeAll() {
-		let f = document.getElementById('all');
-		let n = document.getElementsByName('c');
-		for (let i = 0; i < n.length; i++) {
-			n[i].checked = f.checked;
+		function playOnHover()
+		{
+			hoverAudio.play();
 		}
-	}
 
-	var slider = document.getElementById("shipDistance");
-	var output = document.getElementById("shipDisanceValue");
-	output.innerHTML = slider.value;
 
-	slider.oninput = function () {
-		output.innerHTML = this.value;
-	}
-</script>
+		function playOnClick()
+		{
+			clickAudio.play();
+		}
+
+		/* jQuery to select css elements, add functions */
+		function audioSelector() {
+			$('input,.button,.formButton,.slider,.devLabel,.dropDownSelect,#message').mouseenter(
+				function() {
+					playOnHover();
+				});
+
+			$('.button,.formButton,.devLabel').mousedown(
+				function() {
+					playOnClick();
+				});
+		}
+
+		// apply jQuery selector when doc is loaded
+		$(document).ready(audioSelector);
+		// apply jQuery selector when doc is modified
+		$(document).bind("DOMSubtreeModified", audioSelector);
+
+		function toggleHidden(dev) {
+		   var v = document.getElementById(dev);
+		   v.style.display = (v.style.display === 'none') ? 'block' : 'none';
+		   if (dev === 'dev1') game.openGameConfiguration();
+		   if (dev === 'dev_cus') {
+			   game.openSelectedInitial();
+		   }
+		}
+
+		function changeAll() {
+			let f = document.getElementById('all');
+			let n = document.getElementsByName('c');
+			for (let i = 0; i < n.length; i++) {
+				n[i].checked = f.checked;
+			}
+		}
+
+		var slider = document.getElementById("shipDistance");
+		var output = document.getElementById("shipDisanceValue");
+		output.innerHTML = slider.value;
+
+		slider.oninput = function () {
+			output.innerHTML = this.value;
+		}
+	</script>
+
+</body>
 
 </html>
