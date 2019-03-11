@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
 	<script src="script/game.js"></script>
 	<script src="script/ship.js"></script>
 	<script src="script/sensor.js"></script>
@@ -25,7 +24,7 @@
 		<table>
 			<tr>
 				<td></td>
-				<td><button class="button buttonUp" onclick="game.move(90)"></button></td>
+				<td><button class="button buttonUp" onclick="game.move(90); playOnClick();" onmouseenter="playOnHover();"></button></td>
 				<td></td>
 			</tr>
 			<tr>
@@ -165,7 +164,27 @@
 	<script>
 	game.initDisplay();
 	</script> <!--</div>-->
+
+	<audio id="hoverAudio">
+		<source src="audio/click1.wav" type="audio/wav">
+	</audio>
+	<audio id="clickAudio">
+		<source src="audio/click2.wav" type="audio/wav">
+	</audio>
 	<script>
+		var hoverAudio = document.getElementById('hoverAudio');
+		var clickAudio = document.getElementById('clickAudio');
+
+		function playOnHover()
+		{
+			hoverAudio.play();
+		}
+
+		function playOnClick()
+		{
+			clickAudio.play();
+		}
+
 	   function toggleHidden(dev) {
 	       var v = document.getElementById(dev);
 	       v.style.display = (v.style.display === 'none') ? 'block' : 'none';
