@@ -70,12 +70,16 @@
 		<br>
 		<br>
 		<!-- nameable persistent state -->
-		<div id="nameable_storage">
+		<div id="nameable_storage" class="label">
 			Save Name:&nbsp; <input class="label" id="storage_name" type="text"><br>
 			<br>
+<<<<<<< HEAD
 			<button class="formButton" id="save_storage" type="button">Save</button> <button class="formButton"
 				id="load_storage" type="button">Load</button> <button class="formButton" id="delete_storage"
 				type="button">Delete</button> <select id="choose_storage">
+=======
+			<button class="formButton" id="save_storage" type="button">Save</button> <button class="formButton" id="load_storage" type="button">Load</button> <button class="formButton" id="delete_storage" type="button">Delete</button> <select id="choose_storage" class="dropDownSelect">
+>>>>>>> 7acedb6b7d0c74d986efa1a69a29d2132adb3344
 			</select><br>
 			<br>
 			<button class="formButton" id="clear_local_storage" type="button">Clear Local Storage</button>
@@ -84,6 +88,7 @@
 	<div class="celestialGazetteerDiv">
 		<h1>Celestial Gazetteer</h1>
 		<div class="scrollTableDiv">
+<<<<<<< HEAD
 			<table id="gazetteerTable" class="gazetteer">
 				<tr>
 					<td class="gazetteerCell">Celestial Objects</td>
@@ -103,11 +108,33 @@
 				</tr>
 			</table>
 		</div>
+=======
+		<table id="gazetteerTable" class="gazetteer">
+			<tr>
+				<td class="gazetteerCell">Celestial Objects:</td>
+				<td class="gazetteerCell">Coordinates:</td>
+			</tr>
+			<tr>
+				<td class="gazetteerCell">Object</td>
+				<td class="gazetteerCell">(0, 1)</td>
+			</tr>
+			<tr>
+				<td class="gazetteerCell">Object</td>
+				<td class="gazetteerCell">(0, 2)</td>
+			</tr>
+			<tr>
+				<td class="gazetteerCell">Object</td>
+				<td class="gazetteerCell">(0, 3)</td>
+			</tr>
+		</table>
+	</div>
+>>>>>>> 7acedb6b7d0c74d986efa1a69a29d2132adb3344
 	</div><!-- map div -->
 	<div id="map" style="display:none">
 		<form id="shitmap" name="shitmap">
 		</form>
-	</div><!-- Those are used by developer mode -->
+	</div>
+	<!-- Those are used by developer mode -->
 
 	<br>
 

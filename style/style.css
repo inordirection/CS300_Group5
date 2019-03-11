@@ -12,6 +12,10 @@
 	margin: 5px;
 }
 
+.formButton:hover {
+	background-color: #5bcf5b;
+}
+
 .display {
 	background-color: red;
 	border: none;
@@ -112,6 +116,17 @@
 	vertical-align: top;
 }
 
+.dropDownSelect {
+	background-color: black;
+	color: white;
+	border-radius: 8px;
+	border: solid 3px #4CAF50;
+}
+
+.dropDownSelect:hover {
+	background-color: rgb(30, 30, 30);
+}
+
 .gazetteer {
 	background-color: black;
 }
@@ -158,6 +173,13 @@ input[type=text],
 	font-size: 18px;
 	border: ridge 5px #4CAF50;
 	border-radius: 8px;
+<<<<<<< HEAD
+=======
+}
+
+input[type=text]:hover, #message:hover {
+	background-color: rgb(30, 30, 30);
+>>>>>>> 7acedb6b7d0c74d986efa1a69a29d2132adb3344
 }
 
 #distance {
@@ -180,6 +202,10 @@ input[type=text],
 	font-size: 25px;
 	padding: 10px;
 	width: fit-content;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7acedb6b7d0c74d986efa1a69a29d2132adb3344
 	border: 3px;
 	border-radius: 50px;
 	border-color: #4CAF50;
@@ -200,6 +226,9 @@ input[type=text],
 	border: none;
 	border-radius: 40px;
 	box-shadow: 0 9px grey;
+}
+.button:hover {
+	background-color: #5bcf5b;
 }
 
 .button:active {
@@ -240,6 +269,10 @@ input[type=text],
 	background: #d3d3d3;
 	outline: none;
 	margin: 5px;
+}
+
+.slider::-webkit-slider-thumb:hover {
+	background-color: #5bcf5b;
 }
 
 .slider::-webkit-slider-thumb {
