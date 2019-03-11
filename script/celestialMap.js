@@ -10,7 +10,7 @@ class CelestialMap
 			 * set of objects will not load correctly:
 			 * save() called on a set of CP just writes to local storage
 			 * {CelestialPoint, CelestialPoint, CelestialPoint...},
-			 * which of course doesn't really preserve any data for load(),
+			 * which of course doesn't really preserve any data for load(), 
 			 * thus we have to repopulate the visibleSet on every load.
 			 *
 			 * not a big problem, but maybe we can find a way to actually save it.
@@ -23,13 +23,13 @@ class CelestialMap
 				}
 			}
 		}
-		else {
+		else { 
 			this.size = size;
 			this.BadMaxChance = 0.05;
 			this.celestialPoints = this.InstantiateMap();
 
 			// set of visible space
-			this.visibleSet = new Set();
+			this.visibleSet = new Set(); 
 			// set of planets
 			this.planetsSet = new Set();
 
@@ -87,7 +87,7 @@ class CelestialMap
 			visible = false;
 			if (i > TypeEnum['P_SEVEN']) // set special planets visible
 				visible = true;
-
+			
 			var c; // check to make sure planets do not overwrite themselves
 			do {
 				c = new Coordinate(Math.round(Math.random() * (this.size-1)),
@@ -170,7 +170,7 @@ class CelestialMap
 			}
 			else if (landed) {
 				msg += "You're docked at planet ";
-			}
+			}	
 			else if (orbit) {
 				msg += "You're orbiting planet ";
 			}
@@ -182,7 +182,7 @@ class CelestialMap
 			ship.energy += this.GetSize() * ship.engine;
 			msg += "You passed through a wormhole!\n";
 			wormed = true;
-		}
+		}	
 		// if we are at a space station:
 		else if (cpType == TypeEnum['STATION']) {
 			if (!landed) {
@@ -206,20 +206,26 @@ class CelestialMap
 			else if (cpType == TypeEnum['ASTEROID']) {
 				msg += "You hit an Asteroid!\n"
 				if (chance <= 0.9) {
-					msg += "Your ship was damaged.\n"
+					msg += "Your ship was damaged.\n";
 					ship.damageEngine(5);
 				}
 				else {
-					msg += "YOUR SHIP WAS DESTROYED!\n"
+					msg += "YOUR SHIP WAS DESTROYED!\n";
 					over = true;
 				}
 			}
 			// Abandoned Freighter
 			else if (cpType == TypeEnum['FREIGHTER']) {
-				msg += "You encountered an Abandoned Freighter!\n"
-				msg += "You've replenished your supplies and energy.\n"
+				msg += "You encountered an Abandoned Freighter!\n";
+				msg += "You've replenished your supplies and energy";
 				ship.setSupplies(100);
 				ship.setEnergy(1000);
+
+				if (ship.engine > 10) {
+					ship.setEngine(10);
+					msg += ", and fixed your damaged engine";
+				}
+				msg += ".";
 			}
 			// remove encounter from map
 			this.ClearPoint(ship.x, ship.y);
@@ -249,11 +255,10 @@ class CelestialMap
      	for (let i = 0; i < this.size; i++) {
      		for (let j = 0; j < this.size; j++) {
 				this.visibleSet.add(this.celestialPoints[i][j]);
-				this.celestialPoint[i][j].isVisible = true;
 			}
 		}
 	}
-
+	
 	/**
 	 * set a list of celestial points to the map
 	 * if the point only can occur one time, just replace the old one.
@@ -281,7 +286,7 @@ class CelestialMap
 				}
 
 				// create a new point obj and its type is empty. and replace the original one.
-				this.celestialPoints[original.coordinate.x][original.coordinate.y]
+				this.celestialPoints[original.coordinate.x][original.coordinate.y] 
 					= new CelestialPoint(0, false, original.coordinate.x, original.coordinate.y);
 				// add this planet
 				this.planetsSet.add(current);
@@ -314,6 +319,14 @@ class CelestialMap
      GetSize() {
           return this.size;
      }
+
+	setBadMax(chance) {
+		if (isNaN(chance) || chance < 0 || chance > 1) {
+			alert("Chance should be a number from 0 to 1");
+			return;
+		}
+		this.BadMaxChance = chance;
+	}
 
      ToString()
      {

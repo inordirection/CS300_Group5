@@ -152,4 +152,14 @@ function Ship(json) {
 			this.credits = credits;
 		}
 	}
+
+	this.setEngine = function(efficiency) {
+		if (efficiency < 0) {
+			alert('the engine in wrong');
+			return ;
+		}
+		if (! isNaN(efficiency)) {
+			this.engine = efficiency;
+		}
+	}
 }

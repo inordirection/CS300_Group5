@@ -6,11 +6,15 @@ function Game() {
 	/* private variables (var makes value private) */
 	var cm; // Celestial Map
 	var ship; // Ship object
+	var sensor; // deployed to reveal celestial points
+
 	var over; // track whether the game has ended
 	var orbit; // track if ship is orbiting a planet
 	var landed; // track if ship is landed
 	var message; // message to be displayed at end of turn
-	var sensor; // deployed to reveal celestial points
+	var recipe; // track which pentium holds the recipe
+	var hasRecipe; // track if recipe has been recovered
+
 	var that = this; // for accessing parent scope in helper funcs
 	// var isDEV = false; // FOR DEV MODE whether the dev mode is open
 	// var isNEVERDIES = false; // FOR DEV MODE whether the player never dies
@@ -219,8 +223,7 @@ function Game() {
 
 	function write_map()
 	{
-		var style = document.getElementById('map').style.display;
-		if (style != 'none') that.render_map();
+		that.render_map();
 	}
 
 	/* write a prompts to the user display */
@@ -695,7 +698,12 @@ function Game() {
 			sensor.updateRange(parseInt(prompt('The new Range is: ')));
 			document.getElementById('sensor').checked = false;
 		}
-	}
+		if (document.getElementById('bm').checked){
+			cm.setBadMax(parseFloat(prompt('The new Chance is: ')));
+			document.getElementById('bm').checked = false;
+			console.log("BadMaxChance: ");
+			console.log(cm.BadMaxChance);
+		}}
 
 	function initialECSL() {
 		if (!isDEV && !isINI) {
@@ -711,11 +719,15 @@ function Game() {
 			ship.setLocation(cm, coords[0]);
 		}
 		sensor.updateRange(getIntValue('dev_sensor'));
+		cm.setBadMax(getFloatValue('dev_badmax'));
 		return coords; // to place eniac at start location
 	}
 
 	// helper function for get the int value in a text area.
 	function getIntValue(id) {
 		return parseInt(document.getElementById(id).value);
+	}	
+	function getFloatValue(id) {
+		return parseFloat(document.getElementById(id).value);
 	}
 }
