@@ -77,6 +77,10 @@
 	border: solid 3px #4CAF50;
 }
 
+.dropDownSelect:hover {
+	background-color: rgb(30, 30, 30);
+}
+
 .gazetteer {
 	background-color: black;
 }
@@ -126,7 +130,7 @@ input[type=text], #message {
 	border-radius: 8px;
 }
 
-input[type=text]:hover, #message {
+input[type=text]:hover, #message:hover {
 	background-color: rgb(30, 30, 30);
 }
 
