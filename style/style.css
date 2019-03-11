@@ -25,25 +25,72 @@
 	cursor: pointer;
 }
 
-.devModeDiv{
+.devModeDiv {
 	margin-top: 600px;
 }
 
-.controlPanelDiv{
+.spaceHuntDiv {
+	width: 100%;
+	text-align: center;
+	font-family: 'Faster One', cursive;
+	font-size: 100px;
+	background: linear-gradient(356deg, #2bd566, #04a776);
+	background-size: 400% 400%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-animation: AnimationName 12s ease infinite;
+	-moz-animation: AnimationName 12s ease infinite;
+	animation: AnimationName 12s ease infinite;
+	@-webkit-keyframes AnimationName {
+		0% {
+			background-position: 54% 0%
+		}
+		50% {
+			background-position: 47% 100%
+		}
+		100% {
+			background-position: 54% 0%
+		}
+	}
+	@-moz-keyframes AnimationName {
+		0% {
+			background-position: 54% 0%
+		}
+		50% {
+			background-position: 47% 100%
+		}
+		100% {
+			background-position: 54% 0%
+		}
+	}
+	@keyframes AnimationName {
+		0% {
+			background-position: 54% 0%
+		}
+		50% {
+			background-position: 47% 100%
+		}
+		100% {
+			background-position: 54% 0%
+		}
+	}
+}
+
+.controlPanelDiv {
 	width: 33%;
 	height: 600px;
 	float: left;
 	background-color: black;
 }
 
-.currentStatusDiv{
+.currentStatusDiv {
 	width: 33%;
 	height: 600px;
 	float: left;
 	background-color: black;
 }
 
-.celestialGazetteerDiv{
+.celestialGazetteerDiv {
 	width: 33%;
 	height: 600px;
 	float: left;
@@ -53,7 +100,6 @@
 .scrollTableDiv {
 	overflow: scroll auto;
 	overflow-x: visible;
-
 	height: 100%;
 	width: 50%;
 }
@@ -94,7 +140,6 @@ label {
 	width: 151px;
 	text-align: right;
 	vertical-align: middle;
-
 	font-family: 'Roboto', sans-serif;
 	font-size: 18px;
 }
@@ -103,17 +148,16 @@ label {
 	width: 180px;
 }
 
-input[type=text], #message {
+input[type=text],
+#message {
 	width: 300px;
 	padding: 5px;
 	box-sizing: border-box;
 	background-color: black;
 	color: white;
 	font-size: 18px;
-
 	border: ridge 5px #4CAF50;
 	border-radius: 8px;
-
 }
 
 #distance {
@@ -136,12 +180,10 @@ input[type=text], #message {
 	font-size: 25px;
 	padding: 10px;
 	width: fit-content;
-	
 	border: 3px;
 	border-radius: 50px;
 	border-color: #4CAF50;
 	border-style: solid;
-
 }
 
 .button {
