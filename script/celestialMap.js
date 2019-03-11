@@ -145,9 +145,6 @@ class CelestialMap
 		let foundRecipe = false;
 		let win = false;
 		
-		console.log("hasRecipe? :");
-		console.log(hasRecipe);
-
 		let cpType = this.celestialPoints[ship.x][ship.y].type;
 		let name = TypeEnum.properties[cpType].name;
 
