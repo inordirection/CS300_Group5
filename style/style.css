@@ -9,6 +9,7 @@
 	font-size: 15px;
 	cursor: pointer;
 	border-radius: 8px;
+	margin: 5px;
 }
 
 .display {
@@ -22,6 +23,27 @@
 	font-size: 12px;
 	margin: 4px 2px;
 	cursor: pointer;
+}
+
+.controlPanelDiv{
+	width: 33%;
+	height: 600px;
+	float: left;
+	background-color: black;
+}
+
+.currentStatusDiv{
+	width: 33%;
+	height: 600px;
+	float: left;
+	background-color: black;
+}
+
+.celestialGazetteerDiv{
+	width: 33%;
+	height: 600px;
+	float: left;
+	background-color: black;
 }
 
 .screen {
@@ -63,7 +85,13 @@ label {
 }
 
 input[type=text], #message {
-	width: 170px;
+	width: 300px;
+	padding: 5px;
+	box-sizing: border-box;
+	border: none;
+	background-color: black;
+	color: white;
+	font-size: 18px;
 }
 
 #distance {
@@ -86,10 +114,14 @@ input[type=text], #message {
 	font-size: 25px;
 	padding: 10px;
 	width: fit-content;
+
+
+	/*
 	border: 3px;
 	border-radius: 50px;
 	border-color: #4CAF50;
 	border-style: solid;
+	*/
 }
 
 .button {
@@ -145,6 +177,7 @@ input[type=text], #message {
 	border-radius: 50px;
 	background: #d3d3d3;
 	outline: none;
+	margin: 5px;
 }
 
 .slider::-webkit-slider-thumb {
