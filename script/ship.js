@@ -70,9 +70,9 @@ function Ship(json) {
 	// use the standard 2% of supplies
 	this.useSupplies = function() {
 		// decrease by 2% (to 2 decimal precision)
-		/*this.supplies = Math.round(this.supplies * 98);
-		this.supplies /= 100;*/
-		this.supplies -= 2;
+		this.supplies = Math.round(this.supplies * 98);
+		this.supplies /= 100;
+		//this.supplies -= 2;
 	}
 
 	this.useEnergy = function(used) {
