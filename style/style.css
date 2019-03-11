@@ -115,7 +115,7 @@ label {
 }
 
 input[type=text], #message {
-	width: 250px;
+	width: 300px;
 	padding: 5px;
 	box-sizing: border-box;
 	background-color: black;
@@ -147,9 +147,7 @@ input[type=text], #message {
 	font-size: 25px;
 	padding: 10px;
 	width: fit-content;
-
-
-
+	
 	border: 3px;
 	border-radius: 50px;
 	border-color: #4CAF50;
