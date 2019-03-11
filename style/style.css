@@ -135,6 +135,46 @@
 	font-size: 18px;
 }
 
+.planetCell {
+	color: #4CAF50;
+	padding: 5px;
+	margin: 5px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+}
+
+.wormholeCell {
+	color: #a479d1;
+	padding: 5px;
+	margin: 5px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+}
+
+.goodCell {
+	color: #6aa8d4;
+	padding: 5px;
+	margin: 5px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+}
+
+.badCell {
+	color: #d66262;
+	padding: 5px;
+	margin: 5px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+}
+
+.pentiumCell {
+	color: #d9c467;
+	padding: 5px;
+	margin: 5px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+}
+
 body {
 	color: white;
 	background-color: black;

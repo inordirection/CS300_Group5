@@ -114,8 +114,24 @@ function Game() {
 			var c1 = row.insertCell(0);
 			var c2 = row.insertCell(1);
 
+			var classString = "gazetteerCell";
+
+			if(type > 5 && type < 13)
+				classString = "pentiumCell";
+			else if(type > 12)
+				classString = "planetCell";
+			else if(type == 5)
+				classString = "wormholeCell";
+			else if(type == 3 || type == 4)
+				classString = "goodCell";
+			else if(type < 3)
+				classString = "badCell";
+
+			//if(Coordinate.Distance(new coordinate(ship.x, ship.y), new coordinate(c.x, c.y)) == 2)
+			//	classString = "adjacentCell";
+
 			c1.innerHTML = TypeEnum.properties[type].name;
-			c1.classList.add("gazetteerCell");
+			c1.classList.add(classString);
 
 			c2.innerHTML = "(" + c.x + ", " + c.y + ")";
 			c2.classList.add("gazetteerCell");
@@ -207,7 +223,7 @@ function Game() {
 	function write_credits() {
 		document.getElementById('credits').value = ship.credits;
 	}
-	function write_collisions() 
+	function write_collisions()
 	{
 		// don't lose the game twice
 		if (over) return;
@@ -389,7 +405,7 @@ function Game() {
 	// congrats bro
 	function gameWin() {
 		message += "You've returned the secret recipe! ";
-		message += "The KocaKola corporation has awarded you one zillion " + 
+		message += "The KocaKola corporation has awarded you one zillion " +
 			"credits, and you have won the game!\n";
 		ship.useCredits(-1000000000000000000);
 		over = true;
