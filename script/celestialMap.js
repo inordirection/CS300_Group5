@@ -68,7 +68,7 @@ class CelestialMap
 					//Get a random enocunter
 				   var type = 0; // default to empty space
 				   if (Math.random() > space_probability)
-					   type = Math.round(Math.random() * (NUM-1)) + 1; // type: [1-NUM]
+					   type = Math.floor(Math.random() * NUM) + 1; // type: [1-NUM]
 
 				this.celestialPoints[x][y] = new CelestialPoint(type, false, x, y);
 			}
@@ -90,8 +90,8 @@ class CelestialMap
 			
 			var c; // check to make sure planets do not overwrite themselves
 			do {
-				c = new Coordinate(Math.round(Math.random() * (this.size-1)),
-				Math.round(Math.random() * (this.size-1)));
+				c = new Coordinate(Math.floor(Math.random() * this.size),
+				Math.floor(Math.random() * this.size));
 			} while (this.celestialPoints[c.x][c.y].type >= encounters);
 
 			// clear anything that might already be in celestialPoints
@@ -135,16 +135,23 @@ class CelestialMap
 
 	/***
 	 * Back-end processing for collisions with Celestial Artifacts
-	 * 	returns: array with message, wormhole flag, gameover flag
+	 * 	returns: array with message, wormhole flag, gameover flag, win flag
 	 * 	*/
-	RunPoint(ship, orbit, landed) {
+	RunPoint(ship, orbit, landed, recipe, hasRecipe) {
+		// default return values
 		let msg = ""
 		let wormed = false;
 		let over = false;
+		let foundRecipe = false;
+		let win = false;
+		
+		console.log("hasRecipe? :");
+		console.log(hasRecipe);
 
 		let cpType = this.celestialPoints[ship.x][ship.y].type;
 		let name = TypeEnum.properties[cpType].name;
 
+		/* Process current coordinate according to its cpType: */
 		//BadMax randomly attacks when in empty space
 		if (cpType == TypeEnum['EMPTY'] && Math.random() <= this.BadMaxChance) {
 			let chance = Math.random();
@@ -166,15 +173,49 @@ class CelestialMap
 		// if encountering a planet:
 		else if (cpType >= TypeEnum['P_ONE']) {
 			if (!orbit && !landed) {
-				msg += "You've arrived at planet ";
+				msg += "You've arrived at ";
 			}
 			else if (landed) {
-				msg += "You're docked at planet ";
+				msg += "You're docked at ";
 			}	
 			else if (orbit) {
-				msg += "You're orbiting planet ";
+				msg += "You're orbiting ";
 			}
 			msg += TypeEnum['properties'][cpType].name + ".\n";
+
+			// check the Pentiums for the recipe
+			let isPentium = cpType < TypeEnum['CELERON'];
+			if (isPentium && !hasRecipe) {
+				if (!orbit && !landed) {
+					msg += "Enter orbit to check for the recipe.\n";
+				}
+				else if (landed) {
+					if (cpType == recipe) {
+						msg += "You found the secret Recipe!\n";
+						foundRecipe = true;
+					}
+					else msg += "There's no recipe here.\n";
+
+				}
+				else if (orbit) {
+					if (cpType == recipe) {
+						msg += "Your sensors have detected the Recipe!\n";
+						msg += "Land to retrieve it.";
+					}
+					else msg += "Your sensors detected nothing.\n";
+				}
+			}
+			// otherwise, process special planets
+			else if (cpType == TypeEnum['ENIAC']) {
+				if (hasRecipe) {
+					if (!orbit && !landed) {
+						msg += "Land to deliver the recipe!\n";
+					}
+					else if (landed) {
+						win = true;
+					}
+				}
+			}
 		}
 		// if we hit a wormhole, warp
 		else if (cpType == TypeEnum['WORMHOLE']) {
@@ -230,7 +271,7 @@ class CelestialMap
 			// remove encounter from map
 			this.ClearPoint(ship.x, ship.y);
 		}
-		return [msg, wormed, over];
+		return [msg, wormed, over, foundRecipe, win];
 	}
 
      /**
@@ -322,7 +363,6 @@ class CelestialMap
 
 	setBadMax(chance) {
 		if (isNaN(chance) || chance < 0 || chance > 1) {
-			alert("Chance should be a number from 0 to 1");
 			return;
 		}
 		this.BadMaxChance = chance;

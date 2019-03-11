@@ -12,7 +12,7 @@ function Game() {
 	var orbit; // track if ship is orbiting a planet
 	var landed; // track if ship is landed
 	var message; // message to be displayed at end of turn
-	var recipe; // track which pentium holds the recipe
+	var recipe; // track which cpType holds the recipe
 	var hasRecipe; // track if recipe has been recovered
 
 	var that = this; // for accessing parent scope in helper funcs
@@ -20,7 +20,7 @@ function Game() {
 	// var isNEVERDIES = false; // FOR DEV MODE whether the player never dies
 	const message0 = 
 		"Welcome to SpaceHunt!\nYou are docked on the moon of planet Eniac. " +
-		"Return with the secret KocaKola recipe to win the game!";
+		"Return with the secret KocaKola recipe to win the game.";
 
 	/*****************
 	 * Public (priviliged) methods:
@@ -37,11 +37,15 @@ function Game() {
 		if (!load()) {
 			cm = new CelestialMap(null, size);
 			ship = new Ship(null);
-			message = message0;
 			sensor = new Sensor(null);
 			over = false;
 			orbit = false;
 			landed = true; // start game "docked on moon of Eniac"
+			message = message0;
+			recipe = Math.floor(Math.random() * 7) + TypeEnum['P_ONE'];
+			console.log("recipe: ")
+			console.log(recipe - TypeEnum['P_ONE'] + 1);
+			hasRecipe = false;
 		}
 
 		// flag to handle proper display on startup
@@ -132,7 +136,7 @@ function Game() {
 	function update(collisions = true) {
 		// If game over, don't allow user to keep playing
 		if (isOver()) {
-			alert("You lost the game. Click \'Reset Game\' to continue.");
+			alert("The game has ended. Click \'Reset Game\' to play again.");
 			return;
 		}
 		// process current tile
@@ -164,7 +168,6 @@ function Game() {
 		let coords = "(" + ship.x + ", " + ship.y + ")";
 		document.getElementById('location').value = coords;
 	}
-
 	function write_energy() {
 		document.getElementById('energy').value = ship.energy;
 
@@ -173,7 +176,6 @@ function Game() {
 			gameOver();
 		}
 	}
-
 	function write_supplies() {
 		document.getElementById('supplies').value = ship.supplies;
 
@@ -182,29 +184,28 @@ function Game() {
 			gameOver();
 		}
 	}
-
 	function write_credits() {
 		document.getElementById('credits').value = ship.credits;
 	}
-
 	function write_collisions() 
 	{
 		// don't lose the game twice
 		if (over) return;
 
-		let msgWormedOver = cm.RunPoint(ship, orbit, landed);
+		// message, wormed, over, recipe, win
+		let MWORW = cm.RunPoint(ship, orbit, landed, recipe, hasRecipe);
 		// append events to message
-		message += msgWormedOver[0];
+		message += MWORW[0];
 		// if we wormed, check for new collisions
-		if (msgWormedOver[1]) write_collisions();
+		if (MWORW[1]) write_collisions();
 		// if we died, we died
-		if (msgWormedOver[2]) gameOver();
+		if (MWORW[2]) gameOver();
+		if (MWORW[3]) hasRecipe = true;
+		if (MWORW[4]) gameWin();
 	}
-
 	function write_message() {
 		document.getElementById('message').value = message;
 	}
-
 	function write_map()
 	{
 		that.render_map();
@@ -224,11 +225,11 @@ function Game() {
 		prompts.appendChild(label);
 
 		// write input buttons to display
-		if (orbit && !landed) {
+		if (orbit && !landed) { // orbiting
 			prompts.appendChild(makeButton("Land", land));
 			prompts.appendChild(makeButton("Leave Orbit", leaveOrbit));
 		}
-		else if (landed) {
+		else if (landed) { // landed
 			prompts.appendChild(makeButton("Blast Off!", blastOff));
 		}
 		else if (cpType >= TypeEnum['P_ONE']) {
@@ -275,6 +276,7 @@ function Game() {
 	}
 	function blastOff() {
 		ship.useSupplies();
+		ship.useEnergy(10);
 		landed = false;
 		update();
 	}
@@ -288,7 +290,6 @@ function Game() {
 			alert("You only have " + ship.credits + " to wager.");
 			return;
 		}
-
 		ship.useCredits(wager);
 		let chance = Math.random();
 		if (chance > 0.5) {
@@ -316,7 +317,8 @@ function Game() {
 			that.reset_game();
 		}
 		else {
-			save(name, [ship, cm, message, over, sensor, orbit, landed]);
+			save(name, [ship, cm, message, over, sensor, orbit, landed,
+			recipe, hasRecipe]);
 			// store the save names
 			save('__choose__', document.getElementById('choose_storage').innerHTML);
 			message = ""; // clear message for next turn
@@ -342,6 +344,8 @@ function Game() {
 			sensor = new Sensor(current[4]);
 			orbit = current[5];
 			landed = current[6];
+			recipe = current[7];
+			hasRecipe = current[8];
 			that.render_map.init = true;
 			return true;
 		} else return false;
@@ -361,6 +365,14 @@ function Game() {
 		}
 		over = true;
 		message += "Click \'Reset Game\' to try again.";
+	}
+	// congrats bro
+	function gameWin() {
+		message += "You've returned the secret recipe! ";
+		message += "The KocaKola corporation has awarded you one zillion " + 
+			"credits, and you have won the game!\n";
+		ship.useCredits(-1000000000000000000);
+		over = true;
 	}
 
 	// whether the dev mode open

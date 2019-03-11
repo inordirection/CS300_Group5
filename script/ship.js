@@ -60,10 +60,11 @@ function Ship(json) {
 	 * can pass negative value to gain money
 	 */
 	this.useCredits = function(used) {
-		this.credits -= used;
-		if (this.credits < 0) {
-			this.credits = 0;
+		if (used > this.credits) {
+			alert("You only have " + this.credits + " to spend.");
+			return;
 		}
+		this.credits -= used;
 	}
 
 	// use the standard 2% of supplies
@@ -72,6 +73,10 @@ function Ship(json) {
 		/*this.supplies = Math.round(this.supplies * 98);
 		this.supplies /= 100;*/
 		this.supplies -= 2;
+	}
+
+	this.useEnergy = function(used) {
+		this.energy -= used;
 	}
 
 	this.damageEngine = function(factor) {
