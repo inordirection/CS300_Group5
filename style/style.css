@@ -29,10 +29,6 @@
 	cursor: pointer;
 }
 
-.devModeDiv{
-	margin-top: 600px;
-}
-
 .controlPanelDiv{
 	width: 33%;
 	height: 600px;
@@ -115,7 +111,19 @@ label {
 }
 
 .devLabel {
-	width: 180px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+	padding: 10px;
+	width: fit-content;
+
+	border: 3px;
+	border-radius: 50px;
+	border-color: #4CAF50;
+	border-style: solid;
+}
+
+.devLabel:hover {
+	background-color: rgb(30, 30, 30);
 }
 
 input[type=text], #message {
@@ -154,12 +162,6 @@ input[type=text]:hover, #message:hover {
 	font-size: 25px;
 	padding: 10px;
 	width: fit-content;
-
-	border: 3px;
-	border-radius: 50px;
-	border-color: #4CAF50;
-	border-style: solid;
-
 }
 
 .button {
