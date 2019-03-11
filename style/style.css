@@ -12,6 +12,10 @@
 	margin: 5px;
 }
 
+.formButton:hover {
+	background-color: #5bcf5b;
+}
+
 .display {
 	background-color: red;
 	border: none;
@@ -56,10 +60,6 @@
 
 	height: 100%;
 	width: 50%;
-}
-
-.gazetteerScroll::webkit-scrollbar {
-	width: 10px;
 }
 
 .screen {
@@ -124,7 +124,10 @@ input[type=text], #message {
 
 	border: ridge 5px #4CAF50;
 	border-radius: 8px;
+}
 
+input[type=text]:hover, #message {
+	background-color: rgb(30, 30, 30);
 }
 
 #distance {
@@ -147,7 +150,7 @@ input[type=text], #message {
 	font-size: 25px;
 	padding: 10px;
 	width: fit-content;
-	
+
 	border: 3px;
 	border-radius: 50px;
 	border-color: #4CAF50;
@@ -169,6 +172,9 @@ input[type=text], #message {
 	border: none;
 	border-radius: 40px;
 	box-shadow: 0 9px grey;
+}
+.button:hover {
+	background-color: #5bcf5b;
 }
 
 .button:active {
@@ -209,6 +215,10 @@ input[type=text], #message {
 	background: #d3d3d3;
 	outline: none;
 	margin: 5px;
+}
+
+.slider::-webkit-slider-thumb:hover {
+	background-color: #5bcf5b;
 }
 
 .slider::-webkit-slider-thumb {
