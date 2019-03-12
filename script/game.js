@@ -290,7 +290,11 @@ function Game() {
 		b.setAttribute('value', text);
 		b.setAttribute('type', "button");
 		b.setAttribute('id', text);
-		b.addEventListener('click', func, false);
+		b.addEventListener('click', func);
+		if (func === blastOff) {
+			let blast = new Audio('audio/blastoff.wav');
+			b.addEventListener("click", function(){ blast.play(); });
+		}
 		return b;
 	}
 	function clear_prompts() {
