@@ -412,6 +412,9 @@ function Game() {
 			"credits, and you have won the game!\n";
 		ship.useCredits(-1000000000000000000);
 		over = true;
+
+		var power = new Audio('audio/power.wav');
+		setTimeout(function() { power.play(); }, 3000);
 	}
 
 	// whether the dev mode open
