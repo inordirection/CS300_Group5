@@ -728,9 +728,9 @@ function Game() {
 			return;
 		}
 
-		// if the size is NaN, that is default mode and the size is 128.
+		// if the size is NaN, that is default mode and the size is 16.
 		if (isNaN(size)) {
-			size = 128;
+			size = 16;
 		} else if (size < 9 || size > 255) {
 			alert('Wrong Game Size');
 			return ;

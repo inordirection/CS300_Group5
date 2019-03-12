@@ -331,14 +331,14 @@ class CelestialMap
 
 				// if is a special planet, change visible.
 				if (current.type >= specials && current.type <= end) {
+					current.isVisible = true;
+					original.isVisible = false;
 					this.visibleSet.delete(original);
 					this.visibleSet.add(current);
 				}
-				// console.log('finish pre-treatment for planet');
 			}
 			// directly add if the new point not planet.
 			this.celestialPoints[current.coordinate.x][current.coordinate.y] = current;
-			// console.log('add one is not planet.');
 		}
 	}
 
