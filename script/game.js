@@ -286,7 +286,7 @@ function Game() {
 	 * */
 	function makeButton(text, func) {
 		var b = document.createElement("input");
-		b.setAttribute('class', "formButton");
+		b.setAttribute('class', "formButton promptButton");
 		b.setAttribute('value', text);
 		b.setAttribute('type', "button");
 		b.setAttribute('id', text);

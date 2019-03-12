@@ -16,6 +16,14 @@
 	background-color: #5bcf5b;
 }
 
+.promptButton {
+	background-color: rgb(220, 50, 50);
+}
+
+.promptButton:hover {
+	background-color: rgb(250, 80, 80);
+}
+
 .display {
 	background-color: red;
 	border: none;

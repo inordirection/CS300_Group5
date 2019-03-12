@@ -188,13 +188,15 @@
 	<script> game.initDisplay(); </script> 
 
 
+	<!-- Some Support Scripts -->
 	<script>
-		/* Audio shiz */
+		/* Audio */
 		var clickAudio = new Audio('audio/click2.wav');
 		clickAudio.volume = 0.7;
 
 		var bgAudio = new Audio('audio/bg1.wav');
 		bgAudio.volume = 0.2;
+		// when bgAudio ends, restart it
 		bgAudio.addEventListener("ended", function() {
 			this.currentTime = 0;
 			this.play();
