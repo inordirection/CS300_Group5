@@ -186,27 +186,26 @@
 		</div>
 	</div>
 
-	<audio id="hoverAudio">
-		<source src="audio/flit.wav" type="audio/wav">
-	</audio>
-	<audio id="clickAudio">
-		<source src="audio/click2.wav" type="audio/wav">
-	</audio>
-
-	<script> 
-		game.initDisplay(); 
-	</script> 
+	<script> game.initDisplay(); </script> 
 
 
 	<script>
-		var hoverAudio = document.getElementById('hoverAudio');
-		var clickAudio = document.getElementById('clickAudio');
+		/* Audio shiz */
+		var clickAudio = new Audio('audio/click2.wav');
+		clickAudio.volume = 0.75;
+
+		var bgAudio = new Audio('audio/bg1.wav');
+		bgAudio.volume = 0.25;
+		bgAudio.addEventListener("ended", function() {
+			this.currentTime = 0;
+			this.play();
+		});
+		bgAudio.play();
 
 		function playOnHover()
 		{
-			let sound = document.createElement("audio");
-			sound.src = "audio/flit.wav";
-			sound.volume = 1;
+			let sound = new Audio('audio/flit.wav');
+			sound.volume = 0.5;
 			sound.play();
 		}
 
@@ -218,13 +217,14 @@
 
 		/* jQuery to select css elements, add functions */
 		function audioSelector() {
+			// remove previously bound audio functions
 			$('input,.button,.formButton,.slider,.devLabel,.dropDownSelect,#message').off();
 
+			// bind audio functions to appropriate elements
 			$('input,.button,.formButton,.slider,.devLabel,.dropDownSelect,#message').mouseenter(
 				function() {
 					playOnHover();
 				});
-
 			$('.button,.formButton,.devLabel').mousedown(
 				function() {
 					playOnClick();
@@ -238,6 +238,7 @@
 			audioSelector();
 		});
 
+		/* Dev Mode */
 		function toggleHidden(dev) {
 		   var v = document.getElementById(dev);
 		   v.style.display = (v.style.display === 'none') ? 'block' : 'none';
@@ -255,6 +256,7 @@
 			}
 		}
 
+		/* Slider */
 		var slider = document.getElementById("shipDistance");
 		var output = document.getElementById("shipDisanceValue");
 		output.innerHTML = slider.value;
