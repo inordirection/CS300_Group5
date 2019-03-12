@@ -52,7 +52,7 @@
 			<input class="formButton" onclick="toggleHidden('map'); game.render_map(); return false;" type="submit"
 				value="Open/Close Map">
 		</form>
-		<form id="reset_game"  name="reset_game" onsubmit="game.reset_game(); return true;">
+		<form id="reset_game"  name="reset_game" onsubmit="game.reset_game(); game.initDisplay(); return false">
 			<input class="formButton" type="submit" value="Reset Game">
 		</form>
 	</div><!-- Status Display -->
@@ -204,7 +204,10 @@
 
 		function playOnHover()
 		{
-			hoverAudio.play();
+			let sound = document.createElement("audio");
+			sound.src = "audio/flit.wav";
+			sound.volume = 1;
+			sound.play();
 		}
 
 
@@ -215,6 +218,8 @@
 
 		/* jQuery to select css elements, add functions */
 		function audioSelector() {
+			$('input,.button,.formButton,.slider,.devLabel,.dropDownSelect,#message').off();
+
 			$('input,.button,.formButton,.slider,.devLabel,.dropDownSelect,#message').mouseenter(
 				function() {
 					playOnHover();
@@ -226,10 +231,12 @@
 				});
 		}
 
-		// apply jQuery selector when doc is loaded
+		// apply jQuery selector when document is loaded
 		$(document).ready(audioSelector);
-		// apply jQuery selector when doc is modified
-		$(document).bind("DOMSubtreeModified", audioSelector);
+		// apply jQuery selector on clicks
+		document.addEventListener("click", function () {
+			audioSelector();
+		});
 
 		function toggleHidden(dev) {
 		   var v = document.getElementById(dev);
