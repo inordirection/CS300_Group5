@@ -553,11 +553,11 @@ function Game() {
 		 * Dynamic add html when check customize.
 		 * When the add celestial button click, this function should be called. This will add a new celestial object area.
 		 */
-		document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
 		document.getElementById("add_celestial").addEventListener('click',function ()
 		{
-			let text = createNewCelestialHtml();
-			document.getElementById('celestial_Container').innerHTML += text;
+			let = celestialArray = saveCurrentState();
+			document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
+			loadCurrentState(celestialArray);
 		});
 
 		// delete a text area of adding celestial point.
@@ -662,8 +662,33 @@ function Game() {
 		document.getElementById('clear_local_storage').addEventListener('click', function () {
 			localStorage.clear();
 			document.getElementById('choose_storage').innerHTML = '';
-		})
+		});
 	});
+
+	// save current state of input celestial container
+	function saveCurrentState () {
+		let celestialArray = new Array();
+		for (let i = 1; i <= num_celestial; i++) {
+			let one = new Map();
+			let num = 'celestial_CELENUMBER'.replace('CELENUMBER', i);
+			let select = document.getElementById(num + '_type').value;
+			let coordinates = document.getElementById(num + '_coor').value;
+			one.set('type', select);
+			one.set('coordinates', coordinates)
+			celestialArray.push(one);
+		}
+		return celestialArray;
+	}
+
+	// load current state before add a celestial point container
+	function loadCurrentState (celestialArray) {
+		for (let i = num_celestial-1; i > 0; i--) {
+			let one = celestialArray.pop();
+			let num = 'celestial_CELENUMBER'.replace('CELENUMBER', i);
+			document.getElementById(num + '_type').value = one.get('type');
+			document.getElementById(num + '_coor').value = one.get('coordinates');
+		}
+	}
 
 	// create new celestial text area in html file.
 	// helper function for addEventListener.
