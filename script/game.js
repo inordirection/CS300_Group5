@@ -766,7 +766,9 @@ function Game() {
 	}
 	// set recipe to pentium number (pNum)
 	function setRecipe(pNum) {
-		if (isNaN(pNum) || pNum < 1 || pNum > 7) {
+		if (isNaN(pNum))
+			return;
+		else if(pNum < 1 || pNum > 7) {
 			alert("Recipe should be an integer between 1 and 7");
 			return ;
 		}
