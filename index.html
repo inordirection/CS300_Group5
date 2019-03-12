@@ -17,15 +17,13 @@
 </head>
 
 <body>
-	<script>
-		var game = new Game();
-	</script>
+	<script> var game = new Game(); </script>
+
 	<!--<div class="controlPanel">-->
-	<div class="spaceHuntDiv">
-		SpaceHunt
-	</div>
+	<div class="spaceHuntDiv"> SpaceHunt </div>
 	<div class="controlPanelDiv">
-		<h1>OldSpice Control Panel</h1><input class="slider" id="shipDistance" max="20" min="1" type="range" value="1" >
+		<h1>OldSpice Control Panel</h1>
+		<input class="slider" id="shipDistance" max="20" min="1" type="range" value="1" >
 		<p class="label">Distance: <span id="shipDisanceValue"></span></p>
 		<table>
 			<tr>
@@ -40,22 +38,36 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><button class="button buttonDown" onclick="game.move(270);" value="270"></button></td>
+				<td><button class="button buttonDown" onclick="game.move(270);"></button></td>
 				<td></td>
 			</tr>
 		</table><br>
 		<br>
-		<form id="deploy_sensor" name="deploy_sensor" onsubmit="game.deploy_sensor(); return false;">
-			<input class="formButton" type="submit" value="Deploy Sensor" >
-		</form>
-		<form id="togglemap"  name="togglemap">
-			<input class="formButton" onclick="toggleHidden('map'); game.render_map(); return false;" type="submit"
-				value="Open/Close Map">
-		</form>
-		<form id="reset_game"  name="reset_game" onsubmit="game.reset_game(); game.initDisplay(); return false">
-			<input class="formButton" type="submit" value="Reset Game">
-		</form>
-	</div><!-- Status Display -->
+		<input class="formButton" type="submit" onClick="game.deploy_sensor()" value="Deploy Sensor">
+		<br>
+		<input class="formButton" type="submit" onclick="toggleHidden('map');" value="Open/Close Map">
+		
+		<br>
+		<br>
+
+		<!-- Nameable Persistent State -->
+		<div id="nameable_storage" class="label">
+			Save Name:&nbsp; <input class="label"  id="storage_name" type="text"><br>
+			<button class="formButton"  id="save_storage" type="button">Save</button>
+			<button class="formButton" id="load_storage" type="button">Load</button>
+			<button class="formButton" id="delete_storage" type="button">Delete</button>
+			<select id="choose_storage" class="dropDownSelect"></select>
+			<br>
+			<br>
+			<button class="formButton" id="clear_local_storage" type="button">
+				Clear Local Storage
+			</button>
+			<input class="formButton" type="submit" value="Reset Game" 
+			onclick="game.reset_game(); game.initDisplay();">
+		</div>
+	</div>
+	
+	<!-- Status Display -->
 	<div class="currentStatusDiv">
 		<h1>Current Status</h1><!-- add forms to display ship status here -->
 		<form id="display" name="display">
@@ -66,22 +78,17 @@
 			<label>Message:&nbsp;</label>
 			<textarea class="label messageLabel" gc id="message" rows="6"></textarea><br>
 		</form>
-		<div id="prompts"></div><br>
-		<br>
-		<br>
-		<!-- nameable persistent state -->
-		<div id="nameable_storage" class="label">
-			Save Name:&nbsp; <input class="label"  id="storage_name" type="text"><br>
-			<br>
-			<button class="formButton"  id="save_storage" type="button">Save</button>
-			<button class="formButton" id="load_storage" type="button">Load</button>
-			<button class="formButton" id="delete_storage" type="button">Delete</button>
-			<select id="choose_storage" class="dropDownSelect"></select>
-			<br>
-			<br>
-			<button class="formButton" id="clear_local_storage" type="button">Clear Local Storage</button>
+		<!-- Prompts -->
+		<div id="prompts"></div>
+
+		<!-- map div -->
+		<div id="map" style="display:none">
+			<form id="shitmap" name="shitmap"></form>
 		</div>
+		<br>
 	</div>
+
+	<!-- Celestial Gazetteer -->
 	<div class="celestialGazetteerDiv">
 		<h1>Celestial Gazetteer</h1>
 		<div class="scrollTableDiv" "">
@@ -106,14 +113,7 @@
 		</div>
 	</div>
 
-	<!-- map div -->
-	<div id="map" style="display:none">
-		<form id="shitmap" name="shitmap"></form>
-	</div>
 	<!-- Those are used by developer mode -->
-
-	<br>
-
 	<div class="devModeDiv">
 		<!-- In the normal mode, now is ok. When the selected values to initial the game, the user can choose one of state of never dies and fixed wormhole mode. Also, they can input the value for each things and if they not, the value will change to defaulf values. For the input celestial point, the user should input multiple points in one input line -->
 		<div class="devMode" onclick="toggleHidden('dev1')" style="cursor:hand">
@@ -141,7 +141,7 @@
 				<div id="celestial_Container">
 					<!-- Dynamically generated according to TypeEnum -->
 				</div> <br>
-			</form><label>Game Size: &nbsp;</label> <input class="label" id="dev_ini_size" placeholder="Default: 16"
+			</form><label>Game Size: &nbsp;</label> <input class="label" id="dev_ini_size" placeholder="Default: 24"
 				type="text"><br>
 			<label>Start Location: &nbsp;</label> <input class="label" id="dev_location" placeholder="Default: 0, 0"
 				type="text"><br>

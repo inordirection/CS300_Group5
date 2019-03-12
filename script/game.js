@@ -30,7 +30,7 @@ function Game() {
 	 *   */
 
 		/* build the initial display */
-	this.initDisplay = function (size = 16) {
+	this.initDisplay = function (size = 24) {
 		/* if user has localStorage, load persistent state :
 		 *   if there is nothing yet in localStorage, getItem will return null,
 		 *   which should be checked for in class initialization */
@@ -730,7 +730,7 @@ function Game() {
 
 		// if the size is NaN, that is default mode and the size is 16.
 		if (isNaN(size)) {
-			size = 16;
+			size = 24;
 		} else if (size < 9 || size > 255) {
 			alert('Wrong Game Size');
 			return ;

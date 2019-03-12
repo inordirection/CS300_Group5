@@ -86,21 +86,21 @@
 
 .controlPanelDiv {
 	width: 33%;
-	height: 600px;
+	height: 675px;
 	float: left;
 	background-color: black;
 }
 
 .currentStatusDiv {
 	width: 33%;
-	height: 600px;
+	height: 675px;
 	float: left;
 	background-color: black;
 }
 
 .celestialGazetteerDiv {
 	width: 33%;
-	height: 600px;
+	height: 675px;
 	float: left;
 	background-color: black;
 }
@@ -235,9 +235,10 @@ input[type=text]:hover, #message:hover {
 }
 
 #map {
-	font-size: 20px;
+	font-size: 19px;
 	font-color: white;
 	font-family: courier-new, monospace;
+	padding-left: 50px;
 }
 
 .label {
