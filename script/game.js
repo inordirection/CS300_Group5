@@ -92,7 +92,6 @@ function Game() {
 		}
 
 		//Clear Gazetteer
-
 		var table = document.getElementById('gazetteerTable');
 		var lastRow = table.rows.length - 1;
 
@@ -116,15 +115,15 @@ function Game() {
 
 			var classString = "gazetteerCell";
 
-			if(type > 5 && type < 13)
+			if(type >= TypeEnum['P_ONE'] && type <= TypeEnum['P_SEVEN'])
 				classString = "pentiumCell";
-			else if(type > 12)
+			else if(type > TypeEnum['P_SEVEN'])
 				classString = "planetCell";
-			else if(type == 5)
+			else if(type == TypeEnum['WORMHOLE'])
 				classString = "wormholeCell";
-			else if(type == 3 || type == 4)
+			else if(type == TypeEnum['FREIGHTER'] || type == TypeEnum['STATION'])
 				classString = "goodCell";
-			else if(type < 3)
+			else if(type <= TypeEnum['METEORSTORM'])
 				classString = "badCell";
 
 			//if(Coordinate.Distance(new coordinate(ship.x, ship.y), new coordinate(c.x, c.y)) == 2)
@@ -203,6 +202,10 @@ function Game() {
 	function write_location() {
 		let coords = "(" + ship.x + ", " + ship.y + ")";
 		document.getElementById('location').value = coords;
+		if (ship.wormed) {
+			message += "You passed through a wormhole!\n";
+			ship.wormed = false
+		}
 	}
 	function write_energy() {
 		document.getElementById('energy').value = ship.energy;
@@ -283,11 +286,15 @@ function Game() {
 	 * */
 	function makeButton(text, func) {
 		var b = document.createElement("input");
-		b.setAttribute('class', "formButton");
+		b.setAttribute('class', "formButton promptButton");
 		b.setAttribute('value', text);
 		b.setAttribute('type', "button");
 		b.setAttribute('id', text);
-		b.addEventListener('click', func, false);
+		b.addEventListener('click', func);
+		if (func === blastOff) {
+			let blast = new Audio('audio/blastoff.wav');
+			b.addEventListener("click", function(){ blast.play(); });
+		}
 		return b;
 	}
 	function clear_prompts() {
@@ -409,6 +416,9 @@ function Game() {
 			"credits, and you have won the game!\n";
 		ship.useCredits(-1000000000000000000);
 		over = true;
+
+		var power = new Audio('audio/power.wav');
+		setTimeout(function() { power.play(); }, 3000);
 	}
 
 	// whether the dev mode open

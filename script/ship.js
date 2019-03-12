@@ -17,6 +17,7 @@ function Ship(json) {
 		this.y = 0;
 		this.range = 2; // sensor initially has range 2
 		this.engine = 10; // basic engine consumes 10 energy per unit traveled
+		this.wormed = false;
 		this.isFIXEDWH = false; // is 'fixed wormhole'
 	}
 
@@ -44,6 +45,7 @@ function Ship(json) {
 		}
 		// if going out of bounds, pass through wormhole
 		if (!cm.checkSize([this.x, this.y])) {
+			this.wormed = true;
 			if (!this.isFIXEDWH) {
 				this.wormhole(cm);
 			} else {

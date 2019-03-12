@@ -16,6 +16,14 @@
 	background-color: #5bcf5b;
 }
 
+.promptButton {
+	background-color: rgb(220, 50, 50);
+}
+
+.promptButton:hover {
+	background-color: rgb(250, 80, 80);
+}
+
 .display {
 	background-color: red;
 	border: none;
@@ -226,12 +234,8 @@ input[type=text]:hover, #message:hover {
 	background-color: rgb(30, 30, 30);
 }
 
-#distance {
-	width: 98px;
-}
-
 #map {
-	font-size: 14px;
+	font-size: 20px;
 	font-color: white;
 	font-family: courier-new, monospace;
 }

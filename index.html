@@ -52,7 +52,7 @@
 			<input class="formButton" onclick="toggleHidden('map'); game.render_map(); return false;" type="submit"
 				value="Open/Close Map">
 		</form>
-		<form id="reset_game"  name="reset_game" onsubmit="game.reset_game(); return true;">
+		<form id="reset_game"  name="reset_game" onsubmit="game.reset_game(); game.initDisplay(); return false">
 			<input class="formButton" type="submit" value="Reset Game">
 		</form>
 	</div><!-- Status Display -->
@@ -108,8 +108,7 @@
 
 	<!-- map div -->
 	<div id="map" style="display:none">
-		<form id="shitmap" name="shitmap">
-		</form>
+		<form id="shitmap" name="shitmap"></form>
 	</div>
 	<!-- Those are used by developer mode -->
 
@@ -186,25 +185,28 @@
 		</div>
 	</div>
 
-	<audio id="hoverAudio">
-		<source src="audio/flit.wav" type="audio/wav">
-	</audio>
-	<audio id="clickAudio">
-		<source src="audio/click2.wav" type="audio/wav">
-	</audio>
-
-	<script> 
-		game.initDisplay(); 
-	</script> 
+	<script> game.initDisplay(); </script> 
 
 
+	<!-- Some Support Scripts -->
 	<script>
-		var hoverAudio = document.getElementById('hoverAudio');
-		var clickAudio = document.getElementById('clickAudio');
+		/* Audio */
+		var clickAudio = new Audio('audio/click2.wav');
+		clickAudio.volume = 0.7;
+
+		var bgAudio = new Audio('audio/bg1.wav');
+		bgAudio.volume = 0.2;
+		// when bgAudio ends, restart it
+		bgAudio.addEventListener("ended", function() {
+			this.currentTime = 0;
+			this.play();
+		});
 
 		function playOnHover()
 		{
-			hoverAudio.play();
+			let sound = new Audio('audio/flit.wav');
+			sound.volume = 0.5;
+			sound.play();
 		}
 
 
@@ -215,22 +217,29 @@
 
 		/* jQuery to select css elements, add functions */
 		function audioSelector() {
+			// remove previously bound audio functions
+			$('input,.button,.formButton,.slider,.devLabel,.dropDownSelect,#message').off();
+
+			// bind audio functions to appropriate elements
 			$('input,.button,.formButton,.slider,.devLabel,.dropDownSelect,#message').mouseenter(
 				function() {
 					playOnHover();
 				});
-
 			$('.button,.formButton,.devLabel').mousedown(
 				function() {
 					playOnClick();
 				});
 		}
 
-		// apply jQuery selector when doc is loaded
+		// apply jQuery selector when document is loaded
 		$(document).ready(audioSelector);
-		// apply jQuery selector when doc is modified
-		$(document).bind("DOMSubtreeModified", audioSelector);
+		// apply jQuery selector on clicks
+		document.addEventListener("click", function () {
+			bgAudio.play();
+			audioSelector();
+		});
 
+		/* Dev Mode */
 		function toggleHidden(dev) {
 		   var v = document.getElementById(dev);
 		   v.style.display = (v.style.display === 'none') ? 'block' : 'none';
@@ -248,6 +257,7 @@
 			}
 		}
 
+		/* Slider */
 		var slider = document.getElementById("shipDistance");
 		var output = document.getElementById("shipDisanceValue");
 		output.innerHTML = slider.value;

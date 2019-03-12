@@ -218,7 +218,6 @@ class CelestialMap
 		else if (cpType == TypeEnum['WORMHOLE']) {
 			ship.move(0, this.GetSize(), this);
 			ship.energy += this.GetSize() * ship.engine;
-			msg += "You passed through a wormhole!\n";
 			wormed = true;
 		}	
 		// if we are at a space station:
