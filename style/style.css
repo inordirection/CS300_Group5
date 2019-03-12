@@ -226,12 +226,8 @@ input[type=text]:hover, #message:hover {
 	background-color: rgb(30, 30, 30);
 }
 
-#distance {
-	width: 98px;
-}
-
 #map {
-	font-size: 14px;
+	font-size: 20px;
 	font-color: white;
 	font-family: courier-new, monospace;
 }
