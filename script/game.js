@@ -558,6 +558,9 @@ function Game() {
 		return parseInt(x);
 	}
 
+	$(document).ready(function () {
+		document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
+	});
 	document.addEventListener('DOMContentLoaded', function() {
 		/**
 		 * Dynamic add html when check customize.
