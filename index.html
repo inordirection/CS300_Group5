@@ -2,12 +2,6 @@
 <html>
 
 <head>
-	<script src="script/game.js"></script>
-	<script src="script/ship.js"></script>
-	<script src="script/sensor.js"></script>
-	<script src="script/celestialMap.js"></script>
-	<script src="script/celestialPoint.js"></script>
-	<script src="script/coordinate.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link href="style/style.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -17,8 +11,6 @@
 </head>
 
 <body>
-	<script> var game = new Game(); </script>
-
 	<!--<div class="controlPanel">-->
 	<div class="spaceHuntDiv"> SpaceHunt </div>
 	<div class="controlPanelDiv">
@@ -190,11 +182,20 @@
 		</div>
 	</div>
 
-	<script> game.initDisplay(); </script> 
+</body>
 
+	<script src="script/game.js"></script>
+	<script src="script/ship.js"></script>
+	<script src="script/sensor.js"></script>
+	<script src="script/celestialMap.js"></script>
+	<script src="script/celestialPoint.js"></script>
+	<script src="script/coordinate.js"></script>
 
-	<!-- Some Support Scripts -->
 	<script>
+		var game = new Game();
+		game.initDisplay();
+
+		// Some Support Scripts
 		/* Audio */
 		var clickAudio = new Audio('audio/click2.wav');
 		clickAudio.volume = 0.7;
@@ -213,7 +214,6 @@
 			sound.volume = 0.5;
 			sound.play();
 		}
-
 
 		function playOnClick()
 		{
@@ -271,7 +271,4 @@
 			output.innerHTML = this.value;
 		}
 	</script>
-
-</body>
-
 </html>
