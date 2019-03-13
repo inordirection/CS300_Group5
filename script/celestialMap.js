@@ -330,12 +330,15 @@ class CelestialMap
 
 				// if is a special planet, change visible.
 				if (current.type >= specials && current.type <= end) {
-					original.isVisible = false; 
-					current.isVisible = true; // call 1
+					original.isVisible = false;
+					current.isVisible = true;
 					this.visibleSet.delete(original);
-					this.visibleSet.add(current); // call 4
+					this.visibleSet.add(current); 
+					this.visibleSet.add(current);
 				}
 			}
+			// if the point should be replace in the visible set, delete it.
+			this.visibleSet.delete(this.celestialPoints[current.coordinate.x][current.coordinate.y]);
 			// directly add if the new point not planet.
 			this.celestialPoints[current.coordinate.x][current.coordinate.y] = current;
 		}
