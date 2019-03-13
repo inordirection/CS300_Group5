@@ -437,7 +437,7 @@ function Game() {
 	celestial_obj_form = '<div id="celestial_CELENUMBER">\n' +
 		'\t\t\t\t\t\t<select id="celestial_CELENUMBER_type" name="celestial_CELENUMBER_type" class="dropDownSelect">\n';
 	// dynamically populate based on current TypeEnum
-	for (i = 0; i < TypeEnum['ENIAC']; i++) {
+	for (i = 0; i <= TypeEnum['ENIAC']; i++) {
 		celestial_obj_form +=
 			`\t\t\t\t\t\t\t<option value="${i}">${TypeEnum['properties'][i].name}</option>`;
 	}
@@ -591,7 +591,7 @@ function Game() {
 			// set the celestial point.
 			let newPointList = getCelestialPointList();
 			// if user changed start location, change Eniac position
-			if (xy !== null) {
+			if (xy !== null && document.getElementById('dev_ini_whether_eniac').checked === true) {
 				let Eniac = new CelestialPoint(TypeEnum['ENIAC'], true, xy[0][0], xy[0][1]);
 				newPointList.push(Eniac);
 			}
