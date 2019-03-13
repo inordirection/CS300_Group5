@@ -334,7 +334,6 @@ class CelestialMap
 					current.isVisible = true;
 					this.visibleSet.delete(original);
 					this.visibleSet.add(current); 
-					this.visibleSet.add(current);
 				}
 			}
 			// if the point should be replace in the visible set, delete it.
