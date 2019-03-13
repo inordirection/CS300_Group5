@@ -53,13 +53,13 @@ function Game() {
 
 	/* moves ship, use supplies, visits whichever cp it lands on */
 	this.move = function (angle) {
+		if ((orbit || landed) && !isOver()) {
+			alert("You can't move the ship while landed or in orbit.");
+			return;
+		}		
 		/* get user input from forms */
 		sliderDist = document.getElementById("shipDistance").value;
 
-		if (orbit || landed) {
-			alert("You can't move the ship while landed or in orbit.");
-			return;
-		}
 		ship.move(angle, sliderDist, cm);
 		ship.useSupplies();
 		update();
