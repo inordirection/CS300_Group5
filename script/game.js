@@ -558,9 +558,7 @@ function Game() {
 		return parseInt(x);
 	}
 
-	$(document).ready(function () {
-		document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
-	});
+	/* Add event listeners on Document Load */
 	document.addEventListener('DOMContentLoaded', function() {
 		/**
 		 * Dynamic add html when check customize.
@@ -572,6 +570,8 @@ function Game() {
 			document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
 			loadCurrentState(celestialArray);
 		});
+		// put one celestial form to start
+		document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
 
 		// delete a text area of adding celestial point.
 		document.getElementById('customizeGame').addEventListener('click', function (e) {
@@ -675,6 +675,11 @@ function Game() {
 		document.getElementById('clear_local_storage').addEventListener('click', function () {
 			localStorage.clear();
 			document.getElementById('choose_storage').innerHTML = '';
+		});
+
+		// fancy map
+		document.getElementById('toggle_map').addEventListener("click", function() {
+			$('#map').toggle("slow");
 		});
 	});
 
