@@ -334,20 +334,6 @@ class CelestialMap
 					current.isVisible = true; // call 1
 					this.visibleSet.delete(original);
 					this.visibleSet.add(current); // call 4
-					// this.ChangeVisible(current); // call 5
-					
-					/* note: if you replace calls 1 and 4 with 5
-					 * then there's a weird bug by which, when you set start location to something 
-					 * other than 0,0 in the initialization, Eniac does not show as part of the 
-					 * visible set in either the map or the gazetteer. This appears to be
-					 * because both Eniac and the coordinate which it gets moved onto become part
-					 * of the visibleSet, and the order they're added to it determines which of them
-					 * gets displayed. I remember debugging this and arriving at the calls above
-					 * to fix this, but I don't remember why it had to be like that... 
-					 * Also, I don't knw why, for example, if you set the start location to
-					 * (5,5), there are two celestialPoints with coordinates (5,5), but that
-					 * is the reason the calls should be like they are above, even though 
-					 * it would seem that // call 5 should do the exact same as the other 2*/
 				}
 			}
 			// directly add if the new point not planet.
