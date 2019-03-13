@@ -37,7 +37,6 @@ class CelestialMap
 			this.FillMapWithEncounters();
 			this.FillMapWithPlanets();
 		}
-		//this.visibleAll();
 	}
 
 	InstantiateMap()
@@ -291,7 +290,7 @@ class CelestialMap
 	visibleAll() {
      	for (let i = 0; i < this.size; i++) {
      		for (let j = 0; j < this.size; j++) {
-				this.visibleSet.add(this.celestialPoints[i][j]);
+				this.ChangeVisible(i, j);
 			}
 		}
 	}
@@ -331,10 +330,9 @@ class CelestialMap
 
 				// if is a special planet, change visible.
 				if (current.type >= specials && current.type <= end) {
-					current.isVisible = true;
 					original.isVisible = false;
 					this.visibleSet.delete(original);
-					this.visibleSet.add(current);
+					this.ChangeVisible(current.x, current.y);
 				}
 			}
 			// directly add if the new point not planet.
