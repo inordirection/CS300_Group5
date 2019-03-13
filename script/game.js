@@ -558,20 +558,12 @@ function Game() {
 		return parseInt(x);
 	}
 
-	/* call on document load */
-	$(document).ready(function () {
-		// put one celestialForm
-		$('#celestial_Container').html(createNewCelestialHtml());
-		// add eventListeners
-		document.getElementById('toggle_map').addEventListener("click", function() {
-			$('#map').toggle("slow");
-		});
-	});
 	document.addEventListener('DOMContentLoaded', function() {
 		/**
 		 * Dynamic add html when check customize.
 		 * When the add celestial button click, this function should be called. This will add a new celestial object area.
 		 */
+		document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
 		document.getElementById("add_celestial").addEventListener('click',function ()
 		{
 			let = celestialArray = saveCurrentState();
