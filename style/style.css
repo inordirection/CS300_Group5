@@ -234,6 +234,10 @@ input[type=text]:hover, #message:hover {
 	background-color: rgb(30, 30, 30);
 }
 
+#prompts {
+	height:45px;
+}
+
 #map {
 	font-size: 19px;
 	font-color: white;
