@@ -558,8 +558,14 @@ function Game() {
 		return parseInt(x);
 	}
 
+	/* call on document load */
 	$(document).ready(function () {
-		document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
+		// put one celestialForm
+		$('#celestial_Container').html(createNewCelestialHtml());
+		// add eventListeners
+		document.getElementById('toggle_map').addEventListener("click", function() {
+			$('#map').toggle("slow");
+		});
 	});
 	document.addEventListener('DOMContentLoaded', function() {
 		/**

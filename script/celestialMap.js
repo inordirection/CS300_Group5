@@ -333,6 +333,7 @@ class CelestialMap
 					original.isVisible = false;
 					current.isVisible = true;
 					this.visibleSet.delete(original);
+					this.visibleSet.add(current); 
 					this.visibleSet.add(current);
 				}
 			}
