@@ -330,8 +330,8 @@ class CelestialMap
 
 				// if is a special planet, change visible.
 				if (current.type >= specials && current.type <= end) {
-					original.isVisible = false; // call 1
-					current.isVisible = true;
+					original.isVisible = false; 
+					current.isVisible = true; // call 1
 					this.visibleSet.delete(original);
 					this.visibleSet.add(current); // call 4
 					// this.ChangeVisible(current); // call 5
