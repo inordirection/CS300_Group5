@@ -596,12 +596,15 @@ function Game() {
 				newPointList.push(Eniac);
 			}
 			cm.setCelestialPoint(newPointList);
-			// set two behavior
+			// set three behavior never dies, fixed wormhole, and show all map.
 			if (document.getElementById('dev_ini_never_dies').checked === true) {
 				openNeverDies();
 			}
 			if (document.getElementById('dev_ini_fixed_wh').checked === true) {
 				openFixedWormhole();
+			}
+			if (document.getElementById('dev_ini_visible_all').checked === true) {
+				cm.visibleAll();
 			}
 			message = message0;
 			that.render_map.init = true;
