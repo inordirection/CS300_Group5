@@ -680,10 +680,14 @@ function Game() {
 			document.getElementById('choose_storage').innerHTML = '';
 		});
 
-		// fancy map
+		// jQ map
 		document.getElementById('toggle_map').addEventListener("click", function() {
 			$('#map').toggle("slow");
 		});
+		// other map
+		/*document.getElementById('toggle_map').addEventListener("click", function() {
+			toggleHidden('map');
+		});*/
 	});
 
 	// save current state of input celestial container
