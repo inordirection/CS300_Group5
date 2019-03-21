@@ -558,18 +558,20 @@ function Game() {
 		return parseInt(x);
 	}
 
+	/* Add event listeners on Document Load */
 	document.addEventListener('DOMContentLoaded', function() {
 		/**
 		 * Dynamic add html when check customize.
 		 * When the add celestial button click, this function should be called. This will add a new celestial object area.
 		 */
-		document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
 		document.getElementById("add_celestial").addEventListener('click',function ()
 		{
 			let = celestialArray = saveCurrentState();
 			document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
 			loadCurrentState(celestialArray);
 		});
+		// put one celestial form to start
+		document.getElementById('celestial_Container').innerHTML += createNewCelestialHtml();
 
 		// delete a text area of adding celestial point.
 		document.getElementById('customizeGame').addEventListener('click', function (e) {
@@ -676,6 +678,11 @@ function Game() {
 		document.getElementById('clear_local_storage').addEventListener('click', function () {
 			localStorage.clear();
 			document.getElementById('choose_storage').innerHTML = '';
+		});
+
+		// fancy map
+		document.getElementById('toggle_map').addEventListener("click", function() {
+			$('#map').toggle("slow");
 		});
 	});
 
