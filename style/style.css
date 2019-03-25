@@ -86,23 +86,22 @@
 
 .controlPanelDiv {
 	width: 33%;
-	height: 675px;
+	height: 715px;
 	float: left;
 	background-color: black;
 }
 
 .currentStatusDiv {
 	width: 33%;
-	height: 675px;
+	height: 715px;
 	float: left;
 	background-color: black;
 }
 
 .celestialGazetteerDiv {
 	width: 33%;
-	height: 339px;
+	height: 715px;
 	float: left;
-	background-color: black;
 }
 
 .scrollTableDiv {
